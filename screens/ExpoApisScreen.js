@@ -1298,7 +1298,7 @@ class LocalNotificationExample extends React.Component {
 
   _presentLocalNotification = () => {
     Notifications.presentLocalNotificationAsync({
-      title: 'Here is a local notifiation!',
+      title: 'Here is a local notification!',
       body: 'This is the body',
       data: {
         hello: 'there',
