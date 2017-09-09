@@ -1014,15 +1014,6 @@ class FileSystemExample extends React.Component {
     );
 
     try {
-      const info = await FileSystem.getInfoAsync(fileUri);
-      if (info) {
-        await FileSystem.deleteAsync(fileUri);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-
-    try {
       await this.download.downloadAsync();
       if (this.state.downloadProgress === 1) {
         alert('Download complete!');
@@ -1038,30 +1029,18 @@ class FileSystemExample extends React.Component {
       return;
     }
     try {
-      await this.download.pauseAsync();
-      await this._saveDownload();
+      const downloadSnapshot = await this.download.pauseAsync();
+      await AsyncStorage.setItem(
+        'pausedDownload',
+        JSON.stringify(downloadSnapshot)
+      );
       alert('Download paused...');
     } catch (e) {
       console.log(e);
     }
   };
 
-  _saveDownload = async () => {
-    try {
-      await AsyncStorage.setItem(
-        'pausedDownload',
-        JSON.stringify(this.download.savable())
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   _resume = async () => {
-    if (this.download == null) {
-      alert('Initiate a download first!');
-      return;
-    }
     try {
       if (this.download) {
         await this.download.resumeAsync();
@@ -1079,8 +1058,8 @@ class FileSystemExample extends React.Component {
   _fetchDownload = async () => {
     try {
       const downloadJson = await AsyncStorage.getItem('pausedDownload');
-      const downloadFromStore = JSON.parse(downloadJson);
-      if (downloadFromStore !== null) {
+      if (downloadJson !== null) {
+        const downloadFromStore = JSON.parse(downloadJson);
         const callback = downloadProgress => {
           const progress =
             downloadProgress.totalBytesWritten /
@@ -1089,7 +1068,7 @@ class FileSystemExample extends React.Component {
             downloadProgress: progress,
           });
         };
-        this.download = new FileSystem.downloadResumable(
+        this.download = new FileSystem.DownloadResumable(
           downloadFromStore.url,
           downloadFromStore.fileUri,
           downloadFromStore.options,
@@ -1100,6 +1079,9 @@ class FileSystemExample extends React.Component {
         if (this.state.downloadProgress === 1) {
           alert('Download complete!');
         }
+      } else {
+        alert('Initiate a download first!');
+        return;
       }
     } catch (e) {
       console.log(e);
