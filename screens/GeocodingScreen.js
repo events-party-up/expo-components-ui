@@ -4,6 +4,7 @@ import {
   Text,
   Button,
   Platform,
+  ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
@@ -17,6 +18,7 @@ const EXAMPLES = [
   'Palo Alto Caltrain Station (this one will error)',
   'Rogers Arena, Vancouver',
   { latitude: 0, longitude: 0 },
+  ':-(',
 ];
 
 export default class GeocodingScreen extends React.Component {
@@ -38,7 +40,7 @@ export default class GeocodingScreen extends React.Component {
     let { selectedExample } = this.state;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Select a location</Text>
         </View>
@@ -67,7 +69,7 @@ export default class GeocodingScreen extends React.Component {
         <View style={styles.separator} />
 
         {this._maybeRenderResult()}
-      </View>
+      </ScrollView>
     );
   }
 
@@ -99,9 +101,10 @@ export default class GeocodingScreen extends React.Component {
 
   _maybeRenderResult = () => {
     let { selectedExample } = this.state;
-    let text = typeof selectedExample === 'string'
-      ? selectedExample
-      : JSON.stringify(selectedExample);
+    let text =
+      typeof selectedExample === 'string'
+        ? selectedExample
+        : JSON.stringify(selectedExample);
 
     if (this.state.inProgress) {
       return <ActivityIndicator style={{ marginTop: 10 }} />;
