@@ -55,10 +55,10 @@ export default class HomeScreen extends React.Component {
       ...Platform.select({
         ios: {
           BlurView: [this._renderBlurView],
-          GestureHandler: [this._renderGestureHandler],
         },
         android: {},
       }),
+      GestureHandler: [this._renderGestureHandler],
       BarCodeScanner: [this._renderBarCodeScanner],
       WebGL: [this._renderWebGL],
       FacebookAds: [this._renderFacebookAds],

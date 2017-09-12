@@ -10,9 +10,8 @@ import {
   Image,
   Platform,
 } from 'react-native';
-import { DangerZone } from 'expo';
 
-const {
+import {
   LongPressGestureHandler,
   NativeViewGestureHandler,
   PanGestureHandler,
@@ -29,7 +28,7 @@ const {
   WebView,
   RectButton,
   BorderlessButton,
-} = DangerZone.GestureHandler;
+} from 'react-native-gesture-handler';
 
 const USE_NATIVE_DRIVER = true;
 
