@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Alert,
   Animated,
-  AppRegistry,
   StyleSheet,
   Switch,
   Text,
@@ -545,10 +544,6 @@ export default class GestureHandlerScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   rectButton: {
     flex: 1,
