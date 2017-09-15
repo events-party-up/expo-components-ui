@@ -6,7 +6,7 @@ import BouncyBox from './GestureHandler/BouncyBox';
 
 export default class GestureHandlerListScreen extends Component {
   static navigationOptions = {
-    title: 'Gesture Handler (more)',
+    title: 'Gesture Handler List',
   };
 
   render() {
