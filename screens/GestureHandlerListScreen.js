@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import FancyButton from './GestureHandler/FancyButton';
 import BouncyBox from './GestureHandler/BouncyBox';
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 15,
-    fontSize: 25,
+    fontSize: Dimensions.get('window').width < 375 ? 20 : 25,
     marginBottom: 5,
   },
   paragraph: {

@@ -51,6 +51,7 @@ class Snappable extends Component {
       <PanGestureHandler
         {...this.props}
         maxPointers={1}
+        minDeltaX={25}
         onGestureEvent={this._onGestureEvent}
         onHandlerStateChange={this._onHandlerStateChange}>
         <Animated.View style={{ transform: [{ translateX: this._transX }] }}>
