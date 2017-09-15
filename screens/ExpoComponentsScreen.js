@@ -146,14 +146,16 @@ export default class HomeScreen extends React.Component {
   };
 
   _renderGestureHandler = () => {
-    let _maybeNavigateToGestureHandler = async () => {
-      this.props.navigation.navigate('GestureHandler');
-    };
-
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={_maybeNavigateToGestureHandler}>
-          Open GestureHandler example
+        <Button
+          onPress={() => this.props.navigation.navigate('GestureHandlerPinch')}>
+          Open GestureHandler pinch example
+        </Button>
+        <View style={{ marginTop: 10 }} />
+        <Button
+          onPress={() => this.props.navigation.navigate('GestureHandlerList')}>
+          Open GestureHandler list example
         </Button>
       </View>
     );

@@ -10,9 +10,9 @@ import {
 
 const USE_NATIVE_DRIVER = false;
 
-export default class GestureHandlerScreen extends React.Component {
+export default class GestureHandlerPinchScreen extends React.Component {
   static navigationOptions = {
-    title: 'Pinch and Rotate Example',
+    title: 'Pinch and Rotate',
   };
 
   constructor(props) {
