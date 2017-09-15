@@ -58,6 +58,7 @@ export default class HomeScreen extends React.Component {
         },
         android: {},
       }),
+      Admob: [this._renderAdmob],
       GestureHandler: [this._renderGestureHandler],
       BarCodeScanner: [this._renderBarCodeScanner],
       WebGL: [this._renderWebGL],
@@ -72,6 +73,18 @@ export default class HomeScreen extends React.Component {
 
     this.setState({ dataSource });
   }
+
+  _renderAdmob = () => {
+    let _maybeNavigateToAdmob = async () => {
+      this.props.navigation.navigate('Admob');
+    };
+
+    return (
+      <View style={{ padding: 10 }}>
+        <Button onPress={_maybeNavigateToAdmob}> Open Admob example </Button>
+      </View>
+    );
+  };
 
   _renderMap = () => {
     return (
@@ -245,7 +258,9 @@ export default class HomeScreen extends React.Component {
   _renderSectionHeader = (_, sectionTitle) => {
     return (
       <View style={styles.sectionHeader}>
-        <Text>{sectionTitle}</Text>
+        <Text>
+          {sectionTitle}
+        </Text>
       </View>
     );
   };
@@ -401,7 +416,9 @@ class LinearGradientExample extends React.Component {
 function Button(props) {
   return (
     <Touchable onPress={props.onPress} style={[styles.button, props.style]}>
-      <Text style={styles.buttonText}>{props.children}</Text>
+      <Text style={styles.buttonText}>
+        {props.children}
+      </Text>
     </Touchable>
   );
 }

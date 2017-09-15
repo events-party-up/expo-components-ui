@@ -22,6 +22,7 @@ import LottieScreen from '../screens/LottieScreen';
 import MapsScreen from '../screens/MapsScreen';
 import BasicMaskScreen from '../screens/BasicMaskScreen';
 import MaskGLScreen from '../screens/MaskGLScreen';
+import AdmobScreen from '../screens/AdmobScreen';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -62,6 +63,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
     SVG: { screen: SVGScreen },
     Lottie: { screen: LottieScreen },
     Maps: { screen: MapsScreen },
+    Admob: { screen: AdmobScreen },
   },
   StackConfig
 );
