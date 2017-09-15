@@ -36,6 +36,8 @@ export default class GestureHandlerListScreen extends Component {
           <Text>A second fancy button!</Text>
         </FancyButton>
 
+        <View style={{ marginTop: 10 }} />
+
         <Text style={styles.title}>
           PanGestureHandler, RotationGestureHandler
         </Text>
@@ -47,6 +49,7 @@ export default class GestureHandlerListScreen extends Component {
         <BouncyBox />
         <View style={{ marginTop: 20 }} />
         <BouncyBox style={{ backgroundColor: 'orange' }} />
+        <View style={{ marginTop: 20 }} />
       </ScrollView>
     );
   }
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    marginTop: 35,
+    marginTop: 15,
     fontSize: 25,
     marginBottom: 5,
   },

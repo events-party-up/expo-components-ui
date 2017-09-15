@@ -7,7 +7,7 @@ import {
   State,
 } from 'react-native-gesture-handler';
 
-const USE_NATIVE_DRIVER = false;
+const USE_NATIVE_DRIVER = true;
 
 export default class BouncyBox extends Component {
   render() {
