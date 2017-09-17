@@ -1467,7 +1467,7 @@ class SecureStoreExample extends React.Component {
   _setValue = async (value, key) => {
     try {
       console.log('securestore: ' + SecureStore);
-      await SecureStore.setValueWithKeyAsync(value, key, {});
+      await SecureStore.setItemAsync(key, value, {});
       Alert.alert(
         'Success!',
         'Value: ' + value + ', stored successfully for key: ' + key,
@@ -1480,7 +1480,7 @@ class SecureStoreExample extends React.Component {
 
   _getValue = async key => {
     try {
-      const fetchedValue = await SecureStore.getValueWithKeyAsync(key, {});
+      const fetchedValue = await SecureStore.getItemAsync(key, {});
       Alert.alert('Success!', 'Fetched value: ' + fetchedValue, [
         { text: 'OK', onPress: () => {} },
       ]);
@@ -1491,7 +1491,7 @@ class SecureStoreExample extends React.Component {
 
   _deleteValue = async key => {
     try {
-      await SecureStore.deleteValueWithKeyAsync(key, {});
+      await SecureStore.deleteItemAsync(key, {});
       Alert.alert('Success!', 'Value deleted', [
         { text: 'OK', onPress: () => {} },
       ]);
