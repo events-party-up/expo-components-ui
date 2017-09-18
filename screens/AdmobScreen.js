@@ -15,12 +15,16 @@ const AdMobRewarded = NativeModules.RNAdMobRewarded;
 const AdMobInterstitial = Expo.AdMobInterstitial;
 
 export default class AdmobScreen extends React.Component {
-  componentDidMount() {
+  constructor() {
+    super();
     AdMobRewarded.setTestDeviceID('EMULATOR');
     AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
-    AdMobRewarded.requestAd(error => error && console.log(error));
     AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
     AdMobInterstitial.setTestDeviceID('EMULATOR');
+  }
+
+  componentDidMount() {
+    AdMobRewarded.requestAd(error => error && console.log(error));
     AdMobInterstitial.requestAd(error => error && console.log(error));
   }
 
