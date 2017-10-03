@@ -1,3 +1,5 @@
+import './LegacyReact';
+
 import Expo from 'expo';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
