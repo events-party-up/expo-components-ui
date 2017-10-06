@@ -1,8 +1,0 @@
-{
-  "name": "native-component-list-dev",
-  "version": "0.0.0",
-  "description": "Expo's native component showcase, using the unversioned SDK",
-  "author": "Expo",
-  "private": true,
-  "main": "../main.js"
-}
