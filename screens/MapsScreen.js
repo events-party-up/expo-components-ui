@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button,
+  Platform,
   ScrollView,
   StyleSheet,
   Switch,
@@ -16,6 +17,10 @@ const REGION = {
   longitude: -122.4324,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
+};
+
+const getRandomFloat = (min, max) => {
+  return Math.random() * (max - min) + min;
 };
 
 export default class MapsScreen extends React.Component {
@@ -47,30 +52,52 @@ export default class MapsScreen extends React.Component {
 
   _renderGoogleMapsSwitch = () => {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 50,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginVertical: 10,
+          paddingRight: 30,
+        }}>
         <Switch
-          style={{ margin: 10, flex: 1 }}
+          style={{ marginHorizontal: 10 }}
           onValueChange={isGoogleMap => {
             this.setState({ isGoogleMap });
           }}
           value={this.state.isGoogleMap}
         />
-        <Text style={{ margin: 10, flex: 5 }}>
-          Use Google maps
-        </Text>
+        <Text style={{ fontSize: 18 }}>Use Google maps</Text>
       </View>
     );
   };
 
   _renderJumpToCoordButton = () => {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View>
         <Button
           onPress={this._animateToRandomCoord}
-          title="Animate to Random Coord"
+          title="Animate to random Coord"
+        />
+        <Button
+          onPress={this._animateToRandomViewingAngle}
+          title="Animate to random Viewing Angle"
         />
       </View>
     );
+  };
+
+  _animateToRandomViewingAngle = () => {
+    if (this._mapView) {
+      if (Platform.OS === 'ios' && this.state.isGoogleMap) {
+        alert(
+          'animateToViewingAngle is not currently supported with Google Maps on iOS'
+        );
+      } else {
+        this._mapView.animateToViewingAngle(getRandomFloat(0, 90));
+      }
+    }
   };
 
   _animateToRandomCoord = () => {
@@ -80,7 +107,7 @@ export default class MapsScreen extends React.Component {
           REGION.latitude + (Math.random() - 0.5) * (REGION.latitudeDelta / 2),
         longitude:
           REGION.longitude +
-            (Math.random() - 0.5) * (REGION.longitudeDelta / 2),
+          (Math.random() - 0.5) * (REGION.longitudeDelta / 2),
       });
     }
   };

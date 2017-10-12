@@ -157,6 +157,12 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('GestureHandlerList')}>
           Open GestureHandler list example
         </Button>
+        <View style={{ marginTop: 10 }} />
+        <Button
+          onPress={() =>
+            this.props.navigation.navigate('GestureHandlerSwipeable')}>
+          Open GestureHandler swipeable example
+        </Button>
       </View>
     );
   };

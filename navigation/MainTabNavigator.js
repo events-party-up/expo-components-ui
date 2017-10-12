@@ -12,6 +12,7 @@ import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
 import GestureHandlerPinchScreen from '../screens/GestureHandlerPinchScreen';
 import GestureHandlerListScreen from '../screens/GestureHandlerListScreen';
+import GestureHandlerSwipeableScreen from '../screens/GestureHandlerSwipeableScreen';
 import SensorScreen from '../screens/SensorScreen';
 import GeocodingScreen from '../screens/GeocodingScreen';
 import GLViewScreen from '../screens/GLViewScreen';
@@ -61,6 +62,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
     GLView: { screen: GLViewScreen },
     GestureHandlerPinch: { screen: GestureHandlerPinchScreen },
     GestureHandlerList: { screen: GestureHandlerListScreen },
+    GestureHandlerSwipeable: { screen: GestureHandlerSwipeableScreen },
     FacebookAds: { screen: FacebookAdsScreen },
     SVG: { screen: SVGScreen },
     Lottie: { screen: LottieScreen },
