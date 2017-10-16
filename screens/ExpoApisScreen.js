@@ -1236,7 +1236,7 @@ class PushNotificationExample extends React.Component {
   }
 
   _sendNotification = async () => {
-    registerForPushNotificationsAsync();
+    registerForPushNotificationsAsync().done();
   };
 }
 
