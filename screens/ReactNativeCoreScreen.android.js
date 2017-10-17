@@ -111,6 +111,7 @@ export default class ReactNativeCoreScreen extends React.Component {
           ref={view => {
             this._listView = view;
           }}
+          removeClippedSubviews={false}
           stickySectionHeadersEnabled={true}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
@@ -189,9 +190,7 @@ export default class ReactNativeCoreScreen extends React.Component {
 
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={showAlert}>
-          Give me some options
-        </Button>
+        <Button onPress={showAlert}>Give me some options</Button>
       </View>
     );
   };
@@ -214,9 +213,7 @@ export default class ReactNativeCoreScreen extends React.Component {
 
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={showDatePicker}>
-          Show date picker
-        </Button>
+        <Button onPress={showDatePicker}>Show date picker</Button>
       </View>
     );
   };
@@ -239,9 +236,7 @@ export default class ReactNativeCoreScreen extends React.Component {
 
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={showTimePicker}>
-          Show time picker
-        </Button>
+        <Button onPress={showTimePicker}>Show time picker</Button>
       </View>
     );
   };
@@ -307,13 +302,9 @@ export default class ReactNativeCoreScreen extends React.Component {
 
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={hide}>
-          Hide
-        </Button>
+        <Button onPress={hide}>Hide</Button>
 
-        <Button onPress={show}>
-          Show
-        </Button>
+        <Button onPress={show}>Show</Button>
       </View>
     );
   };
@@ -424,7 +415,9 @@ export default class ReactNativeCoreScreen extends React.Component {
   _renderSectionHeader = (_, sectionTitle) => {
     return (
       <View style={styles.sectionHeader}>
-        <Text>{sectionTitle}</Text>
+        <Text>
+          {sectionTitle}
+        </Text>
       </View>
     );
   };
@@ -487,9 +480,10 @@ class ProgressBarExample extends React.Component {
   progressLoop() {
     setTimeout(() => {
       this.setState({
-        progress: this.state.progress === 1
-          ? 0
-          : Math.min(1, this.state.progress + 0.01),
+        progress:
+          this.state.progress === 1
+            ? 0
+            : Math.min(1, this.state.progress + 0.01),
       });
 
       this.progressLoop();
@@ -618,7 +612,9 @@ class TextInputExample extends React.Component {
 function Button(props) {
   return (
     <TouchableOpacity onPress={props.onPress} style={styles.button}>
-      <Text style={styles.buttonText}>{props.children}</Text>
+      <Text style={styles.buttonText}>
+        {props.children}
+      </Text>
     </TouchableOpacity>
   );
 }

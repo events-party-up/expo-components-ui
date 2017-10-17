@@ -13,7 +13,11 @@ export default class ModalExample extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Modal visible={false}>
+        <Modal
+          visible={false}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
           <View />
         </Modal>
 
@@ -34,7 +38,6 @@ export default class ModalExample extends React.Component {
                 }}>
                 <Text style={styles.buttonText}>Hide Modal</Text>
               </Touchable>
-
             </View>
           </View>
         </Modal>
