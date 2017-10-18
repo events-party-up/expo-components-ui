@@ -25,7 +25,7 @@ export default async function registerForPushNotificationsAsync() {
   console.log(`Got this device's push token: ${token}`);
 
   // POST the token to the Expo push server
-  let receipts = await fetch(PUSH_ENDPOINT, {
+  let response = await fetch(PUSH_ENDPOINT, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -41,6 +41,7 @@ export default async function registerForPushNotificationsAsync() {
     ]),
   });
 
+  let receipts = await response.json();
   let receipt = receipts[0];
   if (receipt.status === 'error') {
     console.warn(
