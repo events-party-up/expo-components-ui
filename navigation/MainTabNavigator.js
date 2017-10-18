@@ -10,6 +10,7 @@ import NavigationEvents from '../utilities/NavigationEvents';
 import BarCodeScannerScreen from '../screens/BarCodeScannerScreen';
 import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
+import AuthSessionScreen from '../screens/AuthSessionScreen';
 import GestureHandlerPinchScreen from '../screens/GestureHandlerPinchScreen';
 import GestureHandlerListScreen from '../screens/GestureHandlerListScreen';
 import GestureHandlerSwipeableScreen from '../screens/GestureHandlerSwipeableScreen';
@@ -75,6 +76,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
 const ExpoApisStackNavigator = StackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
+    AuthSession: { screen: AuthSessionScreen },
     Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
     Geocoding: { screen: GeocodingScreen },
