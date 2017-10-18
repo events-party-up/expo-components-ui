@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { AuthSession } from 'expo';
+import { AuthSession, Constants } from 'expo';
 
 const auth0ClientId = '8wmGum25h3KU2grnmZtFvMQeitmIdSDS';
 const auth0Domain = 'https://expo-testing.auth0.com';
@@ -27,9 +27,26 @@ export default class AuthSessionScreen extends React.Component {
 
   state = {
     result: null,
+    invalidExperienceId:
+      Constants.manifest.id !== '@community/native-component-list',
   };
 
   render() {
+    if (this.state.invalidExperienceId) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.oopsTitle}>Hello, developer person!</Text>
+          <Text style={styles.oopsText}>
+            The experience id {Constants.manifest.id} will not work with this
+            due to the authorized callback URL configuration on Auth0{' '}
+          </Text>
+          <Text style={styles.oopsText}>
+            Sign in as @community to use this example, or change the Auth0
+            client id and domain in AuthSessionScreen.js
+          </Text>
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
         <Button
@@ -76,6 +93,16 @@ const styles = StyleSheet.create({
   },
   faintText: {
     color: '#888',
+    marginHorizontal: 30,
+  },
+  oopsTitle: {
+    fontSize: 25,
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  oopsText: {
+    textAlign: 'center',
+    marginTop: 10,
     marginHorizontal: 30,
   },
 });
