@@ -3,7 +3,7 @@
     "name": "Native Component List",
     "description": "This experience shows a bunch of the native components that you can use in React Native core and Expo. Hit the button in the top right for the components in the Expo SDK.",
     "slug": "native-component-list",
-    "sdkVersion": "UNVERSIONED",
+    "sdkVersion": "22.0.0",
     "version": "22.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
@@ -13,8 +13,8 @@
       "icon": "./assets/icons/notificationIcon.png",
       "color": "#000000"
     },
-    "loading": {
-      "icon": "./assets/icons/loadingIcon.png"
+    "splash": {
+      "image": "./assets/icons/loadingIcon.png"
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]
