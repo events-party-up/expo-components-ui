@@ -41,15 +41,24 @@ export default async function registerForPushNotificationsAsync() {
     ]),
   });
 
-  let receipts = await response.json();
-  let receipt = receipts[0];
-  if (receipt.status === 'error') {
-    console.warn(
-      `Expo push service reported an error sending a notification: ${error
-        .details.error}`
-    );
-    if (receipt.__debug) {
-      console.warn(receipt.__debug);
+  let result = await response.json();
+  if (result.errors) {
+    for (let error of result.errors) {
+      console.warn(`API error sending push notification:`, error);
+    }
+  }
+
+  let receipts = result.data;
+  if (receipts) {
+    let receipt = receipts[0];
+    if (receipt.status === 'error') {
+      console.warn(
+        `Expo push service reported an error sending a notification: ${error
+          .details.error}`
+      );
+      if (receipt.__debug) {
+        console.warn(receipt.__debug);
+      }
     }
   }
 }
