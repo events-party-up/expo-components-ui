@@ -247,7 +247,7 @@ export default class ExpoApisScreen extends React.Component {
         </View>
 
         <View style={{ paddingVertical: 10, paddingHorizontal: 15 }}>
-          <Text style={[Font.style('space-mono'), { fontSize: 16 }]}>
+          <Text style={{ fontFamily: 'space-mono', fontSize: 16 }}>
             Font icons sets and other custom fonts can be loaded from the web
           </Text>
         </View>
