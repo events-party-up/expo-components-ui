@@ -1,21 +1,6 @@
 import React from 'react';
-import {
-  Alert,
-  Animated,
-  Image,
-  ListView,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import Expo, {
-  BlurView,
-  Constants,
-  LinearGradient,
-  Permissions,
-  Video,
-} from 'expo';
+import { Alert, Animated, Image, ListView, Platform, StyleSheet, Text, View } from 'react-native';
+import Expo, { BlurView, Constants, LinearGradient, Permissions, Video } from 'expo';
 import Touchable from 'react-native-platform-touchable';
 
 import NavigationEvents from '../utilities/NavigationEvents';
@@ -23,9 +8,7 @@ import { Colors, Layout } from '../constants';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: Layout.isSmallDevice
-      ? 'Expo SDK Components'
-      : 'Components in Expo SDK',
+    title: Layout.isSmallDevice ? 'Expo SDK Components' : 'Components in Expo SDK',
   };
 
   state = {
@@ -36,14 +19,11 @@ export default class HomeScreen extends React.Component {
   };
 
   componentWillMount() {
-    this._tabPressedListener = NavigationEvents.addListener(
-      'selectedTabPressed',
-      route => {
-        if (route.key === 'ExpoComponents') {
-          this._scrollToTop();
-        }
+    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
+      if (route.key === 'ExpoComponents') {
+        this._scrollToTop();
       }
-    );
+    });
   }
 
   componentWillUnmount() {
@@ -138,9 +118,7 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={_maybeNavigateToBarCodeScanner}>
-          Open bar code scanner
-        </Button>
+        <Button onPress={_maybeNavigateToBarCodeScanner}>Open bar code scanner</Button>
       </View>
     );
   };
@@ -148,19 +126,15 @@ export default class HomeScreen extends React.Component {
   _renderGestureHandler = () => {
     return (
       <View style={{ padding: 10 }}>
-        <Button
-          onPress={() => this.props.navigation.navigate('GestureHandlerPinch')}>
+        <Button onPress={() => this.props.navigation.navigate('GestureHandlerPinch')}>
           Open GestureHandler pinch example
         </Button>
         <View style={{ marginTop: 10 }} />
-        <Button
-          onPress={() => this.props.navigation.navigate('GestureHandlerList')}>
+        <Button onPress={() => this.props.navigation.navigate('GestureHandlerList')}>
           Open GestureHandler list example
         </Button>
         <View style={{ marginTop: 10 }} />
-        <Button
-          onPress={() =>
-            this.props.navigation.navigate('GestureHandlerSwipeable')}>
+        <Button onPress={() => this.props.navigation.navigate('GestureHandlerSwipeable')}>
           Open GestureHandler swipeable example
         </Button>
       </View>
@@ -170,9 +144,7 @@ export default class HomeScreen extends React.Component {
   _renderWebGL = () => {
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('GLView')}>
-          Open WebGL Example
-        </Button>
+        <Button onPress={() => this.props.navigation.navigate('GLView')}>Open WebGL Example</Button>
       </View>
     );
   };
@@ -256,19 +228,13 @@ export default class HomeScreen extends React.Component {
   };
 
   _renderRow = renderRowFn => {
-    return (
-      <View>
-        {renderRowFn && renderRowFn()}
-      </View>
-    );
+    return <View>{renderRowFn && renderRowFn()}</View>;
   };
 
   _renderSectionHeader = (_, sectionTitle) => {
     return (
       <View style={styles.sectionHeader}>
-        <Text>
-          {sectionTitle}
-        </Text>
+        <Text>{sectionTitle}</Text>
       </View>
     );
   };
@@ -298,8 +264,7 @@ class BlurViewExample extends React.Component {
   };
 
   render() {
-    const uri =
-      'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png';
+    const uri = 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png';
 
     return (
       <View
@@ -327,9 +292,7 @@ class FacebookLoginExample extends React.Component {
 
     return (
       <View style={{ padding: 10 }}>
-        <Button
-          onPress={() =>
-            this._testFacebookLogin('1201211719949057', permissions)}>
+        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions)}>
           Authenticate with Facebook
         </Button>
       </View>
@@ -338,10 +301,7 @@ class FacebookLoginExample extends React.Component {
 
   _testFacebookLogin = async (id, perms, behavior = 'web') => {
     try {
-      if (
-        Platform.OS === 'android' ||
-        Constants.appOwnership === 'standalone'
-      ) {
+      if (Platform.OS === 'android' || Constants.appOwnership === 'standalone') {
         // iOS supports system too, native jumps over to the app though and people
         // seem to like that effect. I maybe prefer system.
         behavior = Platform.OS === 'ios' ? 'native' : 'system';
@@ -410,12 +370,8 @@ class LinearGradientExample extends React.Component {
           colors={[this.state.colorTop, this.state.colorBottom]}
           style={{ width: 200, height: 200 }}
         />
-        <Text style={{ color: this.state.colorTop }}>
-          {this.state.colorTop}
-        </Text>
-        <Text style={{ color: this.state.colorBottom }}>
-          {this.state.colorBottom}
-        </Text>
+        <Text style={{ color: this.state.colorTop }}>{this.state.colorTop}</Text>
+        <Text style={{ color: this.state.colorBottom }}>{this.state.colorBottom}</Text>
       </View>
     );
   }
@@ -424,9 +380,7 @@ class LinearGradientExample extends React.Component {
 function Button(props) {
   return (
     <Touchable onPress={props.onPress} style={[styles.button, props.style]}>
-      <Text style={styles.buttonText}>
-        {props.children}
-      </Text>
+      <Text style={styles.buttonText}>{props.children}</Text>
     </Touchable>
   );
 }

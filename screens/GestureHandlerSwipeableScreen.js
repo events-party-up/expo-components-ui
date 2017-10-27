@@ -6,18 +6,17 @@ import { FlatList, RectButton } from 'react-native-gesture-handler';
 import AppleStyleSwipeableRow from './GestureHandler/AppleStyleSwipeableRow';
 import GmailStyleSwipeableRow from './GestureHandler/GmailStyleSwipeableRow';
 
-const Row = ({ item }) =>
+const Row = ({ item }) => (
   <RectButton style={styles.rectButton} onPress={() => Alert.alert(item.from)}>
-    <Text style={styles.fromText}>
-      {item.from}
-    </Text>
+    <Text style={styles.fromText}>{item.from}</Text>
     <Text numberOfLines={2} style={styles.messageText}>
       {item.message}
     </Text>
     <Text style={styles.dateText}>
       {item.when} {'❭'}
     </Text>
-  </RectButton>;
+  </RectButton>
+);
 
 const SwipeableRow = ({ item, index }) => {
   if (index % 2 === 0) {
@@ -45,8 +44,7 @@ export default class GestureHandlerSwipeableScreen extends Component {
       <FlatList
         data={DATA}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        renderItem={({ item, index }) =>
-          <SwipeableRow item={item} index={index} />}
+        renderItem={({ item, index }) => <SwipeableRow item={item} index={index} />}
         keyExtractor={(item, index) => index}
       />
     );

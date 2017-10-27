@@ -100,10 +100,7 @@ export default class BasicMaskScreen extends React.Component {
               </Animated.Text>
             </View>
           }>
-          <Image
-            style={{ width, height }}
-            source={require('../assets/images/example3.jpg')}
-          />
+          <Image style={{ width, height }} source={require('../assets/images/example3.jpg')} />
         </AnimatedMaskView>
       </View>
     );

@@ -1,13 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 import Colors from '../constants/Colors';
 
@@ -23,22 +16,19 @@ AdSettings.addTestDevice(AdSettings.currentDeviceHash);
 
 const adsManager = new NativeAdsManager('1912255062335197_1912257885668248');
 
-const FullNativeAd = withNativeAd(({ nativeAd }) =>
+const FullNativeAd = withNativeAd(({ nativeAd }) => (
   <View style={styles.fullad}>
-    {nativeAd.icon &&
-      <Image style={styles.icon} source={{ uri: nativeAd.icon }} />}
+    {nativeAd.icon && <Image style={styles.icon} source={{ uri: nativeAd.icon }} />}
     <View>
       <Text style={styles.title}>{nativeAd.title}</Text>
-      {nativeAd.subtitle &&
-        <Text style={styles.subtitle}>{nativeAd.subtitle}</Text>}
-      {nativeAd.description &&
-        <Text style={styles.description}>{nativeAd.description}</Text>}
+      {nativeAd.subtitle && <Text style={styles.subtitle}>{nativeAd.subtitle}</Text>}
+      {nativeAd.description && <Text style={styles.description}>{nativeAd.description}</Text>}
       <View style={styles.adButton}>
         <Text>{nativeAd.callToActionText}</Text>
       </View>
     </View>
   </View>
-);
+));
 
 export default class App extends React.Component {
   static navigationOptions = {
@@ -60,9 +50,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.content}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
         <Text style={styles.header}>Native Ad</Text>
         <FullNativeAd adsManager={adsManager} />
         <Text style={styles.header}>Banner Ad</Text>

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import {
-  LongPressGestureHandler,
-  State,
-  TapGestureHandler,
-} from 'react-native-gesture-handler';
+import { LongPressGestureHandler, State, TapGestureHandler } from 'react-native-gesture-handler';
 import uuid from 'uuid/v4';
 
 export default class FancyButton extends Component {
@@ -16,9 +12,7 @@ export default class FancyButton extends Component {
 
   render() {
     return (
-      <LongPressGestureHandler
-        minDurationMs={800}
-        onHandlerStateChange={this._onLongPressEvent}>
+      <LongPressGestureHandler minDurationMs={800} onHandlerStateChange={this._onLongPressEvent}>
         <TapGestureHandler
           waitFor={this.state.doubleTapId}
           numberOfTaps={1}
@@ -28,11 +22,7 @@ export default class FancyButton extends Component {
             numberOfTaps={2}
             onHandlerStateChange={this._onDoubleTapEvent}>
             <View
-              style={[
-                styles.button,
-                this.props.style,
-                { opacity: this._isPressed() ? 0.5 : 1 },
-              ]}>
+              style={[styles.button, this.props.style, { opacity: this._isPressed() ? 0.5 : 1 }]}>
               {this.props.children}
             </View>
           </TapGestureHandler>

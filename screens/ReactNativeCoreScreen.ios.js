@@ -44,14 +44,11 @@ export default class ReactNativeCoreScreen extends React.Component {
   };
 
   componentWillMount() {
-    this._tabPressedListener = NavigationEvents.addListener(
-      'selectedTabPressed',
-      route => {
-        if (route.key === 'ReactNativeCore') {
-          this._scrollToTop();
-        }
+    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
+      if (route.key === 'ReactNativeCore') {
+        this._scrollToTop();
       }
-    );
+    });
   }
 
   componentWillUnmount() {
@@ -93,10 +90,7 @@ export default class ReactNativeCoreScreen extends React.Component {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
         refreshControl={
-          <RefreshControl
-            refreshing={this.state.isRefreshing}
-            onRefresh={this._onRefresh}
-          />
+          <RefreshControl refreshing={this.state.isRefreshing} onRefresh={this._onRefresh} />
         }
         removeClippedSubviews={false}
         contentContainerStyle={{ backgroundColor: '#fff' }}
@@ -121,8 +115,7 @@ export default class ReactNativeCoreScreen extends React.Component {
   _renderMaskView = () => {
     return (
       <View style={{ padding: 10, flexDirection: 'row' }}>
-        <Button
-          onPress={() => this.props.navigation.navigate('BasicMaskExample')}>
+        <Button onPress={() => this.props.navigation.navigate('BasicMaskExample')}>
           Basic Mask
         </Button>
         <Button onPress={() => this.props.navigation.navigate('GLMaskExample')}>
@@ -140,8 +133,8 @@ export default class ReactNativeCoreScreen extends React.Component {
     return (
       <View style={{ padding: 10 }}>
         <Text>
-          This screen is a vertical ScrollView, try the pull to refresh gesture
-          to see the RefreshControl.
+          This screen is a vertical ScrollView, try the pull to refresh gesture to see the
+          RefreshControl.
         </Text>
       </View>
     );
@@ -179,13 +172,9 @@ export default class ReactNativeCoreScreen extends React.Component {
 
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={showActionSheet}>
-          Action sheet
-        </Button>
+        <Button onPress={showActionSheet}>Action sheet</Button>
 
-        <Button onPress={showShareSheet}>
-          Share sheet
-        </Button>
+        <Button onPress={showShareSheet}>Share sheet</Button>
       </View>
     );
   };
@@ -202,26 +191,16 @@ export default class ReactNativeCoreScreen extends React.Component {
         <Spacer />
         <ActivityIndicator size="large" color={Colors.tintColor} />
         <Spacer />
-        <ActivityIndicator
-          size="small"
-          animating={false}
-          hidesWhenStopped={false}
-        />
+        <ActivityIndicator size="small" animating={false} hidesWhenStopped={false} />
         <Spacer />
-        <ActivityIndicator
-          size="large"
-          animating={false}
-          hidesWhenStopped={false}
-        />
+        <ActivityIndicator size="large" animating={false} hidesWhenStopped={false} />
       </View>
     );
   };
 
   _renderAlert = () => {
     const showPrompt = () => {
-      AlertIOS.prompt('Enter a value', null, text =>
-        console.log(`You entered ${text}`)
-      );
+      AlertIOS.prompt('Enter a value', null, text => console.log(`You entered ${text}`));
     };
 
     const showAlert = () => {
@@ -245,15 +224,11 @@ export default class ReactNativeCoreScreen extends React.Component {
           flexDirection: Layout.isSmallDevice ? 'column' : 'row',
           padding: 10,
         }}>
-        <Button onPress={showPrompt}>
-          Prompt for a value
-        </Button>
+        <Button onPress={showPrompt}>Prompt for a value</Button>
 
         {Layout.isSmallDevice && <View style={{ marginBottom: 10 }} />}
 
-        <Button onPress={showAlert}>
-          Give me some options
-        </Button>
+        <Button onPress={showAlert}>Give me some options</Button>
       </View>
     );
   };
@@ -331,13 +306,9 @@ export default class ReactNativeCoreScreen extends React.Component {
 
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={hide}>
-          Hide
-        </Button>
+        <Button onPress={hide}>Hide</Button>
 
-        <Button onPress={show}>
-          Show
-        </Button>
+        <Button onPress={show}>Show</Button>
       </View>
     );
   };
@@ -352,15 +323,14 @@ export default class ReactNativeCoreScreen extends React.Component {
     return (
       <View style={{ padding: 10 }}>
         <Text>
-          All text in React Native on iOS uses the native text component and
-          supports a bunch of useful properties.
+          All text in React Native on iOS uses the native text component and supports a bunch of
+          useful properties.
         </Text>
         <Text style={linkStyle} onPress={() => alert('pressed!')}>
           Press on this!
         </Text>
         <Text numberOfLines={1} ellipsizeMode="tail">
-          It's easy to limit the number of lines that some text can span and
-          ellipsize it
+          It's easy to limit the number of lines that some text can span and ellipsize it
         </Text>
       </View>
     );
@@ -433,11 +403,7 @@ export default class ReactNativeCoreScreen extends React.Component {
   };
 
   _renderRow = renderRowFn => {
-    return (
-      <View>
-        {renderRowFn && renderRowFn()}
-      </View>
-    );
+    return <View>{renderRowFn && renderRowFn()}</View>;
   };
 
   _renderSectionHeader = (_, sectionTitle) => {
@@ -588,13 +554,8 @@ class SliderExample extends React.Component {
 
     return (
       <View>
-        <Text style={textStyle}>
-          Value: {this.state.value && +this.state.value.toFixed(3)}
-        </Text>
-        <Slider
-          {...this.props}
-          onValueChange={value => this.setState({ value: value })}
-        />
+        <Text style={textStyle}>Value: {this.state.value && +this.state.value.toFixed(3)}</Text>
+        <Slider {...this.props} onValueChange={value => this.setState({ value: value })} />
       </View>
     );
   }
@@ -640,10 +601,8 @@ class TextInputExample extends React.Component {
       height: 40,
     };
 
-    const updateSingleLineValue = value =>
-      this.setState({ singleLineValue: value });
-    const updateSecureTextValue = value =>
-      this.setState({ secureTextValue: value });
+    const updateSingleLineValue = value => this.setState({ singleLineValue: value });
+    const updateSecureTextValue = value => this.setState({ secureTextValue: value });
 
     return (
       <View style={{ padding: 10 }}>

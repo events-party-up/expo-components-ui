@@ -1,15 +1,7 @@
 import { Asset, Font } from 'expo';
 
-export default function cacheAssetsAsync({
-  images = [],
-  fonts = [],
-  videos = [],
-}) {
-  return Promise.all([
-    ...cacheImages(images),
-    ...cacheFonts(fonts),
-    ...cacheVideos(videos),
-  ]);
+export default function cacheAssetsAsync({ images = [], fonts = [], videos = [] }) {
+  return Promise.all([...cacheImages(images), ...cacheFonts(fonts), ...cacheVideos(videos)]);
 }
 
 function cacheImages(images) {

@@ -42,11 +42,7 @@ type Props = {
   showIcon: boolean,
 };
 
-export default class TabBarBottom extends PureComponent<
-  DefaultProps,
-  Props,
-  void
-> {
+export default class TabBarBottom extends PureComponent<DefaultProps, Props, void> {
   // See https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/UIKitUICatalog/UITabBar.html
   static defaultProps = {
     activeTintColor: '#3478f6', // Default active tint color in iOS 10
@@ -76,8 +72,7 @@ export default class TabBarBottom extends PureComponent<
     // Prepend '-1', so there are always at least 2 items in inputRange
     const inputRange = [-1, ...routes.map((x: *, i: number) => i)];
     const outputRange = inputRange.map(
-      (inputIndex: number) =>
-        inputIndex === index ? activeTintColor : inactiveTintColor
+      (inputIndex: number) => (inputIndex === index ? activeTintColor : inactiveTintColor)
     );
     const color = position.interpolate({
       inputRange,
@@ -87,11 +82,7 @@ export default class TabBarBottom extends PureComponent<
     const tintColor = scene.focused ? activeTintColor : inactiveTintColor;
     const label = this.props.getLabel({ ...scene, tintColor });
     if (typeof label === 'string') {
-      return (
-        <Animated.Text style={[styles.label, { color }, labelStyle]}>
-          {label}
-        </Animated.Text>
-      );
+      return <Animated.Text style={[styles.label, { color }, labelStyle]}>{label}</Animated.Text>;
     }
 
     if (typeof label === 'function') {
@@ -131,9 +122,7 @@ export default class TabBarBottom extends PureComponent<
     const previousIndex = navigation.state.index;
 
     if (this.props.onPressTab) {
-      this.props.onPressTab(index, previousIndex, navigation, () =>
-        jumpToIndex(index)
-      );
+      this.props.onPressTab(index, previousIndex, navigation, () => jumpToIndex(index));
     } else {
       jumpToIndex(index);
     }
@@ -159,9 +148,7 @@ export default class TabBarBottom extends PureComponent<
           const scene = { route, index, focused };
           const outputRange = inputRange.map(
             (inputIndex: number) =>
-              inputIndex === index
-                ? activeBackgroundColor
-                : inactiveBackgroundColor
+              inputIndex === index ? activeBackgroundColor : inactiveBackgroundColor
           );
           const backgroundColor = position.interpolate({
             inputRange,
@@ -176,12 +163,7 @@ export default class TabBarBottom extends PureComponent<
               key={route.key}
               onLongPress={() => this._handlePress(index)}
               onPress={() => this._handlePress(index)}>
-              <Animated.View
-                style={[
-                  styles.tab,
-                  { backgroundColor, justifyContent },
-                  tabStyle,
-                ]}>
+              <Animated.View style={[styles.tab, { backgroundColor, justifyContent }, tabStyle]}>
                 {this._renderIcon(scene)}
                 {this._renderLabel(scene)}
               </Animated.View>

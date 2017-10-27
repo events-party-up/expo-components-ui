@@ -12,9 +12,7 @@ export default async function registerForPushNotificationsAsync() {
 
   // Stop here if the user did not grant permissions
   if (status !== 'granted') {
-    console.log(
-      `This device doesn't have permissions to show push notifications`
-    );
+    console.log(`This device doesn't have permissions to show push notifications`);
     return;
   }
 
@@ -53,8 +51,7 @@ export default async function registerForPushNotificationsAsync() {
     let receipt = receipts[0];
     if (receipt.status === 'error') {
       console.warn(
-        `Expo push service reported an error sending a notification: ${error
-          .details.error}`
+        `Expo push service reported an error sending a notification: ${error.details.error}`
       );
       if (receipt.__debug) {
         console.warn(receipt.__debug);

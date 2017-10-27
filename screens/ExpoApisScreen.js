@@ -61,18 +61,13 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   componentWillMount() {
-    this._notificationSubscription = Notifications.addListener(
-      this._handleNotification
-    );
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
 
-    this._tabPressedListener = NavigationEvents.addListener(
-      'selectedTabPressed',
-      route => {
-        if (route.key === 'ExpoApis') {
-          this._scrollToTop();
-        }
+    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
+      if (route.key === 'ExpoApis') {
+        this._scrollToTop();
       }
-    );
+    });
   }
 
   componentWillUnmount() {
@@ -97,13 +92,9 @@ export default class ExpoApisScreen extends React.Component {
       message = `Notification ${origin} with data: ${JSON.stringify(data)}`;
     } else {
       if (remote) {
-        message = `Push notification ${origin} with data: ${JSON.stringify(
-          data
-        )}`;
+        message = `Push notification ${origin} with data: ${JSON.stringify(data)}`;
       } else {
-        message = `Local notification ${origin} with data: ${JSON.stringify(
-          data
-        )}`;
+        message = `Local notification ${origin} with data: ${JSON.stringify(data)}`;
       }
     }
 
@@ -128,9 +119,7 @@ export default class ExpoApisScreen extends React.Component {
       KeepAwake: [this._renderKeepAwake],
       LocalNotification: [this._renderLocalNotification],
       Location: [this._renderLocation],
-      'navigator.geolocation Polyfill (using Location)': [
-        this._renderLocationPolyfill,
-      ],
+      'navigator.geolocation Polyfill (using Location)': [this._renderLocationPolyfill],
       NotificationBadge: [this._renderNotificationBadge],
       Pedometer: [this._renderPedometer],
       PushNotification: [this._renderPushNotification],
@@ -175,7 +164,7 @@ export default class ExpoApisScreen extends React.Component {
   _renderScreenOrientation = () => {
     return (
       <View style={{ padding: 10 }}>
-        {Object.keys(ScreenOrientation.Orientation).map(orientation =>
+        {Object.keys(ScreenOrientation.Orientation).map(orientation => (
           <Button
             key={orientation}
             style={{ marginBottom: 10 }}
@@ -184,7 +173,7 @@ export default class ExpoApisScreen extends React.Component {
             }}>
             {orientation}
           </Button>
-        )}
+        ))}
       </View>
     );
   };
@@ -320,13 +309,8 @@ export default class ExpoApisScreen extends React.Component {
       <View style={{ padding: 10 }}>
         <Button
           onPress={async () => {
-            const result = await WebBrowser.openBrowserAsync(
-              'https://www.google.com'
-            );
-            setTimeout(
-              () => Alert.alert('Result', JSON.stringify(result, null, 2)),
-              1000
-            );
+            const result = await WebBrowser.openBrowserAsync('https://www.google.com');
+            setTimeout(() => Alert.alert('Result', JSON.stringify(result, null, 2)), 1000);
           }}>
           Open web url
         </Button>
@@ -361,19 +345,13 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderRow = renderRowFn => {
-    return (
-      <View>
-        {renderRowFn && renderRowFn()}
-      </View>
-    );
+    return <View>{renderRowFn && renderRowFn()}</View>;
   };
 
   _renderSectionHeader = (_, sectionTitle) => {
     return (
       <View style={styles.sectionHeader}>
-        <Text>
-          {sectionTitle}
-        </Text>
+        <Text>{sectionTitle}</Text>
       </View>
     );
   };
@@ -452,10 +430,7 @@ class ContactsExample extends React.Component {
   _findContacts = async page => {
     let permission = await Permissions.askAsync(Permissions.CONTACTS);
     if (permission.status !== 'granted') {
-      setTimeout(
-        () => Alert.alert('Contacts permission was not granted.'),
-        100
-      );
+      setTimeout(() => Alert.alert('Contacts permission was not granted.'), 100);
       return;
     }
     let result = await Contacts.getContactsAsync({
@@ -494,17 +469,15 @@ class ContactsExample extends React.Component {
     if (this.state.contacts) {
       return (
         <View style={{ padding: 10 }}>
-          <Text>
-            {JSON.stringify(this.state.contacts)}
-          </Text>
-          {this.state.hasNextPage
-            ? <Button onPress={this._nextPage} style={{ marginVertical: 10 }}>
-                Next page
-              </Button>
-            : null}
-          {this.state.hasPreviousPage
-            ? <Button onPress={this._previousPage}>Previous page</Button>
-            : null}
+          <Text>{JSON.stringify(this.state.contacts)}</Text>
+          {this.state.hasNextPage ? (
+            <Button onPress={this._nextPage} style={{ marginVertical: 10 }}>
+              Next page
+            </Button>
+          ) : null}
+          {this.state.hasPreviousPage ? (
+            <Button onPress={this._previousPage}>Previous page</Button>
+          ) : null}
         </View>
       );
     }
@@ -539,13 +512,13 @@ class DocumentPickerExample extends React.Component {
     }
     return (
       <View>
-        {this.state.document.uri.match(/\.(png|jpg)$/gi)
-          ? <Image
-              source={{ uri: this.state.document.uri }}
-              resizeMode="cover"
-              style={{ width: 100, height: 100 }}
-            />
-          : null}
+        {this.state.document.uri.match(/\.(png|jpg)$/gi) ? (
+          <Image
+            source={{ uri: this.state.document.uri }}
+            resizeMode="cover"
+            style={{ width: 100, height: 100 }}
+          />
+        ) : null}
         <Text>
           {this.state.document.name} ({this.state.document.size / 1000} KB)
         </Text>
@@ -715,12 +688,8 @@ class LocationExample extends React.Component {
               : 'Location.getCurrentPositionAsync'}
             :
           </Text>
-          <Text>
-            Latitude: {this.state.singleLocation.coords.latitude}
-          </Text>
-          <Text>
-            Longitude: {this.state.singleLocation.coords.longitude}
-          </Text>
+          <Text>Latitude: {this.state.singleLocation.coords.latitude}</Text>
+          <Text>Longitude: {this.state.singleLocation.coords.longitude}</Text>
         </View>
       );
     }
@@ -729,9 +698,7 @@ class LocationExample extends React.Component {
       <View style={{ padding: 10 }}>
         <Button
           onPress={
-            this.props.polyfill
-              ? this._findSingleLocationWithPolyfill
-              : this._findSingleLocation
+            this.props.polyfill ? this._findSingleLocationWithPolyfill : this._findSingleLocation
           }>
           Find my location once
         </Button>
@@ -751,29 +718,17 @@ class LocationExample extends React.Component {
     if (this.state.providerStatus) {
       return (
         <View style={{ padding: 10 }}>
-          <Text>
-            Enabled: {String(this.state.providerStatus.locationServicesEnabled)}
-          </Text>
-          <Text>
-            GPS Available: {String(this.state.providerStatus.gpsAvailable)}
-          </Text>
-          <Text>
-            Network Available:{' '}
-            {String(this.state.providerStatus.networkAvailable)}
-          </Text>
-          <Text>
-            Passive Available:{' '}
-            {String(this.state.providerStatus.passiveAvailable)}
-          </Text>
+          <Text>Enabled: {String(this.state.providerStatus.locationServicesEnabled)}</Text>
+          <Text>GPS Available: {String(this.state.providerStatus.gpsAvailable)}</Text>
+          <Text>Network Available: {String(this.state.providerStatus.networkAvailable)}</Text>
+          <Text>Passive Available: {String(this.state.providerStatus.passiveAvailable)}</Text>
         </View>
       );
     }
 
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={this._checkProviderStatus}>
-          Check provider status
-        </Button>
+        <Button onPress={this._checkProviderStatus}>Check provider status</Button>
       </View>
     );
   }
@@ -788,16 +743,10 @@ class LocationExample extends React.Component {
               : 'Location.watchPositionAsync'}
             :
           </Text>
-          <Text>
-            Latitude: {this.state.watchLocation.coords.latitude}
-          </Text>
-          <Text>
-            Longitude: {this.state.watchLocation.coords.longitude}
-          </Text>
+          <Text>Latitude: {this.state.watchLocation.coords.latitude}</Text>
+          <Text>Longitude: {this.state.watchLocation.coords.longitude}</Text>
           <View style={{ padding: 10 }}>
-            <Button onPress={this._stopWatchingLocation}>
-              Stop Watching Location
-            </Button>
+            <Button onPress={this._stopWatchingLocation}>Stop Watching Location</Button>
           </View>
         </View>
       );
@@ -828,19 +777,11 @@ class LocationExample extends React.Component {
       return (
         <View style={{ padding: 10 }}>
           <Text>Location.watchHeadingAsync:</Text>
-          <Text>
-            Magnetic North: {this.state.watchHeading.magHeading}
-          </Text>
-          <Text>
-            True North: {this.state.watchHeading.trueHeading}
-          </Text>
-          <Text>
-            Accuracy: {this.state.watchHeading.accuracy}
-          </Text>
+          <Text>Magnetic North: {this.state.watchHeading.magHeading}</Text>
+          <Text>True North: {this.state.watchHeading.trueHeading}</Text>
+          <Text>Accuracy: {this.state.watchHeading.accuracy}</Text>
           <View style={{ padding: 10 }}>
-            <Button onPress={this._stopWatchingHeading}>
-              Stop Watching Heading
-            </Button>
+            <Button onPress={this._stopWatchingHeading}>Stop Watching Heading</Button>
           </View>
         </View>
       );
@@ -848,9 +789,7 @@ class LocationExample extends React.Component {
 
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={this._startWatchingHeading}>
-          Watch my heading (compass)
-        </Button>
+        <Button onPress={this._startWatchingHeading}>Watch my heading (compass)</Button>
       </View>
     );
   }
@@ -860,24 +799,16 @@ class LocationExample extends React.Component {
       return (
         <View style={{ padding: 10 }}>
           <Text>Location.getHeadingAsync:</Text>
-          <Text>
-            Magnetic North: {this.state.singleHeading.magHeading}
-          </Text>
-          <Text>
-            True North: {this.state.singleHeading.trueHeading}
-          </Text>
-          <Text>
-            Accuracy: {this.state.singleHeading.accuracy}
-          </Text>
+          <Text>Magnetic North: {this.state.singleHeading.magHeading}</Text>
+          <Text>True North: {this.state.singleHeading.trueHeading}</Text>
+          <Text>Accuracy: {this.state.singleHeading.accuracy}</Text>
         </View>
       );
     }
 
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={this._getSingleHeading}>
-          Find my heading (compass) heading
-        </Button>
+        <Button onPress={this._getSingleHeading}>Find my heading (compass) heading</Button>
       </View>
     );
   }
@@ -905,10 +836,7 @@ class SettingsExample extends React.Component {
               await IntentLauncherAndroid.startActivityAsync(activity);
               ToastAndroid.show(`Activity finished`, ToastAndroid.SHORT);
             } catch (e) {
-              ToastAndroid.show(
-                `An error occurred: ${e.message}`,
-                ToastAndroid.SHORT
-              );
+              ToastAndroid.show(`An error occurred: ${e.message}`, ToastAndroid.SHORT);
             }
           }}>
           {title}
@@ -964,10 +892,7 @@ class PedometerExample extends React.Component {
             const start = new Date();
             start.setDate(end.getDate() - 1);
             const result = await Pedometer.getStepCountAsync(start, end);
-            Alert.alert(
-              'Pedometer result',
-              `Number of steps for the last day: ${result.steps}`
-            );
+            Alert.alert('Pedometer result', `Number of steps for the last day: ${result.steps}`);
           }}>
           Get steps count
         </Button>
@@ -990,11 +915,7 @@ class PedometerExample extends React.Component {
           }}>
           Stop listening for step count updates
         </Button>
-        {this.state.stepCount !== null
-          ? <Text>
-              Total steps {this.state.stepCount}
-            </Text>
-          : null}
+        {this.state.stepCount !== null ? <Text>Total steps {this.state.stepCount}</Text> : null}
       </View>
     );
   }
@@ -1010,19 +931,13 @@ class FileSystemExample extends React.Component {
     const fileUri = FileSystem.documentDirectory + '5MB.zip';
     const callback = downloadProgress => {
       const progress =
-        downloadProgress.totalBytesWritten /
-        downloadProgress.totalBytesExpectedToWrite;
+        downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
       this.setState({
         downloadProgress: progress,
       });
     };
     const options = { md5: true };
-    this.download = FileSystem.createDownloadResumable(
-      url,
-      fileUri,
-      options,
-      callback
-    );
+    this.download = FileSystem.createDownloadResumable(url, fileUri, options, callback);
 
     try {
       await this.download.downloadAsync();
@@ -1041,10 +956,7 @@ class FileSystemExample extends React.Component {
     }
     try {
       const downloadSnapshot = await this.download.pauseAsync();
-      await AsyncStorage.setItem(
-        'pausedDownload',
-        JSON.stringify(downloadSnapshot)
-      );
+      await AsyncStorage.setItem('pausedDownload', JSON.stringify(downloadSnapshot));
       alert('Download paused...');
     } catch (e) {
       console.log(e);
@@ -1073,8 +985,7 @@ class FileSystemExample extends React.Component {
         const downloadFromStore = JSON.parse(downloadJson);
         const callback = downloadProgress => {
           const progress =
-            downloadProgress.totalBytesWritten /
-            downloadProgress.totalBytesExpectedToWrite;
+            downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
           this.setState({
             downloadProgress: progress,
           });
@@ -1106,9 +1017,7 @@ class FileSystemExample extends React.Component {
     }
     try {
       let info = await FileSystem.getInfoAsync(this.download._fileUri);
-      Alert.alert('File Info:', JSON.stringify(info), [
-        { text: 'OK', onPress: () => {} },
-      ]);
+      Alert.alert('File Info:', JSON.stringify(info), [{ text: 'OK', onPress: () => {} }]);
     } catch (e) {
       console.log(e);
     }
@@ -1141,29 +1050,17 @@ class FileSystemExample extends React.Component {
     }
     return (
       <View style={{ padding: 10 }}>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={this._download}
-          title="Start">
+        <Button style={{ marginBottom: 10 }} onPress={this._download} title="Start">
           Start Downloading file (5mb)
         </Button>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={this._pause}
-          title="Pause">
+        <Button style={{ marginBottom: 10 }} onPress={this._pause} title="Pause">
           Pause Download
         </Button>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={this._resume}
-          title="Resume">
+        <Button style={{ marginBottom: 10 }} onPress={this._resume} title="Resume">
           Resume Download
         </Button>
         {progress}
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={this._getInfo}
-          title="Info">
+        <Button style={{ marginBottom: 10 }} onPress={this._getInfo} title="Info">
           Get Info
         </Button>
       </View>
@@ -1180,9 +1077,7 @@ class TouchIDExample extends React.Component {
     let authFunction = async () => {
       this.setState({ waiting: true });
       try {
-        let result = await Fingerprint.authenticateAsync(
-          'This message only shows up on iOS'
-        );
+        let result = await Fingerprint.authenticateAsync('This message only shows up on iOS');
         if (result.success) {
           alert('Authenticated!');
         } else {
@@ -1196,9 +1091,7 @@ class TouchIDExample extends React.Component {
     return (
       <View style={{ padding: 10 }}>
         <Button onPress={authFunction}>
-          {this.state.waiting
-            ? 'Waiting for fingerprint... '
-            : 'Authenticate with fingerprint'}
+          {this.state.waiting ? 'Waiting for fingerprint... ' : 'Authenticate with fingerprint'}
         </Button>
       </View>
     );
@@ -1215,9 +1108,7 @@ class NotificationBadgeExample extends React.Component {
 
         <View style={{ height: 10 }} />
 
-        <Button onPress={this._clearIconBadgeAsync}>
-          Clear the app icon's badge number
-        </Button>
+        <Button onPress={this._clearIconBadgeAsync}>Clear the app icon's badge number</Button>
       </View>
     );
   }
@@ -1239,9 +1130,7 @@ class PushNotificationExample extends React.Component {
   render() {
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={this._sendNotification}>
-          Send me a push notification!
-        </Button>
+        <Button onPress={this._sendNotification}>Send me a push notification!</Button>
       </View>
     );
   }
@@ -1276,9 +1165,7 @@ class LocalNotificationExample extends React.Component {
   render() {
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={this._presentLocalNotification}>
-          Present a notification immediately
-        </Button>
+        <Button onPress={this._presentLocalNotification}>Present a notification immediately</Button>
 
         <View style={{ height: 10 }} />
 
@@ -1334,9 +1221,7 @@ class FacebookLoginExample extends React.Component {
 
     return (
       <View style={{ padding: 10 }}>
-        <Button
-          onPress={() =>
-            this._testFacebookLogin('1201211719949057', permissions)}>
+        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions)}>
           Authenticate with Facebook
         </Button>
       </View>
@@ -1345,10 +1230,7 @@ class FacebookLoginExample extends React.Component {
 
   _testFacebookLogin = async (id, perms, behavior = 'web') => {
     try {
-      if (
-        Platform.OS === 'android' ||
-        Constants.appOwnership === 'standalone'
-      ) {
+      if (Platform.OS === 'android' || Constants.appOwnership === 'standalone') {
         // iOS supports system too, native jumps over to the app though and people
         // seem to like that effect. I maybe prefer system.
         behavior = Platform.OS === 'ios' ? 'native' : 'system';
@@ -1381,9 +1263,7 @@ class GoogleLoginExample extends React.Component {
   render() {
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={() => this._testGoogleLogin()}>
-          Authenticate with Google
-        </Button>
+        <Button onPress={() => this._testGoogleLogin()}>Authenticate with Google</Button>
       </View>
     );
   }
@@ -1393,12 +1273,10 @@ class GoogleLoginExample extends React.Component {
       const result = await Expo.Google.logInAsync({
         androidStandaloneAppClientId:
           '603386649315-87mbvgc739sec2gjtptl701ha62pi98p.apps.googleusercontent.com',
-        androidClientId:
-          '603386649315-9rbv8vmv2vvftetfbvlrbufcps1fajqf.apps.googleusercontent.com',
+        androidClientId: '603386649315-9rbv8vmv2vvftetfbvlrbufcps1fajqf.apps.googleusercontent.com',
         iosStandaloneAppClientId:
           '603386649315-1b2o2gole94qc6h4prj6lvoiueq83se4.apps.googleusercontent.com',
-        iosClientId:
-          '603386649315-vp4revvrcgrcjme51ebuhbkbspl048l9.apps.googleusercontent.com',
+        iosClientId: '603386649315-vp4revvrcgrcjme51ebuhbkbspl048l9.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
       });
 
@@ -1449,15 +1327,9 @@ class UtilExample extends React.Component {
   render() {
     return (
       <View style={{ padding: 10 }}>
-        <Text>
-          Locale: {this.state.locale}
-        </Text>
-        <Text>
-          Device Country: {this.state.deviceCountry}
-        </Text>
-        <Text>
-          Time Zone: {this.state.timeZone}
-        </Text>
+        <Text>Locale: {this.state.locale}</Text>
+        <Text>Device Country: {this.state.deviceCountry}</Text>
+        <Text>Time Zone: {this.state.timeZone}</Text>
         <Button
           onPress={async () => {
             Expo.Util.reload();
@@ -1479,11 +1351,9 @@ class SecureStoreExample extends React.Component {
     try {
       console.log('securestore: ' + SecureStore);
       await SecureStore.setItemAsync(key, value, {});
-      Alert.alert(
-        'Success!',
-        'Value: ' + value + ', stored successfully for key: ' + key,
-        [{ text: 'OK', onPress: () => {} }]
-      );
+      Alert.alert('Success!', 'Value: ' + value + ', stored successfully for key: ' + key, [
+        { text: 'OK', onPress: () => {} },
+      ]);
     } catch (e) {
       Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
     }
@@ -1503,9 +1373,7 @@ class SecureStoreExample extends React.Component {
   _deleteValue = async key => {
     try {
       await SecureStore.deleteItemAsync(key, {});
-      Alert.alert('Success!', 'Value deleted', [
-        { text: 'OK', onPress: () => {} },
-      ]);
+      Alert.alert('Success!', 'Value deleted', [{ text: 'OK', onPress: () => {} }]);
     } catch (e) {
       Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
     }
@@ -1579,9 +1447,7 @@ class SecureStoreExample extends React.Component {
 function Button(props) {
   return (
     <Touchable onPress={props.onPress} style={[styles.button, props.style]}>
-      <Text style={styles.buttonText}>
-        {props.children}
-      </Text>
+      <Text style={styles.buttonText}>{props.children}</Text>
     </Touchable>
   );
 }

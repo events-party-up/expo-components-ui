@@ -99,9 +99,7 @@ class TabIcon extends React.Component {
       <MaterialIcons
         name={this.props.name}
         size={this.props.size || 26}
-        color={
-          this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault
-        }
+        color={this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
       />
     );
   }

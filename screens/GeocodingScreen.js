@@ -45,9 +45,7 @@ export default class GeocodingScreen extends React.Component {
           <Text style={styles.headerText}>Select a location</Text>
         </View>
 
-        <View style={styles.examplesContainer}>
-          {EXAMPLES.map(this._renderExample)}
-        </View>
+        <View style={styles.examplesContainer}>{EXAMPLES.map(this._renderExample)}</View>
 
         <View style={styles.separator} />
 
@@ -76,9 +74,7 @@ export default class GeocodingScreen extends React.Component {
   _attemptReverseGeocodeAsync = async () => {
     this.setState({ inProgress: true });
     try {
-      let result = await Location.reverseGeocodeAsync(
-        this.state.selectedExample
-      );
+      let result = await Location.reverseGeocodeAsync(this.state.selectedExample);
       this.setState({ result });
     } catch (e) {
       this.setState({ error: e });
@@ -102,9 +98,7 @@ export default class GeocodingScreen extends React.Component {
   _maybeRenderResult = () => {
     let { selectedExample } = this.state;
     let text =
-      typeof selectedExample === 'string'
-        ? selectedExample
-        : JSON.stringify(selectedExample);
+      typeof selectedExample === 'string' ? selectedExample : JSON.stringify(selectedExample);
 
     if (this.state.inProgress) {
       return <ActivityIndicator style={{ marginTop: 10 }} />;
@@ -133,13 +127,7 @@ export default class GeocodingScreen extends React.Component {
         key={i}
         hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
         onPress={() => this._selectExample(example)}>
-        <Text
-          style={[
-            styles.exampleText,
-            isSelected && styles.selectedExampleText,
-          ]}>
-          {text}
-        </Text>
+        <Text style={[styles.exampleText, isSelected && styles.selectedExampleText]}>{text}</Text>
       </Touchable>
     );
   };

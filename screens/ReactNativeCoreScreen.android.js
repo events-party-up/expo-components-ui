@@ -52,14 +52,11 @@ export default class ReactNativeCoreScreen extends React.Component {
   };
 
   componentWillMount() {
-    this._tabPressedListener = NavigationEvents.addListener(
-      'selectedTabPressed',
-      route => {
-        if (route.key === 'ReactNativeCore') {
-          this._scrollToTop();
-        }
+    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
+      if (route.key === 'ReactNativeCore') {
+        this._scrollToTop();
       }
-    );
+    });
   }
 
   componentWillUnmount() {
@@ -91,7 +88,7 @@ export default class ReactNativeCoreScreen extends React.Component {
   }
 
   render() {
-    const renderNavigationView = () =>
+    const renderNavigationView = () => (
       <View
         style={{
           flex: 1,
@@ -100,7 +97,8 @@ export default class ReactNativeCoreScreen extends React.Component {
           justifyContent: 'center',
         }}>
         <Text>DrawerLayoutAndroid</Text>
-      </View>;
+      </View>
+    );
 
     return (
       <DrawerLayoutAndroid
@@ -116,10 +114,7 @@ export default class ReactNativeCoreScreen extends React.Component {
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this._onRefresh}
-            />
+            <RefreshControl refreshing={this.state.isRefreshing} onRefresh={this._onRefresh} />
           }
           contentContainerStyle={{ backgroundColor: '#fff' }}
           dataSource={this.state.dataSource}
@@ -142,8 +137,8 @@ export default class ReactNativeCoreScreen extends React.Component {
     return (
       <View style={{ padding: 10 }}>
         <Text>
-          This screen is a vertical ScrollView, try the pull to refresh gesture
-          to see the RefreshControl.
+          This screen is a vertical ScrollView, try the pull to refresh gesture to see the
+          RefreshControl.
         </Text>
       </View>
     );
@@ -319,15 +314,14 @@ export default class ReactNativeCoreScreen extends React.Component {
     return (
       <View style={{ padding: 10 }}>
         <Text>
-          All text in React Native on iOS uses the native text component and
-          supports a bunch of useful properties.
+          All text in React Native on iOS uses the native text component and supports a bunch of
+          useful properties.
         </Text>
         <Text style={linkStyle} onPress={() => alert('pressed!')}>
           Press on this!
         </Text>
         <Text numberOfLines={1} ellipsizeMode="tail">
-          It's easy to limit the number of lines that some text can span and
-          ellipsize it
+          It's easy to limit the number of lines that some text can span and ellipsize it
         </Text>
       </View>
     );
@@ -405,19 +399,13 @@ export default class ReactNativeCoreScreen extends React.Component {
   };
 
   _renderRow = renderRowFn => {
-    return (
-      <View>
-        {renderRowFn && renderRowFn()}
-      </View>
-    );
+    return <View>{renderRowFn && renderRowFn()}</View>;
   };
 
   _renderSectionHeader = (_, sectionTitle) => {
     return (
       <View style={styles.sectionHeader}>
-        <Text>
-          {sectionTitle}
-        </Text>
+        <Text>{sectionTitle}</Text>
       </View>
     );
   };
@@ -480,10 +468,7 @@ class ProgressBarExample extends React.Component {
   progressLoop() {
     setTimeout(() => {
       this.setState({
-        progress:
-          this.state.progress === 1
-            ? 0
-            : Math.min(1, this.state.progress + 0.01),
+        progress: this.state.progress === 1 ? 0 : Math.min(1, this.state.progress + 0.01),
       });
 
       this.progressLoop();
@@ -526,15 +511,10 @@ class SliderExample extends React.Component {
     return (
       <View>
         <View style={{ padding: 10 }}>
-          <Text style={textStyle}>
-            Value: {this.state.value && +this.state.value.toFixed(3)}
-          </Text>
+          <Text style={textStyle}>Value: {this.state.value && +this.state.value.toFixed(3)}</Text>
         </View>
 
-        <Slider
-          {...this.props}
-          onValueChange={value => this.setState({ value: value })}
-        />
+        <Slider {...this.props} onValueChange={value => this.setState({ value: value })} />
 
         <View style={{ marginBottom: 10 }} />
       </View>
@@ -582,10 +562,8 @@ class TextInputExample extends React.Component {
       height: 40,
     };
 
-    const updateSingleLineValue = value =>
-      this.setState({ singleLineValue: value });
-    const updateSecureTextValue = value =>
-      this.setState({ secureTextValue: value });
+    const updateSingleLineValue = value => this.setState({ singleLineValue: value });
+    const updateSecureTextValue = value => this.setState({ secureTextValue: value });
 
     return (
       <View style={{ padding: 10 }}>
@@ -612,9 +590,7 @@ class TextInputExample extends React.Component {
 function Button(props) {
   return (
     <TouchableOpacity onPress={props.onPress} style={styles.button}>
-      <Text style={styles.buttonText}>
-        {props.children}
-      </Text>
+      <Text style={styles.buttonText}>{props.children}</Text>
     </TouchableOpacity>
   );
 }

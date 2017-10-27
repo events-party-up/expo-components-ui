@@ -28,9 +28,7 @@ class ExamplePicker extends React.Component {
         }}>
         {Object.keys(this.props.examples)
           .map(name => this.props.examples[name])
-          .map(ex =>
-            <Picker.Item key={ex.name} label={ex.name} value={ex.name} />
-          )}
+          .map(ex => <Picker.Item key={ex.name} label={ex.name} value={ex.name} />)}
       </Picker>
     );
   }
@@ -50,8 +48,7 @@ class PlayerControls extends React.Component {
     return (
       <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
         <View style={{ paddingBottom: 20 }}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
             <Button title="Play" onPress={this.props.onPlayPress} />
             <Button title="Reset" onPress={this.props.onResetPress} />
           </View>
@@ -70,7 +67,9 @@ class PlayerControls extends React.Component {
           />
         </View>
         <View style={{ paddingBottom: 10 }}>
-          <View><Text>Progress:</Text></View>
+          <View>
+            <Text>Progress:</Text>
+          </View>
           <Slider
             minimumValue={0}
             maximumValue={1}
@@ -80,7 +79,9 @@ class PlayerControls extends React.Component {
           />
         </View>
         <View>
-          <View><Text>Duration: ({Math.round(config.duration)}ms)</Text></View>
+          <View>
+            <Text>Duration: ({Math.round(config.duration)}ms)</Text>
+          </View>
           <Slider
             minimumValue={50}
             maximumValue={4000}
@@ -95,31 +96,15 @@ class PlayerControls extends React.Component {
 
 const makeExample = (name, getJson) => ({ name, getJson });
 const EXAMPLES = [
-  makeExample('Hamburger Arrow', () =>
-    require('../assets/animations/HamburgerArrow.json')
-  ),
-  makeExample('Line Animation', () =>
-    require('../assets/animations/LineAnimation.json')
-  ),
-  makeExample('Lottie Logo 1', () =>
-    require('../assets/animations/LottieLogo1.json')
-  ),
-  makeExample('Lottie Logo 2', () =>
-    require('../assets/animations/LottieLogo2.json')
-  ),
-  makeExample('Lottie Walkthrough', () =>
-    require('../assets/animations/LottieWalkthrough.json')
-  ),
+  makeExample('Hamburger Arrow', () => require('../assets/animations/HamburgerArrow.json')),
+  makeExample('Line Animation', () => require('../assets/animations/LineAnimation.json')),
+  makeExample('Lottie Logo 1', () => require('../assets/animations/LottieLogo1.json')),
+  makeExample('Lottie Logo 2', () => require('../assets/animations/LottieLogo2.json')),
+  makeExample('Lottie Walkthrough', () => require('../assets/animations/LottieWalkthrough.json')),
   makeExample('Pin Jump', () => require('../assets/animations/PinJump.json')),
-  makeExample('Twitter Heart', () =>
-    require('../assets/animations/TwitterHeart.json')
-  ),
-  makeExample('Watermelon', () =>
-    require('../assets/animations/Watermelon.json')
-  ),
-  makeExample('Motion Corpse', () =>
-    require('../assets/animations/MotionCorpse-Jrcanest.json')
-  ),
+  makeExample('Twitter Heart', () => require('../assets/animations/TwitterHeart.json')),
+  makeExample('Watermelon', () => require('../assets/animations/Watermelon.json')),
+  makeExample('Motion Corpse', () => require('../assets/animations/MotionCorpse-Jrcanest.json')),
 ].reduce((acc, e) => {
   // eslint-disable-next-line no-param-reassign
   acc[e.name] = e;
@@ -202,9 +187,7 @@ export default class LottieScreen extends React.Component {
               height: 200,
             }}
             source={EXAMPLES[this.state.example].getJson()}
-            progress={
-              this.state.config.imperative ? undefined : this.state.progress
-            }
+            progress={this.state.config.imperative ? undefined : this.state.progress}
           />
         </View>
       </View>

@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-} from 'react-native';
+import { Button, Platform, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { MapView } from 'expo';
 
 import Layout from '../constants/Layout';
@@ -76,10 +68,7 @@ export default class MapsScreen extends React.Component {
   _renderJumpToCoordButton = () => {
     return (
       <View>
-        <Button
-          onPress={this._animateToRandomCoord}
-          title="Animate to random Coord"
-        />
+        <Button onPress={this._animateToRandomCoord} title="Animate to random Coord" />
         <Button
           onPress={this._animateToRandomViewingAngle}
           title="Animate to random Viewing Angle"
@@ -91,9 +80,7 @@ export default class MapsScreen extends React.Component {
   _animateToRandomViewingAngle = () => {
     if (this._mapView) {
       if (Platform.OS === 'ios' && this.state.isGoogleMap) {
-        alert(
-          'animateToViewingAngle is not currently supported with Google Maps on iOS'
-        );
+        alert('animateToViewingAngle is not currently supported with Google Maps on iOS');
       } else {
         this._mapView.animateToViewingAngle(getRandomFloat(0, 90));
       }
@@ -103,11 +90,8 @@ export default class MapsScreen extends React.Component {
   _animateToRandomCoord = () => {
     if (this._mapView) {
       this._mapView.animateToCoordinate({
-        latitude:
-          REGION.latitude + (Math.random() - 0.5) * (REGION.latitudeDelta / 2),
-        longitude:
-          REGION.longitude +
-          (Math.random() - 0.5) * (REGION.longitudeDelta / 2),
+        latitude: REGION.latitude + (Math.random() - 0.5) * (REGION.latitudeDelta / 2),
+        longitude: REGION.longitude + (Math.random() - 0.5) * (REGION.longitudeDelta / 2),
       });
     }
   };

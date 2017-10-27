@@ -11,12 +11,8 @@ export default class GestureHandlerListScreen extends Component {
 
   render() {
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <Text style={styles.title}>
-          LongPressGestureHandler, TapGestureHandler
-        </Text>
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <Text style={styles.title}>LongPressGestureHandler, TapGestureHandler</Text>
         <Text style={styles.paragraph}>
           You can single tap, double tap, or long press these buttons!
         </Text>
@@ -38,12 +34,10 @@ export default class GestureHandlerListScreen extends Component {
 
         <View style={{ marginTop: 10 }} />
 
-        <Text style={styles.title}>
-          PanGestureHandler, RotationGestureHandler
-        </Text>
+        <Text style={styles.title}>PanGestureHandler, RotationGestureHandler</Text>
         <Text style={styles.paragraph}>
-          You can drag it left and right, and also use two fingers to rotate it,
-          and it'll bounce back!
+          You can drag it left and right, and also use two fingers to rotate it, and it'll bounce
+          back!
         </Text>
 
         <BouncyBox />

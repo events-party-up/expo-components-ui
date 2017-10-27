@@ -51,29 +51,17 @@ export default class TextToSpeechScreen extends React.Component {
           <Text style={styles.headerText}>Select a phrase</Text>
         </View>
 
-        <View style={styles.examplesContainer}>
-          {EXAMPLES.map(this._renderExample)}
-        </View>
+        <View style={styles.examplesContainer}>{EXAMPLES.map(this._renderExample)}</View>
 
         <View style={styles.separator} />
 
         <View style={styles.controlRow}>
-          <Button
-            disabled={this.state.inProgress}
-            onPress={this._speak}
-            title="Speak"
-          />
+          <Button disabled={this.state.inProgress} onPress={this._speak} title="Speak" />
 
-          <Button
-            disabled={!this.state.inProgress}
-            onPress={this._stop}
-            title="Stop"
-          />
+          <Button disabled={!this.state.inProgress} onPress={this._stop} title="Stop" />
         </View>
 
-        <Text style={styles.controlText}>
-          Pitch: {this.state.pitch.toFixed(2)}
-        </Text>
+        <Text style={styles.controlText}>Pitch: {this.state.pitch.toFixed(2)}</Text>
         <View style={styles.controlRow}>
           <AmountControlButton
             onPress={this._increasePitch}
@@ -90,9 +78,7 @@ export default class TextToSpeechScreen extends React.Component {
           />
         </View>
 
-        <Text style={styles.controlText}>
-          Rate: {this.state.rate.toFixed(2)}
-        </Text>
+        <Text style={styles.controlText}>Rate: {this.state.rate.toFixed(2)}</Text>
         <View style={styles.controlRow}>
           <AmountControlButton
             onPress={this._increaseRate}
@@ -171,11 +157,7 @@ export default class TextToSpeechScreen extends React.Component {
         key={i}
         hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
         onPress={() => this._selectExample(example)}>
-        <Text
-          style={[
-            styles.exampleText,
-            isSelected && styles.selectedExampleText,
-          ]}>
+        <Text style={[styles.exampleText, isSelected && styles.selectedExampleText]}>
           {example.text} ({example.language})
         </Text>
       </Touchable>

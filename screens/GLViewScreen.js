@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  InteractionManager,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { ActivityIndicator, InteractionManager, StyleSheet, View } from 'react-native';
 import { GLView } from 'expo';
 
 import REGL from 'regl';
@@ -32,44 +27,40 @@ export default class BasicScene extends React.Component {
   render() {
     if (!this.state.transitionIsComplete) {
       return (
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />
         </View>
       );
     }
 
-    return (
-      <GLView
-        style={StyleSheet.absoluteFill}
-        onContextCreate={this._onContextCreate}
-      />
-    );
+    return <GLView style={StyleSheet.absoluteFill} onContextCreate={this._onContextCreate} />;
   }
 
   _onContextCreate = gl => {
     const regl = REGL({ gl });
 
     const pointBuffer = regl.buffer(
-      Array(NUM_POINTS).fill().map(() => {
-        const color = hsv2rgb(Math.random() * 360, 0.6, 1);
-        return [
-          // freq
-          Math.random() * 10,
-          Math.random() * 10,
-          Math.random() * 10,
-          Math.random() * 10,
-          // phase
-          2.0 * Math.PI * Math.random(),
-          2.0 * Math.PI * Math.random(),
-          2.0 * Math.PI * Math.random(),
-          2.0 * Math.PI * Math.random(),
-          // color
-          color[0] / 255,
-          color[1] / 255,
-          color[2] / 255,
-        ];
-      })
+      Array(NUM_POINTS)
+        .fill()
+        .map(() => {
+          const color = hsv2rgb(Math.random() * 360, 0.6, 1);
+          return [
+            // freq
+            Math.random() * 10,
+            Math.random() * 10,
+            Math.random() * 10,
+            Math.random() * 10,
+            // phase
+            2.0 * Math.PI * Math.random(),
+            2.0 * Math.PI * Math.random(),
+            2.0 * Math.PI * Math.random(),
+            2.0 * Math.PI * Math.random(),
+            // color
+            color[0] / 255,
+            color[1] / 255,
+            color[2] / 255,
+          ];
+        })
     );
 
     const drawParticles = regl({
@@ -118,12 +109,7 @@ export default class BasicScene extends React.Component {
       uniforms: {
         view: ({ time: t }) => {
           t = t * 0.1;
-          return mat4.lookAt(
-            [],
-            [30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
-            [0, 0, 0],
-            [0, 1, 0]
-          );
+          return mat4.lookAt([], [30 * Math.cos(t), 2.5, 30 * Math.sin(t)], [0, 0, 0], [0, 1, 0]);
         },
         projection: mat4.perspective(
           [],

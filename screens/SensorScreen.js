@@ -1,12 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import {
-  Accelerometer,
-  Gyroscope,
-  Magnetometer,
-  MagnetometerUncalibrated,
-} from 'expo';
+import { Accelerometer, Gyroscope, Magnetometer, MagnetometerUncalibrated } from 'expo';
 
 export default class SensorScreen extends React.Component {
   static navigationOptions = {
@@ -68,15 +63,15 @@ function createSensorBlock(name, Sensor) {
       return (
         <View style={styles.sensor}>
           <Text>{name}:</Text>
-          <Text>x: {round(x)} y: {round(y)} z: {round(z)}</Text>
+          <Text>
+            x: {round(x)} y: {round(y)} z: {round(z)}
+          </Text>
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={this._toggle} style={styles.button}>
               <Text>Toggle</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this._slow}
-              style={[styles.button, styles.middleButton]}>
+            <TouchableOpacity onPress={this._slow} style={[styles.button, styles.middleButton]}>
               <Text>Slow</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this._fast} style={styles.button}>
