@@ -3,9 +3,9 @@ import './LegacyReact';
 import Expo from 'expo';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import RootNavigation from './navigation/RootNavigation';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import RootNavigation from './navigation/RootNavigation';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 
 export default class AppContainer extends React.Component {

@@ -51,7 +51,7 @@ export default async function registerForPushNotificationsAsync() {
     let receipt = receipts[0];
     if (receipt.status === 'error') {
       console.warn(
-        `Expo push service reported an error sending a notification: ${error.details.error}`
+        `Expo push service reported an error sending a notification: ${receipt.details.error}`
       );
       if (receipt.__debug) {
         console.warn(receipt.__debug);

@@ -180,7 +180,7 @@ export default class HomeScreen extends React.Component {
           source={require('../assets/videos/ace.mp4')}
           resizeMode="cover"
           style={{ width: 300, height: 300 }}
-          isMuted={true}
+          isMuted
           shouldPlay
           isLooping
         />
@@ -211,7 +211,7 @@ export default class HomeScreen extends React.Component {
         ref={view => {
           this._listView = view;
         }}
-        stickySectionHeadersEnabled={true}
+        stickySectionHeadersEnabled
         removeClippedSubviews={false}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"

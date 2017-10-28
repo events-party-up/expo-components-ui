@@ -433,7 +433,7 @@ class DatePickerExample extends React.Component {
   }
 
   _onDateChange = date => {
-    this.setState({ date: date });
+    this.setState({ date });
   };
 }
 
@@ -555,7 +555,7 @@ class SliderExample extends React.Component {
     return (
       <View>
         <Text style={textStyle}>Value: {this.state.value && +this.state.value.toFixed(3)}</Text>
-        <Slider {...this.props} onValueChange={value => this.setState({ value: value })} />
+        <Slider {...this.props} onValueChange={value => this.setState({ value })} />
       </View>
     );
   }

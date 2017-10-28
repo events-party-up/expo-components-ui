@@ -21,7 +21,6 @@ import Expo, {
   DangerZone,
   DocumentPicker,
   FileSystem,
-  Font,
   Fingerprint,
   KeepAwake,
   Location,
@@ -273,7 +272,7 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderLocationPolyfill = () => {
-    return <LocationExample polyfill={true} />;
+    return <LocationExample polyfill />;
   };
 
   _renderSettings = () => {
@@ -328,7 +327,7 @@ export default class ExpoApisScreen extends React.Component {
         ref={view => {
           this._listView = view;
         }}
-        stickySectionHeadersEnabled={true}
+        stickySectionHeadersEnabled
         removeClippedSubviews={false}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"

@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import CustomTabBarBottom from './CustomTabBarBottom';
 import { MaterialIcons } from '@expo/vector-icons';
+import CustomTabBarBottom from './CustomTabBarBottom';
 
 import { Colors, Layout } from '../constants';
 import NavigationEvents from '../utilities/NavigationEvents';

@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  NativeModules,
-  Platform,
-  TouchableHighlight,
-  requireNativeComponent,
-} from 'react-native';
+import { StyleSheet, Text, View, NativeModules, Platform, TouchableHighlight } from 'react-native';
 import Expo, { AdMobBanner } from 'expo';
 import { Colors } from '../constants';
 

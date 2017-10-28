@@ -24,9 +24,9 @@ import {
   View,
   WebView,
 } from 'react-native';
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 import NavigationEvents from '../utilities/NavigationEvents';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 import { Colors, Layout } from '../constants';
 import ModalExample from './ModalExample';
@@ -110,7 +110,7 @@ export default class ReactNativeCoreScreen extends React.Component {
             this._listView = view;
           }}
           removeClippedSubviews={false}
-          stickySectionHeadersEnabled={true}
+          stickySectionHeadersEnabled
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           refreshControl={
@@ -193,7 +193,7 @@ export default class ReactNativeCoreScreen extends React.Component {
   _renderDatePicker = () => {
     const showDatePicker = async () => {
       try {
-        const { action, year, month, day } = await DatePickerAndroid.open({
+        const { action } = await DatePickerAndroid.open({
           // Use `new Date()` for current date.
           // May 25 2020. Month 0 is January.
           date: new Date(2020, 4, 25),
@@ -216,7 +216,7 @@ export default class ReactNativeCoreScreen extends React.Component {
   _renderTimePicker = () => {
     const showTimePicker = async () => {
       try {
-        const { action, hour, minute } = await TimePickerAndroid.open({
+        const { action } = await TimePickerAndroid.open({
           hour: 14,
           minute: 0,
           is24Hour: false, // Will display '2 PM'
@@ -429,7 +429,7 @@ class DatePickerExample extends React.Component {
   }
 
   _onDateChange = date => {
-    this.setState({ date: date });
+    this.setState({ date });
   };
 }
 
@@ -514,7 +514,7 @@ class SliderExample extends React.Component {
           <Text style={textStyle}>Value: {this.state.value && +this.state.value.toFixed(3)}</Text>
         </View>
 
-        <Slider {...this.props} onValueChange={value => this.setState({ value: value })} />
+        <Slider {...this.props} onValueChange={value => this.setState({ value })} />
 
         <View style={{ marginBottom: 10 }} />
       </View>

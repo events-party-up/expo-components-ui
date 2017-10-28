@@ -4,7 +4,6 @@ import React, { PureComponent } from 'react';
 import { Animated, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import TabBarIcon from 'react-navigation/src/views/TabView/TabBarIcon';
 import Touchable from 'react-native-platform-touchable';
-import { Colors } from '../constants';
 
 import type {
   NavigationAction,
@@ -15,6 +14,8 @@ import type {
 } from 'react-navigation/src/TypeDefinition';
 
 import type { TabScene } from 'react-navigation/src/views/TabView/TabView';
+
+import { Colors } from '../constants';
 
 type DefaultProps = {
   activeTintColor: string,
