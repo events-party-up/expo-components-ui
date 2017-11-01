@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import { Animated, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import TabBarIcon from 'react-navigation/src/views/TabView/TabBarIcon';
 import Touchable from 'react-native-platform-touchable';
 
@@ -135,54 +136,58 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
       navigation,
       activeBackgroundColor,
       inactiveBackgroundColor,
-
       style,
       tabStyle,
     } = this.props;
+
     const { routes } = navigation.state;
     // Prepend '-1', so there are always at least 2 items in inputRange
     const inputRange = [-1, ...routes.map((x: *, i: number) => i)];
     return (
-      <Animated.View style={[styles.tabBar, style]}>
-        {routes.map((route: NavigationRoute, index: number) => {
-          const focused = index === navigation.state.index;
-          const scene = { route, index, focused };
-          const outputRange = inputRange.map(
-            (inputIndex: number) =>
-              inputIndex === index ? activeBackgroundColor : inactiveBackgroundColor
-          );
-          const backgroundColor = position.interpolate({
-            inputRange,
-            outputRange,
-          });
-          const justifyContent = this.props.showIcon ? 'flex-end' : 'center';
-          return (
-            <Touchable
-              fallback={TouchableWithoutFeedback}
-              background={Touchable.Ripple(Colors.tabIconSelected, true)}
-              style={styles.tab}
-              key={route.key}
-              onLongPress={() => this._handlePress(index)}
-              onPress={() => this._handlePress(index)}>
-              <Animated.View style={[styles.tab, { backgroundColor, justifyContent }, tabStyle]}>
-                {this._renderIcon(scene)}
-                {this._renderLabel(scene)}
-              </Animated.View>
-            </Touchable>
-          );
-        })}
-      </Animated.View>
+      <SafeAreaView style={[styles.tabBarContainer, style]} forceInset={{ bottom: 'always' }}>
+        <Animated.View style={styles.tabBar}>
+          {routes.map((route: NavigationRoute, index: number) => {
+            const focused = index === navigation.state.index;
+            const scene = { route, index, focused };
+            const outputRange = inputRange.map(
+              (inputIndex: number) =>
+                inputIndex === index ? activeBackgroundColor : inactiveBackgroundColor
+            );
+            const backgroundColor = position.interpolate({
+              inputRange,
+              outputRange,
+            });
+            const justifyContent = this.props.showIcon ? 'flex-end' : 'center';
+            return (
+              <Touchable
+                fallback={TouchableWithoutFeedback}
+                background={Touchable.Ripple(Colors.tabIconSelected, true)}
+                style={styles.tab}
+                key={route.key}
+                onLongPress={() => this._handlePress(index)}
+                onPress={() => this._handlePress(index)}>
+                <Animated.View style={[styles.tab, { backgroundColor, justifyContent }, tabStyle]}>
+                  {this._renderIcon(scene)}
+                  {this._renderLabel(scene)}
+                </Animated.View>
+              </Touchable>
+            );
+          })}
+        </Animated.View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  tabBarContainer: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(0, 0, 0, .3)',
+    backgroundColor: '#f4f4f4', // Default background color in iOS 10
+  },
   tabBar: {
     height: 49, // Default tab bar height in iOS 10
     flexDirection: 'row',
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(0, 0, 0, .2)',
-    backgroundColor: '#f4f4f4', // Default background color in iOS 10
   },
   tab: {
     flex: 1,
