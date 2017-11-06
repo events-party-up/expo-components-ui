@@ -1335,6 +1335,10 @@ class UtilExample extends React.Component {
           }}>
           Util.reload()
         </Button>
+        <Text>
+          Here is a timestamp so you can decide whether Util.reload() is reloading:{' '}
+          {Math.round(new Date().getTime() / 1000)}
+        </Text>
       </View>
     );
   }
