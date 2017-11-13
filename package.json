@@ -9,7 +9,7 @@
     "group": "client"
   },
   "dependencies": {
-    "expo": "^22.0.2",
+    "expo": "23.0.0-rc.2",
     "gl-mat4": "^1.1.4",
     "hsv2rgb": "^1.1.0",
     "prop-types": "^15.6.0",
