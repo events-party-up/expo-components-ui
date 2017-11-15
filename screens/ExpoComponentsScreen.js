@@ -41,7 +41,7 @@ export default class HomeScreen extends React.Component {
       Admob: [this._renderAdmob],
       GestureHandler: [this._renderGestureHandler],
       BarCodeScanner: [this._renderBarCodeScanner],
-      WebGL: [this._renderWebGL],
+      GL: [this._renderGL],
       FacebookAds: [this._renderFacebookAds],
       Lottie: [this._renderLottie],
       Map: [this._renderMap],
@@ -141,10 +141,12 @@ export default class HomeScreen extends React.Component {
     );
   };
 
-  _renderWebGL = () => {
+  _renderGL = () => {
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('GLView')}>Open WebGL Example</Button>
+        <Button onPress={() => this.props.navigation.navigate('GLMainScreen')}>
+          Open GL Examples
+        </Button>
       </View>
     );
   };

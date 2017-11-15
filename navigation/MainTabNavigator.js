@@ -16,7 +16,7 @@ import GestureHandlerListScreen from '../screens/GestureHandlerListScreen';
 import GestureHandlerSwipeableScreen from '../screens/GestureHandlerSwipeableScreen';
 import SensorScreen from '../screens/SensorScreen';
 import GeocodingScreen from '../screens/GeocodingScreen';
-import GLViewScreen from '../screens/GLViewScreen';
+import GLScreens, { GLMainScreen } from '../screens/GL/GLScreens';
 import FacebookAdsScreen from '../screens/FacebookAdsScreen';
 import ReactNativeCoreScreen from '../screens/ReactNativeCoreScreen';
 import TextToSpeechScreen from '../screens/TextToSpeechScreen';
@@ -60,7 +60,8 @@ const ExpoComponentsStackNavigator = StackNavigator(
   {
     ExpoComponents: { screen: ExpoComponentsScreen },
     BarCodeScanner: { screen: BarCodeScannerScreen },
-    GLView: { screen: GLViewScreen },
+    GLMainScreen: { screen: GLMainScreen },
+    ...GLScreens,
     GestureHandlerPinch: { screen: GestureHandlerPinchScreen },
     GestureHandlerList: { screen: GestureHandlerListScreen },
     GestureHandlerSwipeable: { screen: GestureHandlerSwipeableScreen },
