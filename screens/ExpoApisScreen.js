@@ -239,8 +239,15 @@ export default class ExpoApisScreen extends React.Component {
             Font icons sets and other custom fonts can be loaded from the web
           </Text>
           {Platform.OS === 'ios' ? (
-            <Text adjustsFontSizeToFit style={{ fontFamily: 'space-mono', fontSize: 400 }}>
-              Custom fonts can be used with `adjustsFontSizeToFit` on iOS
+            <Text
+              adjustsFontSizeToFit
+              style={{
+                flex: 1,
+                height: 32,
+                fontFamily: 'space-mono',
+                fontSize: 420,
+              }}>
+              Custom font with `adjustsFontSizeToFit` on iOS
             </Text>
           ) : null}
         </View>
