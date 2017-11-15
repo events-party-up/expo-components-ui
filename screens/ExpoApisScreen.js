@@ -31,6 +31,7 @@ import Expo, {
   Permissions,
   ScreenOrientation,
   SecureStore,
+  Video,
   WebBrowser,
 } from 'expo';
 import Touchable from 'react-native-platform-touchable';
@@ -140,26 +141,6 @@ export default class ExpoApisScreen extends React.Component {
     this.setState({ dataSource });
   }
 
-  _renderImagePicker = () => {
-    const showCamera = async () => {
-      let result = await ImagePicker.launchCameraAsync({});
-      alert(JSON.stringify(result));
-    };
-
-    const showPhotos = async () => {
-      let result = await ImagePicker.launchImageLibraryAsync({});
-      alert(JSON.stringify(result));
-    };
-
-    return (
-      <View style={{ flexDirection: 'row', padding: 10 }}>
-        <Button onPress={showCamera}>Open camera</Button>
-
-        <Button onPress={showPhotos}>Open photos</Button>
-      </View>
-    );
-  };
-
   _renderScreenOrientation = () => {
     return (
       <View style={{ padding: 10 }}>
@@ -175,6 +156,10 @@ export default class ExpoApisScreen extends React.Component {
         ))}
       </View>
     );
+  };
+
+  _renderImagePicker = () => {
+    return <ImagePickerExample />;
   };
 
   _renderPedometer = () => {
@@ -879,6 +864,75 @@ class SensorsExample extends React.Component {
       </View>
     );
   }
+}
+
+class ImagePickerExample extends React.Component {
+  state = {
+    selection: null,
+  };
+
+  render() {
+    const showCamera = async () => {
+      let result = await ImagePicker.launchCameraAsync({});
+      if (result.cancelled) {
+        this.setState({ selection: null });
+      } else {
+        this.setState({ selection: result });
+      }
+      alert(JSON.stringify(result));
+    };
+
+    const showPicker = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({});
+      if (result.cancelled) {
+        this.setState({ selection: null });
+      } else {
+        this.setState({ selection: result });
+      }
+      alert(JSON.stringify(result));
+    };
+
+    return (
+      <View style={{ padding: 10 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Button onPress={showCamera}>Open camera</Button>
+          <Button onPress={showPicker}>Pick photo or video</Button>
+        </View>
+
+        {this._maybeRenderSelection()}
+      </View>
+    );
+  }
+
+  _maybeRenderSelection = () => {
+    const { selection } = this.state;
+
+    if (!selection) {
+      return;
+    }
+
+    let media =
+      selection.type === 'video' ? (
+        <Video
+          source={{ uri: selection.uri }}
+          style={{ width: 300, height: 300 }}
+          resizeMode="contain"
+          shouldPlay
+          isLooping
+        />
+      ) : (
+        <Image
+          source={{ uri: selection.uri }}
+          style={{ width: 300, height: 300, resizeMode: 'contain' }}
+        />
+      );
+
+    return (
+      <View style={{ marginVertical: 10, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+        {media}
+      </View>
+    );
+  };
 }
 
 class PedometerExample extends React.Component {
