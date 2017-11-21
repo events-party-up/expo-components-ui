@@ -1286,8 +1286,17 @@ class FacebookLoginExample extends React.Component {
 
     return (
       <View style={{ padding: 10 }}>
-        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions)}>
-          Authenticate with Facebook
+        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'web')}>
+          Authenticate with Facebook (web)
+        </Button>
+        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'browser')}>
+          Authenticate with Facebook (browser)
+        </Button>
+        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'native')}>
+          Authenticate with Facebook (native)
+        </Button>
+        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'system')}>
+          Authenticate with Facebook (system)
         </Button>
       </View>
     );
