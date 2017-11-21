@@ -9,7 +9,7 @@
     "primaryColor": "#cccccc",
     "privacy": "public",
     "icon": "./assets/icons/icon.png",
-    "scheme": "expncl",
+    "scheme": "nclexp",
     "notification": {
       "icon": "./assets/icons/notificationIcon.png",
       "color": "#000000"
