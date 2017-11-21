@@ -4,7 +4,7 @@
     "description": "This experience shows a bunch of the native components that you can use in React Native core and Expo. Hit the button in the top right for the components in the Expo SDK.",
     "slug": "native-component-list",
     "sdkVersion": "23.0.0",
-    "version": "23.0.0",
+    "version": "23.0.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "privacy": "public",
@@ -21,6 +21,8 @@
       "assetExts": ["ttf", "mp4"]
     },
     "facebookScheme": "fb1201211719949057",
+    "facebookAppId": "1201211719949057",
+    "facebookDisplayName": "Expo APIs",
     "androidShowExponentNotificationInShellApp": true,
     "android": {
       "package": "host.exp.nclexp",
