@@ -1,8 +1,17 @@
-import * as THREE from 'three';
-import ExpoTHREE from 'expo-three';
-
 import GLMainScreen from './GLMainScreen';
 import GLWrap from './GLWrap';
+
+const THREE = require('three');
+global.THREE = THREE;
+require('three/examples/js/shaders/CopyShader');
+require('three/examples/js/shaders/DigitalGlitch');
+require('three/examples/js/shaders/FilmShader');
+require('three/examples/js/postprocessing/EffectComposer');
+require('three/examples/js/postprocessing/RenderPass');
+require('three/examples/js/postprocessing/ShaderPass');
+require('three/examples/js/postprocessing/GlitchPass');
+require('three/examples/js/postprocessing/FilmPass');
+import ExpoTHREE from 'expo-three';
 
 export default {
   GLMainScreen: { screen: GLMainScreen },
@@ -103,6 +112,7 @@ void main () {
 
       const geometry = new THREE.BoxGeometry(1, 1, 1);
       const material = new THREE.MeshBasicMaterial({
+        transparent: true,
         map: await ExpoTHREE.createTextureAsync({
           asset: Expo.Asset.fromModule(require('../../assets/images/nikki.png')),
         }),
@@ -119,6 +129,68 @@ void main () {
         cube.rotation.y += 0.07;
 
         renderer.render(scene, camera);
+
+        gl.endFrameEXP();
+      };
+      animate();
+    }),
+  },
+
+  THREEGlitchFilm: {
+    screen: GLWrap('three.js glitch and film effects', async gl => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        gl.drawingBufferWidth / gl.drawingBufferHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = ExpoTHREE.createRenderer({ gl });
+      renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+      renderer.setClearColor(0xffffff);
+
+      const composer = new THREE.EffectComposer(renderer);
+      composer.addPass(new THREE.RenderPass(scene, camera));
+      composer.addPass(new THREE.FilmPass(0.8, 0.325, 256, false));
+      const finalPass = new THREE.GlitchPass();
+      finalPass.renderToScreen = true;
+      composer.addPass(finalPass);
+
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial({
+        transparent: true,
+        map: await ExpoTHREE.createTextureAsync({
+          asset: Expo.Asset.fromModule(require('../../assets/images/nikki.png')),
+        }),
+      });
+
+      const cubes = Array(24)
+        .fill()
+        .map(() => {
+          const mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+          mesh.position.x = 3 - 6 * Math.random();
+          mesh.position.y = 3 - 6 * Math.random();
+          mesh.position.z = -5 * Math.random();
+          const angularVelocity = {
+            x: 0.1 * Math.random(),
+            y: 0.1 * Math.random(),
+          };
+          return { mesh, angularVelocity };
+        });
+
+      camera.position.z = 3;
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+
+        cubes.forEach(({ mesh, angularVelocity }) => {
+          mesh.rotation.x += angularVelocity.x;
+          mesh.rotation.y += angularVelocity.y;
+        });
+
+        composer.render();
 
         gl.endFrameEXP();
       };
