@@ -197,4 +197,42 @@ void main () {
       animate();
     }),
   },
+
+  THREESprite: {
+    screen: GLWrap('Basic three.js use', async gl => {
+      gl.enableLogging = true;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        gl.drawingBufferWidth / gl.drawingBufferHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = ExpoTHREE.createRenderer({ gl });
+      renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+      renderer.setClearColor(0xffffff);
+
+      const spriteMaterial = new THREE.SpriteMaterial({
+        map: await ExpoTHREE.createTextureAsync({
+          asset: Expo.Asset.fromModule(require('../../assets/images/nikki.png')),
+        }),
+        color: 0xffffff,
+      });
+      const sprite = new THREE.Sprite(spriteMaterial);
+      scene.add(sprite);
+
+      camera.position.z = 3;
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+
+        renderer.render(scene, camera);
+
+        gl.endFrameEXP();
+      };
+      animate();
+    }),
+  },
 };
