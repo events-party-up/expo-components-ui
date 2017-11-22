@@ -199,7 +199,7 @@ void main () {
   },
 
   THREESprite: {
-    screen: GLWrap('Basic three.js use', async gl => {
+    screen: GLWrap('three.js sprite rendering', async gl => {
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         75,
