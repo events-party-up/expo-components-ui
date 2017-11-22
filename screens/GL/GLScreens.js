@@ -200,8 +200,6 @@ void main () {
 
   THREESprite: {
     screen: GLWrap('Basic three.js use', async gl => {
-      gl.enableLogging = true;
-
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         75,
