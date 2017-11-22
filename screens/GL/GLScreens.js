@@ -1,3 +1,6 @@
+import * as THREE from 'three';
+import ExpoTHREE from 'expo-three';
+
 import GLMainScreen from './GLMainScreen';
 import GLWrap from './GLWrap';
 
@@ -78,6 +81,45 @@ void main () {
         gl.clearColor(0, 0, 1, 1);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, verts.length / 2);
+        gl.endFrameEXP();
+      };
+      animate();
+    }),
+  },
+
+  THREEBasic: {
+    screen: GLWrap('Basic three.js use', async gl => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        gl.drawingBufferWidth / gl.drawingBufferHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = ExpoTHREE.createRenderer({ gl });
+      renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+      renderer.setClearColor(0xffffff);
+
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial({
+        map: await ExpoTHREE.createTextureAsync({
+          asset: Expo.Asset.fromModule(require('../../assets/images/nikki.png')),
+        }),
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+
+      camera.position.z = 3;
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+
+        cube.rotation.x += 0.04;
+        cube.rotation.y += 0.07;
+
+        renderer.render(scene, camera);
+
         gl.endFrameEXP();
       };
       animate();
