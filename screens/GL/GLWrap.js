@@ -4,23 +4,40 @@ import { View } from 'react-native';
 
 import { Colors } from '../../constants';
 
-// Given a `title` and a `GLView` `onContextCreate` callback, return a
-// component displaying a `GLView` that calls that callback and has that
-// navigator title. Allows quick and easy creation of `GLView`-using components.
+export default (title, onContextCreate) =>
+  class extends React.Component {
+    static title = title;
 
-export default (title, onContextCreate) => {
-  const wrapped = props => (
-    <View
-      style={[
-        {
-          flex: 1,
-          backgroundColor: Colors.tintColor,
-        },
-        props.style,
-      ]}>
-      <Expo.GLView style={{ flex: 1 }} onContextCreate={onContextCreate} />
-    </View>
-  );
-  wrapped.title = title;
-  return wrapped;
-};
+    componentWillUnmount() {
+      this._gl = null;
+      cancelAnimationFrame(this._rafID);
+    }
+
+    render() {
+      return (
+        <View
+          style={[
+            {
+              flex: 1,
+              backgroundColor: Colors.tintColor,
+            },
+            this.props.style,
+          ]}>
+          <Expo.GLView style={{ flex: 1 }} onContextCreate={this._onContextCreate} />
+        </View>
+      );
+    }
+
+    _onContextCreate = async gl => {
+      this._gl = gl;
+      const { onTick } = await onContextCreate(this._gl);
+
+      const animate = () => {
+        if (this._gl) {
+          this._rafID = requestAnimationFrame(animate);
+          onTick(this._gl);
+        }
+      };
+      animate();
+    };
+  };

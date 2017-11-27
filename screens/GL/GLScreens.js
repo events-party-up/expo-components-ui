@@ -88,13 +88,14 @@ void main () {
       );
       gl.uniform1i(gl.getUniformLocation(program, 'texture'), 0);
 
-      const animate = () => {
-        gl.clearColor(0, 0, 1, 1);
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        gl.drawArrays(gl.TRIANGLES, 0, verts.length / 2);
-        gl.endFrameEXP();
+      return {
+        onTick() {
+          gl.clearColor(0, 0, 1, 1);
+          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+          gl.drawArrays(gl.TRIANGLES, 0, verts.length / 2);
+          gl.endFrameEXP();
+        },
       };
-      animate();
     }),
   },
 
@@ -124,17 +125,16 @@ void main () {
 
       camera.position.z = 3;
 
-      const animate = () => {
-        requestAnimationFrame(animate);
+      return {
+        onTick() {
+          cube.rotation.x += 0.04;
+          cube.rotation.y += 0.07;
 
-        cube.rotation.x += 0.04;
-        cube.rotation.y += 0.07;
+          renderer.render(scene, camera);
 
-        renderer.render(scene, camera);
-
-        gl.endFrameEXP();
+          gl.endFrameEXP();
+        },
       };
-      animate();
     }),
   },
 
@@ -184,19 +184,18 @@ void main () {
 
       camera.position.z = 3;
 
-      const animate = () => {
-        requestAnimationFrame(animate);
+      return {
+        onTick() {
+          cubes.forEach(({ mesh, angularVelocity }) => {
+            mesh.rotation.x += angularVelocity.x;
+            mesh.rotation.y += angularVelocity.y;
+          });
 
-        cubes.forEach(({ mesh, angularVelocity }) => {
-          mesh.rotation.x += angularVelocity.x;
-          mesh.rotation.y += angularVelocity.y;
-        });
+          composer.render();
 
-        composer.render();
-
-        gl.endFrameEXP();
+          gl.endFrameEXP();
+        },
       };
-      animate();
     }),
   },
 
@@ -225,14 +224,12 @@ void main () {
 
       camera.position.z = 3;
 
-      const animate = () => {
-        requestAnimationFrame(animate);
-
-        renderer.render(scene, camera);
-
-        gl.endFrameEXP();
+      return {
+        onTick() {
+          renderer.render(scene, camera);
+          gl.endFrameEXP();
+        },
       };
-      animate();
     }),
   },
 
