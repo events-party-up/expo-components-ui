@@ -30,7 +30,9 @@ export default (title, onContextCreate) =>
 
     _onContextCreate = async gl => {
       this._gl = gl;
-      const { onTick } = await onContextCreate(this._gl);
+      const { result: { onTick = () => {} } = {} } = {
+        result: await onContextCreate(this._gl),
+      };
 
       const animate = () => {
         if (this._gl) {
