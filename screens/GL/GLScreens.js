@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+
 import GLMainScreen from './GLMainScreen';
 import GLWrap from './GLWrap';
 
@@ -14,6 +16,9 @@ require('three/examples/js/postprocessing/FilmPass');
 import ExpoTHREE from 'expo-three';
 
 import ProcessingWrap from './ProcessingWrap';
+
+import './BeforePIXI';
+import * as PIXI from 'pixi.js';
 
 export default {
   GLMainScreen: { screen: GLMainScreen },
@@ -302,6 +307,29 @@ void main () {
           0.1 * p.width * (1 + p.sin(0.003 * t))
         );
       };
+    }),
+  },
+
+  PIXIBasic: {
+    screen: GLWrap('Basic pixi.js use', async gl => {
+      const { scale: resolution } = Dimensions.get('window');
+      const width = gl.drawingBufferWidth / resolution;
+      const height = gl.drawingBufferHeight / resolution;
+      const app = new PIXI.Application({
+        context: gl,
+        width,
+        height,
+        resolution,
+        backgroundColor: 0xffffff,
+      });
+      app.ticker.add(() => gl.endFrameEXP());
+
+      const graphics = new PIXI.Graphics();
+      graphics.lineStyle(0);
+      graphics.beginFill(0x00ff00);
+      graphics.drawCircle(width / 2, height / 2, 50);
+      graphics.endFill();
+      app.stage.addChild(graphics);
     }),
   },
 };
