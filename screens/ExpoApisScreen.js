@@ -892,11 +892,24 @@ class ImagePickerExample extends React.Component {
       alert(JSON.stringify(result));
     };
 
+    const showPickerWithEditing = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true });
+      if (result.cancelled) {
+        this.setState({ selection: null });
+      } else {
+        this.setState({ selection: result });
+      }
+      alert(JSON.stringify(result));
+    };
+
     return (
       <View style={{ padding: 10 }}>
         <View style={{ flexDirection: 'row' }}>
           <Button onPress={showCamera}>Open camera</Button>
           <Button onPress={showPicker}>Pick photo or video</Button>
+        </View>
+        <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+          <Button onPress={showPickerWithEditing}>Pick photo and edit</Button>
         </View>
 
         {this._maybeRenderSelection()}
