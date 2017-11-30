@@ -1302,12 +1302,15 @@ class FacebookLoginExample extends React.Component {
         <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'web')}>
           Authenticate with Facebook (web)
         </Button>
+        <View style={{ marginBottom: 10 }} />
         <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'browser')}>
           Authenticate with Facebook (browser)
         </Button>
+        <View style={{ marginBottom: 10 }} />
         <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'native')}>
           Authenticate with Facebook (native)
         </Button>
+        <View style={{ marginBottom: 10 }} />
         <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'system')}>
           Authenticate with Facebook (system)
         </Button>
@@ -1475,8 +1478,13 @@ class SecureStoreExample extends React.Component {
             marginBottom: 10,
             padding: 10,
             height: 40,
-            borderColor: '#000000',
-            borderWidth: 1,
+            ...Platform.select({
+              ios: {
+                borderColor: '#ccc',
+                borderWidth: 1,
+                borderRadius: 3,
+              },
+            }),
           }}
           placeholder="Enter a value to store (ex. pw123!)"
           value={this.state.value}
@@ -1490,8 +1498,13 @@ class SecureStoreExample extends React.Component {
             marginBottom: 10,
             padding: 10,
             height: 40,
-            borderColor: '#000000',
-            borderWidth: 1,
+            ...Platform.select({
+              ios: {
+                borderColor: '#ccc',
+                borderWidth: 1,
+                borderRadius: 3,
+              },
+            }),
           }}
           placeholder="Enter a key for the value (ex. password)"
           value={this.state.key}
