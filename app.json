@@ -46,6 +46,10 @@
         }
       }
     },
-    "assetBundlePatterns": ["assets/**"]
+    "assetBundlePatterns": [
+      "assets/**",
+      "node_modules/react-navigation/src/**/*.png",
+      "node_modules/@expo/vector-icons/fonts/*.ttf"
+    ]
   }
 }
