@@ -120,7 +120,7 @@ class HTMLImageElement extends Image {
     this.border = null;
     this.complete = true;
     this.crossOrigin = '';
-    this.lowSrc = this.currentSrc = this.src = props.localUri;
+    this.localUri = this.lowSrc = this.currentSrc = this.src = props.localUri;
     this.width = props.width;
     this.height = props.height;
     this.isMap = true;
