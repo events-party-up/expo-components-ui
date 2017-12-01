@@ -73,25 +73,32 @@ void main () {
       gl.enableVertexAttribArray(positionAttrib);
       gl.vertexAttribPointer(positionAttrib, 2, gl.FLOAT, false, 0, 0);
 
-      const textureAsset = Expo.Asset.fromModule(require('../../assets/images/nikki.png'));
-      await textureAsset.downloadAsync();
+      const asset = Expo.Asset.fromModule(require('../../assets/images/nikki.png'));
+      await asset.downloadAsync();
       const texture = gl.createTexture();
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-      gl.texImage2D(
-        gl.TEXTURE_2D,
-        0,
-        gl.RGBA,
-        128,
-        128,
-        0,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        textureAsset
-      );
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, asset);
       gl.uniform1i(gl.getUniformLocation(program, 'texture'), 0);
+
+      (async () => {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        const asset = Expo.Asset.fromModule(require('../../assets/images/nikki-small-purple.png'));
+        await asset.downloadAsync();
+        gl.texSubImage2D(gl.TEXTURE_2D, 0, 32, 32, gl.RGBA, gl.UNSIGNED_BYTE, asset);
+        // Use below to test using a `TypedArray` parameter
+        //         gl.texSubImage2D(
+        //           gl.TEXTURE_2D, 0, 32, 32, 2, 2, gl.RGBA, gl.UNSIGNED_BYTE,
+        //           new Uint8Array([
+        //             255, 0, 0, 255,
+        //             0, 255, 0, 255,
+        //             0, 0, 255, 255,
+        //             128, 128, 0, 255,
+        //           ]));
+      })();
 
       return {
         onTick() {
@@ -330,6 +337,28 @@ void main () {
       graphics.drawCircle(width / 2, height / 2, 50);
       graphics.endFill();
       app.stage.addChild(graphics);
+    }),
+  },
+
+  PIXISprite: {
+    screen: GLWrap('pixi.js sprite rendering', async gl => {
+      const { scale: resolution } = Dimensions.get('window');
+      const width = gl.drawingBufferWidth / resolution;
+      const height = gl.drawingBufferHeight / resolution;
+      const app = new PIXI.Application({
+        context: gl,
+        width,
+        height,
+        resolution,
+        backgroundColor: 0xffffff,
+      });
+      app.ticker.add(() => gl.endFrameEXP());
+
+      const asset = Expo.Asset.fromModule(require('../../assets/images/nikki.png'));
+      await asset.downloadAsync();
+      const image = new HTMLImageElement(asset);
+      const sprite = PIXI.Sprite.from(image);
+      app.stage.addChild(sprite);
     }),
   },
 
