@@ -17,6 +17,7 @@ import GestureHandlerSwipeableScreen from '../screens/GestureHandlerSwipeableScr
 import SensorScreen from '../screens/SensorScreen';
 import GeocodingScreen from '../screens/GeocodingScreen';
 import GLScreens from '../screens/GL/GLScreens';
+import ImageManipulatorScreen from '../screens/ImageManipulatorScreen';
 import FacebookAdsScreen from '../screens/FacebookAdsScreen';
 import ReactNativeCoreScreen from '../screens/ReactNativeCoreScreen';
 import TextToSpeechScreen from '../screens/TextToSpeechScreen';
@@ -77,6 +78,7 @@ const ExpoApisStackNavigator = StackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
     AuthSession: { screen: AuthSessionScreen },
+    ImageManipulator: { screen: ImageManipulatorScreen },
     Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
     Geocoding: { screen: GeocodingScreen },

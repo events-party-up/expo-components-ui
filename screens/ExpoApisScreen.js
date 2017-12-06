@@ -116,6 +116,7 @@ export default class ExpoApisScreen extends React.Component {
       Geocoding: [this._renderGeocoding],
       Google: [this._renderGoogle],
       ImagePicker: [this._renderImagePicker],
+      ImageManipulator: [this._renderImageManipulator],
       KeepAwake: [this._renderKeepAwake],
       LocalNotification: [this._renderLocalNotification],
       Location: [this._renderLocation],
@@ -160,6 +161,16 @@ export default class ExpoApisScreen extends React.Component {
 
   _renderImagePicker = () => {
     return <ImagePickerExample />;
+  };
+
+  _renderImageManipulator = () => {
+    return (
+      <View style={{ padding: 10 }}>
+        <Button onPress={() => this.props.navigation.navigate('ImageManipulator')}>
+          Go to ImageManipulator example
+        </Button>
+      </View>
+    );
   };
 
   _renderPedometer = () => {
