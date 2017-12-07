@@ -27,7 +27,6 @@ import Expo, {
   Notifications,
   Pedometer,
   Permissions,
-  ScreenOrientation,
   SecureStore,
   Video,
   WebBrowser,
@@ -45,6 +44,19 @@ DangerZone.Branch.subscribe(bundle => {
     Alert.alert('Opened Branch link', JSON.stringify(bundle.params, null, 2));
   }
 });
+
+@withNavigation
+class GoToExampleButton extends React.Component {
+  render() {
+    return (
+      <View style={{ padding: 10 }}>
+        <Button onPress={() => this.props.navigation.navigate(this.props.name)}>
+          Go to {this.props.name} example
+        </Button>
+      </View>
+    );
+  }
+}
 
 export default class ExpoApisScreen extends React.Component {
   static navigationOptions = {
@@ -141,20 +153,7 @@ export default class ExpoApisScreen extends React.Component {
   }
 
   _renderScreenOrientation = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        {Object.keys(ScreenOrientation.Orientation).map(orientation => (
-          <Button
-            key={orientation}
-            style={{ marginBottom: 10 }}
-            onPress={() => {
-              ScreenOrientation.allow(orientation);
-            }}>
-            {orientation}
-          </Button>
-        ))}
-      </View>
-    );
+    return <GoToExampleButton name="ScreenOrientation" />;
   };
 
   _renderImagePicker = () => {
@@ -162,13 +161,7 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderImageManipulator = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('ImageManipulator')}>
-          Go to ImageManipulator example
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="ImageManipulator" />;
   };
 
   _renderPedometer = () => {
@@ -180,33 +173,15 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderAuthSession = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('AuthSession')}>
-          Go to AuthSession example
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="AuthSession" />;
   };
 
   _renderConstants = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('Constants')}>
-          Go to Constants example
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="Constants" />;
   };
 
   _renderContacts = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('Contacts')}>
-          Go to Contacts example
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="Contacts" />;
   };
 
   _renderFacebook = () => {
@@ -298,23 +273,11 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderGeocoding = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('Geocoding')}>
-          Go to Geocoding example
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="Geocoding" />;
   };
 
   _renderSpeech = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('Speech')}>
-          Go to Text to Speech example
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="Speech" />;
   };
 
   _renderSecureStore = () => {
