@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native';
 import { Asset, ImageManipulator } from 'expo';
+import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
@@ -29,17 +30,17 @@ export default class ImageManipulatorScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={{ padding: 10 }}>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             <Button style={styles.button} onPress={() => this._rotate(90)}>
-              Rotate 90
+              <Ionicons name="ios-refresh-outline" size={16} color="#ffffff" /> 90
             </Button>
             <Button style={styles.button} onPress={() => this._rotate(45)}>
-              Rotate 45
+              45
             </Button>
             <Button style={styles.button} onPress={() => this._rotate(-90)}>
-              Rotate -90
+              -90
             </Button>
             <Button style={styles.button} onPress={() => this._flip({ horizontal: true })}>
               Flip horizontal
@@ -69,7 +70,7 @@ export default class ImageManipulatorScreen extends React.Component {
 
           {this.state.ready && this._renderImage()}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   button: {
-    padding: 10,
+    padding: 8,
     borderRadius: 3,
     backgroundColor: Colors.tintColor,
     marginRight: 10,
@@ -173,5 +174,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
+    fontSize: 12,
   },
 });
