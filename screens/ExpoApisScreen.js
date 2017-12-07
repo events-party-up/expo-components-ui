@@ -16,8 +16,6 @@ import {
   ToastAndroid,
 } from 'react-native';
 import Expo, {
-  Constants,
-  Contacts,
   DangerZone,
   DocumentPicker,
   FileSystem,
@@ -202,7 +200,13 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderContacts = () => {
-    return <ContactsExample />;
+    return (
+      <View style={{ padding: 10 }}>
+        <Button onPress={() => this.props.navigation.navigate('Contacts')}>
+          Go to Contacts example
+        </Button>
+      </View>
+    );
   };
 
   _renderFacebook = () => {
@@ -368,85 +372,6 @@ export default class ExpoApisScreen extends React.Component {
       </View>
     );
   };
-}
-
-const CONTACT_PAGE_SIZE = 4;
-
-class ContactsExample extends React.Component {
-  state = {
-    contacts: null,
-    page: 0,
-    hasPreviousPage: false,
-    hasNextPage: false,
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.page !== prevState.page) {
-      this._findContacts();
-    }
-  }
-
-  _findContacts = async page => {
-    let permission = await Permissions.askAsync(Permissions.CONTACTS);
-    if (permission.status !== 'granted') {
-      setTimeout(() => Alert.alert('Contacts permission was not granted.'), 100);
-      return;
-    }
-    let result = await Contacts.getContactsAsync({
-      fields: [Contacts.EMAILS, Contacts.PHONE_NUMBERS, Contacts.ADDRESSES],
-      pageSize: CONTACT_PAGE_SIZE,
-      pageOffset: this.state.page * CONTACT_PAGE_SIZE,
-    });
-
-    let contacts = result.data.map(contact => {
-      return {
-        id: contact.id,
-        firstName: contact.firstName,
-        name: contact.name,
-        emails: contact.emails,
-        phoneNumbers: contact.phoneNumbers,
-        addresses: contact.addresses,
-      };
-    });
-
-    this.setState({
-      contacts,
-      hasPreviousPage: result.hasPreviousPage,
-      hasNextPage: result.hasNextPage,
-    });
-  };
-
-  _nextPage = () => {
-    this.setState(state => ({ page: state.page + 1 }));
-  };
-
-  _previousPage = () => {
-    this.setState(state => ({ page: state.page - 1 }));
-  };
-
-  render() {
-    if (this.state.contacts) {
-      return (
-        <View style={{ padding: 10 }}>
-          <Text>{JSON.stringify(this.state.contacts)}</Text>
-          {this.state.hasNextPage ? (
-            <Button onPress={this._nextPage} style={{ marginVertical: 10 }}>
-              Next page
-            </Button>
-          ) : null}
-          {this.state.hasPreviousPage ? (
-            <Button onPress={this._previousPage}>Previous page</Button>
-          ) : null}
-        </View>
-      );
-    }
-
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._findContacts}>Find my contacts</Button>
-      </View>
-    );
-  }
 }
 
 class DocumentPickerExample extends React.Component {

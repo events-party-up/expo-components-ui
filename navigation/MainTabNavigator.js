@@ -11,6 +11,7 @@ import BarCodeScannerScreen from '../screens/BarCodeScannerScreen';
 import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
 import ConstantsScreen from '../screens/ConstantsScreen';
+import ContactsScreen from '../screens/ContactsScreen';
 import AuthSessionScreen from '../screens/AuthSessionScreen';
 import GestureHandlerPinchScreen from '../screens/GestureHandlerPinchScreen';
 import GestureHandlerListScreen from '../screens/GestureHandlerListScreen';
@@ -80,6 +81,7 @@ const ExpoApisStackNavigator = StackNavigator(
     ExpoApis: { screen: ExpoApisScreen },
     AuthSession: { screen: AuthSessionScreen },
     Constants: { screen: ConstantsScreen },
+    Contacts: { screen: ContactsScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
     Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
