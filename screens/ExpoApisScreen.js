@@ -192,7 +192,13 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderConstants = () => {
-    return <ConstantsExample />;
+    return (
+      <View style={{ padding: 10 }}>
+        <Button onPress={() => this.props.navigation.navigate('Constants')}>
+          Go to Constants example
+        </Button>
+      </View>
+    );
   };
 
   _renderContacts = () => {
@@ -362,60 +368,6 @@ export default class ExpoApisScreen extends React.Component {
       </View>
     );
   };
-}
-
-const ExponentConstant = ({ name, object }) => {
-  let value = Constants[name];
-
-  if (object) {
-    value = JSON.stringify(value);
-  } else if (typeof value === 'boolean') {
-    value = value ? 'true' : 'false';
-  }
-
-  return (
-    <View style={{ flexDirection: 'row', flex: 1 }}>
-      <Text numberOfLines={1} ellipsizeMode="tail" style={{ flex: 1 }}>
-        <Text style={{ fontWeight: 'bold' }}>{name}</Text>: {value}
-      </Text>
-    </View>
-  );
-};
-
-class ConstantsExample extends React.Component {
-  state = {
-    webViewUserAgent: null,
-  };
-
-  componentWillMount() {
-    this._update();
-  }
-
-  _update = async () => {
-    let webViewUserAgent = await Constants.getWebViewUserAgentAsync();
-    this.setState({ webViewUserAgent });
-  };
-
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <ExponentConstant name="expoVersion" />
-        <ExponentConstant name="deviceId" />
-        <ExponentConstant name="deviceName" />
-        <ExponentConstant name="deviceYearClass" />
-        <ExponentConstant name="sessionId" />
-        <ExponentConstant name="linkingUri" />
-        <ExponentConstant name="statusBarHeight" />
-        <ExponentConstant name="isDevice" />
-        <ExponentConstant name="appOwnership" />
-        {Platform.OS === 'ios' && <ExponentConstant name="platform" object />}
-        <Text>
-          <Text style={{ fontWeight: 'bold' }}>getWebViewUserAgentAsync</Text>:{' '}
-          {this.state.webViewUserAgent}
-        </Text>
-      </View>
-    );
-  }
 }
 
 const CONTACT_PAGE_SIZE = 4;
