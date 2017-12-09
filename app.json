@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Expo APIs",
-    "description": "This experience shows a bunch of the native components that you can use in React Native core and Expo. Hit the button in the top right for the components in the Expo SDK.",
+    "description": "This demonstrates a bunch of the native components that you can use in React Native core and Expo.",
     "slug": "native-component-list",
     "sdkVersion": "24.0.0",
     "version": "24.0.0",
@@ -9,7 +9,7 @@
     "primaryColor": "#cccccc",
     "privacy": "public",
     "icon": "./assets/icons/icon.png",
-    "scheme": "nclexp",
+    "scheme": "ncl",
     "notification": {
       "icon": "./assets/icons/notificationIcon.png",
       "color": "#000000"

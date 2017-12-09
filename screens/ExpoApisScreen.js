@@ -33,7 +33,6 @@ import Expo, {
 } from 'expo';
 import Touchable from 'react-native-platform-touchable';
 import { withNavigation } from 'react-navigation';
-import { MaterialIcons } from '@expo/vector-icons';
 
 import NavigationEvents from '../utilities/NavigationEvents';
 import Colors from '../constants/Colors';
@@ -197,43 +196,7 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderFont = () => {
-    return (
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 15,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            flex: 1,
-          }}>
-          <MaterialIcons name="airplay" size={25} />
-          <MaterialIcons name="airport-shuttle" size={25} />
-          <MaterialIcons name="alarm" size={25} />
-          <MaterialIcons name="alarm-add" size={25} />
-          <MaterialIcons name="alarm-off" size={25} />
-          <MaterialIcons name="all-inclusive" size={25} />
-        </View>
-
-        <View style={{ paddingVertical: 10, paddingHorizontal: 15 }}>
-          <Text style={{ fontFamily: 'space-mono', fontSize: 16 }}>
-            Font icons sets and other custom fonts can be loaded from the web
-          </Text>
-          {Platform.OS === 'ios' ? (
-            <Text
-              adjustsFontSizeToFit
-              style={{
-                flex: 1,
-                height: 32,
-                fontFamily: 'space-mono',
-                fontSize: 420,
-              }}>
-              Custom font with `adjustsFontSizeToFit` on iOS
-            </Text>
-          ) : null}
-        </View>
-      </View>
-    );
+    return <GoToExampleButton name="Font" />;
   };
 
   _renderKeepAwake = () => {
