@@ -25,6 +25,7 @@ import FacebookAdsScreen from '../screens/FacebookAdsScreen';
 import ReactNativeCoreScreen from '../screens/ReactNativeCoreScreen';
 import TextToSpeechScreen from '../screens/TextToSpeechScreen';
 import ScreenOrientationScreen from '../screens/ScreenOrientationScreen';
+import SecureStoreScreen from '../screens/SecureStoreScreen';
 import SVGScreen from '../screens/SVGScreen';
 import LocationScreen from '../screens/LocationScreen';
 import LottieScreen from '../screens/LottieScreen';
@@ -89,6 +90,7 @@ const ExpoApisStackNavigator = StackNavigator(
     ImageManipulator: { screen: ImageManipulatorScreen },
     Location: { screen: LocationScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
+    SecureStore: { screen: SecureStoreScreen },
     Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
     Geocoding: { screen: GeocodingScreen },
