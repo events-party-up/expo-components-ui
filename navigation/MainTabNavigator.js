@@ -26,6 +26,7 @@ import ReactNativeCoreScreen from '../screens/ReactNativeCoreScreen';
 import TextToSpeechScreen from '../screens/TextToSpeechScreen';
 import ScreenOrientationScreen from '../screens/ScreenOrientationScreen';
 import SVGScreen from '../screens/SVGScreen';
+import LocationScreen from '../screens/LocationScreen';
 import LottieScreen from '../screens/LottieScreen';
 import MapsScreen from '../screens/MapsScreen';
 import BasicMaskScreen from '../screens/BasicMaskScreen';
@@ -86,6 +87,7 @@ const ExpoApisStackNavigator = StackNavigator(
     Constants: { screen: ConstantsScreen },
     Contacts: { screen: ContactsScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
+    Location: { screen: LocationScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
