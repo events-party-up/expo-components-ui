@@ -10,6 +10,7 @@ import NavigationEvents from '../utilities/NavigationEvents';
 import BarCodeScannerScreen from '../screens/BarCodeScannerScreen';
 import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
+import FileSystemScreen from '../screens/FileSystemScreen';
 import FontScreen from '../screens/FontScreen';
 import ConstantsScreen from '../screens/ConstantsScreen';
 import ContactsScreen from '../screens/ContactsScreen';
@@ -83,6 +84,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
 const ExpoApisStackNavigator = StackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
+    FileSystem: { screen: FileSystemScreen },
     Font: { screen: FontScreen },
     AuthSession: { screen: AuthSessionScreen },
     Constants: { screen: ConstantsScreen },
