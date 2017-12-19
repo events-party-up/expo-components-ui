@@ -51,6 +51,7 @@ export default class ConstantsScreen extends React.Component {
         <ExpoConstant name="isDevice" />
         <ExpoConstant name="appOwnership" />
         {Platform.OS === 'ios' && <ExpoConstant name="platform" object />}
+        {Platform.OS === 'android' && <ExpoConstant name="androidVersionCode" />}
         <ExpoConstant name="manifest" object />
         <Text>
           <Text style={{ fontWeight: 'bold' }}>getWebViewUserAgentAsync</Text>:{' '}
