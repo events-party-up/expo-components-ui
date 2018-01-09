@@ -40,6 +40,7 @@ export default class TextToSpeechScreen extends React.Component {
   state = {
     selectedExample: EXAMPLES[0],
     inProgress: false,
+    paused: false,
     pitch: 1,
     rate: 0.75,
   };
@@ -60,6 +61,17 @@ export default class TextToSpeechScreen extends React.Component {
 
           <Button disabled={!this.state.inProgress} onPress={this._stop} title="Stop" />
         </View>
+
+        {Platform.OS === 'ios' && (
+          <View style={styles.controlRow}>
+            <Button
+              disabled={!this.state.inProgress || this.state.paused}
+              onPress={this._pause}
+              title="Pause"
+            />
+            <Button disabled={!this.state.paused} onPress={this._resume} title="Resume" />
+          </View>
+        )}
 
         <Text style={styles.controlText}>Pitch: {this.state.pitch.toFixed(2)}</Text>
         <View style={styles.controlRow}>
@@ -102,7 +114,7 @@ export default class TextToSpeechScreen extends React.Component {
       this.setState({ inProgress: true });
     };
     const complete = () => {
-      this.state.inProgress && this.setState({ inProgress: false });
+      this.state.inProgress && this.setState({ inProgress: false, paused: false });
     };
 
     Speech.speak(this.state.selectedExample.text, {
@@ -118,6 +130,16 @@ export default class TextToSpeechScreen extends React.Component {
 
   _stop = () => {
     Speech.stop();
+  };
+
+  _pause = () => {
+    Speech.pause();
+    this.setState({ paused: true });
+  };
+
+  _resume = () => {
+    Speech.resume();
+    this.setState({ paused: false });
   };
 
   _increasePitch = () => {
