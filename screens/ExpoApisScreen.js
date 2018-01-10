@@ -617,6 +617,12 @@ class LocalNotificationExample extends React.Component {
         <Button onPress={this._scheduleLocalNotification}>
           Schedule notification for 10 seconds from now
         </Button>
+
+        <View style={{ height: 10 }} />
+
+        <Button onPress={Notifications.cancelAllScheduledNotificationsAsync}>
+          Cancel all scheduled notifications
+        </Button>
       </View>
     );
   }
