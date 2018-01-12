@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   Alert,
   AppState,
-  AsyncStorage,
   Image,
   ListView,
   Platform,
@@ -16,13 +14,13 @@ import Expo, {
   DangerZone,
   DocumentPicker,
   Fingerprint,
+  FileSystem,
   KeepAwake,
-  Location,
   ImagePicker,
   IntentLauncherAndroid,
+  MailComposer,
   Notifications,
   Pedometer,
-  Permissions,
   Video,
   WebBrowser,
 } from 'expo';
@@ -124,6 +122,7 @@ export default class ExpoApisScreen extends React.Component {
       KeepAwake: [this._renderKeepAwake],
       LocalNotification: [this._renderLocalNotification],
       Location: [this._renderLocation],
+      MailComposer: [this._renderMailComposer],
       NotificationBadge: [this._renderNotificationBadge],
       Pedometer: [this._renderPedometer],
       PushNotification: [this._renderPushNotification],
@@ -235,6 +234,10 @@ export default class ExpoApisScreen extends React.Component {
 
   _renderSecureStore = () => {
     return <GoToExampleButton name="SecureStore" />;
+  };
+
+  _renderMailComposer = () => {
+    return <MailComposerExample name="MailComposer" />;
   };
 
   _renderWebBrowser = () => {
@@ -664,6 +667,31 @@ class LocalNotificationExample extends React.Component {
       }
     );
   };
+}
+
+class MailComposerExample extends React.Component {
+  render() {
+    return (
+      <View style={{ padding: 10 }}>
+        <Button
+          onPress={async () => {
+            const { status } = await MailComposer.composeAsync({
+              subject: 'Wishes',
+              body: 'Dear Friend! <b>Happy</b> Birthday, enjoy your day! 🎈',
+              recipients: ['sample.mail@address.com'],
+              isHtml: true,
+            });
+            if (status === 'sent') {
+              Alert.alert('Mail sent!');
+            } else {
+              Alert.alert('Sending cancelled or something went wrong :(');
+            }
+          }}>
+          Send birthday wishes
+        </Button>
+      </View>
+    );
+  }
 }
 
 class FacebookLoginExample extends React.Component {
