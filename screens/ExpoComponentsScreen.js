@@ -184,6 +184,7 @@ export default class HomeScreen extends React.Component {
           style={{ width: 300, height: 300 }}
           isMuted
           shouldPlay
+          useNativeControls
           isLooping
         />
       </View>
