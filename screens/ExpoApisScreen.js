@@ -12,15 +12,12 @@ import {
 } from 'react-native';
 import Expo, {
   DangerZone,
-  DocumentPicker,
   Fingerprint,
   FileSystem,
   KeepAwake,
-  ImagePicker,
   IntentLauncherAndroid,
   MailComposer,
   Notifications,
-  Pedometer,
   Video,
   WebBrowser,
 } from 'expo';
@@ -150,7 +147,7 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderImagePicker = () => {
-    return <ImagePickerExample />;
+    return <GoToExampleButton name="ImagePicker" />;
   };
 
   _renderImageManipulator = () => {
@@ -158,11 +155,11 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderPedometer = () => {
-    return <PedometerExample />;
+    return <GoToExampleButton name="Pedometer" />;
   };
 
   _renderDocumentPicker = () => {
-    return <DocumentPickerExample />;
+    return <GoToExampleButton name="DocumentPicker" />;
   };
 
   _renderAuthSession = () => {
@@ -298,52 +295,6 @@ export default class ExpoApisScreen extends React.Component {
   };
 }
 
-class DocumentPickerExample extends React.Component {
-  state = {
-    document: null,
-  };
-
-  _openPicker = async () => {
-    const result = await DocumentPicker.getDocumentAsync({});
-    if (result.type === 'success') {
-      this.setState({ document: result });
-    } else {
-      setTimeout(() => {
-        Alert.alert('Document picked', JSON.stringify(result, null, 2));
-      }, 100);
-    }
-  };
-
-  _renderDocument() {
-    if (this.state.document === null) {
-      return null;
-    }
-    return (
-      <View>
-        {this.state.document.uri.match(/\.(png|jpg)$/gi) ? (
-          <Image
-            source={{ uri: this.state.document.uri }}
-            resizeMode="cover"
-            style={{ width: 100, height: 100 }}
-          />
-        ) : null}
-        <Text>
-          {this.state.document.name} ({this.state.document.size / 1000} KB)
-        </Text>
-      </View>
-    );
-  }
-
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._openPicker}>Open document picker</Button>
-        {this._renderDocument()}
-      </View>
-    );
-  }
-}
-
 class SettingsExample extends React.Component {
   renderSettingsLink(title, activity) {
     return (
@@ -383,139 +334,6 @@ class SensorsExample extends React.Component {
         <Button onPress={() => this.props.navigation.navigate('Sensor')}>
           Try out sensors (Gyroscope, Accelerometer)
         </Button>
-      </View>
-    );
-  }
-}
-
-class ImagePickerExample extends React.Component {
-  state = {
-    selection: null,
-  };
-
-  render() {
-    const showCamera = async () => {
-      let result = await ImagePicker.launchCameraAsync({});
-      if (result.cancelled) {
-        this.setState({ selection: null });
-      } else {
-        this.setState({ selection: result });
-      }
-      alert(JSON.stringify(result));
-    };
-
-    const showPicker = async () => {
-      let result = await ImagePicker.launchImageLibraryAsync({});
-      if (result.cancelled) {
-        this.setState({ selection: null });
-      } else {
-        this.setState({ selection: result });
-      }
-      alert(JSON.stringify(result));
-    };
-
-    const showPickerWithEditing = async () => {
-      let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true });
-      if (result.cancelled) {
-        this.setState({ selection: null });
-      } else {
-        this.setState({ selection: result });
-      }
-      alert(JSON.stringify(result));
-    };
-
-    return (
-      <View style={{ padding: 10 }}>
-        <View style={{ flexDirection: 'row' }}>
-          <Button onPress={showCamera}>Open camera</Button>
-          <Button onPress={showPicker}>Pick photo or video</Button>
-        </View>
-        <View style={{ flexDirection: 'row', paddingTop: 10 }}>
-          <Button onPress={showPickerWithEditing}>Pick photo and edit</Button>
-        </View>
-
-        {this._maybeRenderSelection()}
-      </View>
-    );
-  }
-
-  _maybeRenderSelection = () => {
-    const { selection } = this.state;
-
-    if (!selection) {
-      return;
-    }
-
-    let media =
-      selection.type === 'video' ? (
-        <Video
-          source={{ uri: selection.uri }}
-          style={{ width: 300, height: 300 }}
-          resizeMode="contain"
-          shouldPlay
-          isLooping
-        />
-      ) : (
-        <Image
-          source={{ uri: selection.uri }}
-          style={{ width: 300, height: 300, resizeMode: 'contain' }}
-        />
-      );
-
-    return (
-      <View style={{ marginVertical: 10, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        {media}
-      </View>
-    );
-  };
-}
-
-class PedometerExample extends React.Component {
-  state = { stepCount: null };
-  _listener: { remove: () => void } = null;
-
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={async () => {
-            const result = await Pedometer.isAvailableAsync();
-            Alert.alert('Pedometer result', `Is available: ${result}`);
-          }}>
-          Is available
-        </Button>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={async () => {
-            const end = new Date();
-            const start = new Date();
-            start.setDate(end.getDate() - 1);
-            const result = await Pedometer.getStepCountAsync(start, end);
-            Alert.alert('Pedometer result', `Number of steps for the last day: ${result.steps}`);
-          }}>
-          Get steps count
-        </Button>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={async () => {
-            this._listener = Pedometer.watchStepCount(data => {
-              this.setState({ stepCount: data.steps });
-            });
-          }}>
-          Listen for step count updates
-        </Button>
-        <Button
-          style={{ marginBottom: 10 }}
-          onPress={async () => {
-            if (this._listener) {
-              this._listener.remove();
-              this._listener = null;
-            }
-          }}>
-          Stop listening for step count updates
-        </Button>
-        {this.state.stepCount !== null ? <Text>Total steps {this.state.stepCount}</Text> : null}
       </View>
     );
   }

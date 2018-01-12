@@ -8,6 +8,7 @@ import { Colors, Layout } from '../constants';
 import NavigationEvents from '../utilities/NavigationEvents';
 
 import BarCodeScannerScreen from '../screens/BarCodeScannerScreen';
+import DocumentPickerScreen from '../screens/DocumentPickerScreen';
 import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
 import FileSystemScreen from '../screens/FileSystemScreen';
@@ -25,6 +26,7 @@ import SensorScreen from '../screens/SensorScreen';
 import GeocodingScreen from '../screens/GeocodingScreen';
 import GLScreens from '../screens/GL/GLScreens';
 import ImageManipulatorScreen from '../screens/ImageManipulatorScreen';
+import ImagePickerScreen from '../screens/ImagePickerScreen';
 import FacebookAdsScreen from '../screens/FacebookAdsScreen';
 import ReactNativeCoreScreen from '../screens/ReactNativeCoreScreen';
 import TextToSpeechScreen from '../screens/TextToSpeechScreen';
@@ -35,6 +37,7 @@ import LocalNotificationScreen from '../screens/LocalNotificationScreen';
 import LocationScreen from '../screens/LocationScreen';
 import LottieScreen from '../screens/LottieScreen';
 import MapsScreen from '../screens/MapsScreen';
+import PedometerScreen from '../screens/PedometerScreen';
 import BasicMaskScreen from '../screens/BasicMaskScreen';
 import MaskGLScreen from '../screens/MaskGLScreen';
 import AdmobScreen from '../screens/AdmobScreen';
@@ -88,6 +91,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
 const ExpoApisStackNavigator = StackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
+    DocumentPicker: { screen: DocumentPickerScreen },
     FileSystem: { screen: FileSystemScreen },
     Font: { screen: FontScreen },
     AuthSession: { screen: AuthSessionScreen },
@@ -96,8 +100,10 @@ const ExpoApisStackNavigator = StackNavigator(
     Contacts: { screen: ContactsScreen },
     Events: { screen: EventsScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
+    ImagePicker: { screen: ImagePickerScreen },
     LocalNotification: { screen: LocalNotificationScreen },
     Location: { screen: LocationScreen },
+    Pedometer: { screen: PedometerScreen },
     Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
