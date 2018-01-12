@@ -109,6 +109,7 @@ export default class ExpoApisScreen extends React.Component {
   componentDidMount() {
     let dataSource = this.state.dataSource.cloneWithRowsAndSections({
       AuthSession: [this._renderAuthSession],
+      Calendars: [this._renderCalendars],
       Constants: [this._renderConstants],
       Contacts: [this._renderContacts],
       DocumentPicker: [this._renderDocumentPicker],
@@ -166,6 +167,10 @@ export default class ExpoApisScreen extends React.Component {
 
   _renderAuthSession = () => {
     return <GoToExampleButton name="AuthSession" />;
+  };
+
+  _renderCalendars = () => {
+    return <GoToExampleButton name="Calendars" />;
   };
 
   _renderConstants = () => {

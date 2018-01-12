@@ -12,12 +12,15 @@ import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
 import FileSystemScreen from '../screens/FileSystemScreen';
 import FontScreen from '../screens/FontScreen';
+import CalendarsScreen from '../screens/CalendarsScreen';
 import ConstantsScreen from '../screens/ConstantsScreen';
 import ContactsScreen from '../screens/ContactsScreen';
+import EventsScreen from '../screens/EventsScreen';
 import AuthSessionScreen from '../screens/AuthSessionScreen';
 import GestureHandlerPinchScreen from '../screens/GestureHandlerPinchScreen';
 import GestureHandlerListScreen from '../screens/GestureHandlerListScreen';
 import GestureHandlerSwipeableScreen from '../screens/GestureHandlerSwipeableScreen';
+import RemindersScreen from '../screens/RemindersScreen';
 import SensorScreen from '../screens/SensorScreen';
 import GeocodingScreen from '../screens/GeocodingScreen';
 import GLScreens from '../screens/GL/GLScreens';
@@ -87,10 +90,13 @@ const ExpoApisStackNavigator = StackNavigator(
     FileSystem: { screen: FileSystemScreen },
     Font: { screen: FontScreen },
     AuthSession: { screen: AuthSessionScreen },
+    Calendars: { screen: CalendarsScreen },
     Constants: { screen: ConstantsScreen },
     Contacts: { screen: ContactsScreen },
+    Events: { screen: EventsScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
     Location: { screen: LocationScreen },
+    Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
     Speech: { screen: TextToSpeechScreen },
