@@ -31,6 +31,7 @@ import TextToSpeechScreen from '../screens/TextToSpeechScreen';
 import ScreenOrientationScreen from '../screens/ScreenOrientationScreen';
 import SecureStoreScreen from '../screens/SecureStoreScreen';
 import SVGScreen from '../screens/SVGScreen';
+import LocalNotificationScreen from '../screens/LocalNotificationScreen';
 import LocationScreen from '../screens/LocationScreen';
 import LottieScreen from '../screens/LottieScreen';
 import MapsScreen from '../screens/MapsScreen';
@@ -95,6 +96,7 @@ const ExpoApisStackNavigator = StackNavigator(
     Contacts: { screen: ContactsScreen },
     Events: { screen: EventsScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
+    LocalNotification: { screen: LocalNotificationScreen },
     Location: { screen: LocationScreen },
     Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },

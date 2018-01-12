@@ -210,7 +210,7 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderLocalNotification = () => {
-    return <LocalNotificationExample />;
+    return <GoToExampleButton name="LocalNotification" />;
   };
 
   _renderSensors = () => {
@@ -612,66 +612,6 @@ class KeepAwakeExample extends React.Component {
       </View>
     );
   }
-}
-
-class LocalNotificationExample extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._presentLocalNotification}>Present a notification immediately</Button>
-
-        <View style={{ height: 10 }} />
-
-        <Button onPress={this._scheduleLocalNotification}>
-          Schedule notification for 10 seconds from now
-        </Button>
-
-        <View style={{ height: 10 }} />
-
-        <Button onPress={Notifications.cancelAllScheduledNotificationsAsync}>
-          Cancel all scheduled notifications
-        </Button>
-      </View>
-    );
-  }
-
-  _presentLocalNotification = () => {
-    Notifications.presentLocalNotificationAsync({
-      title: 'Here is a local notification!',
-      body: 'This is the body',
-      data: {
-        hello: 'there',
-      },
-      ios: {
-        sound: true,
-      },
-      android: {
-        vibrate: true,
-      },
-    });
-  };
-
-  _scheduleLocalNotification = () => {
-    Notifications.scheduleLocalNotificationAsync(
-      {
-        title: 'Here is a scheduled notifiation!',
-        body: 'This is the body',
-        data: {
-          hello: 'there',
-          future: 'self',
-        },
-        ios: {
-          sound: true,
-        },
-        android: {
-          vibrate: true,
-        },
-      },
-      {
-        time: new Date().getTime() + 10000,
-      }
-    );
-  };
 }
 
 class MailComposerExample extends React.Component {
