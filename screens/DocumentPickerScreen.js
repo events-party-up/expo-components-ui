@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, ScrollView, View } from 'react-native';
+import { Alert, Button, Image, ScrollView, Text, View } from 'react-native';
 import { DocumentPicker } from 'expo';
 
 export default class DocumentPickerScreen extends React.Component {
