@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons';
+import ExpoAPIIcon from '../components/ExpoAPIIcon';
 import NavigationEvents from '../utilities/NavigationEvents';
 import { withNavigation } from 'react-navigation';
 
@@ -54,6 +55,7 @@ export default class ComponentListScreen extends React.Component {
         style={styles.rowTouchable}
         onPress={() => this.props.navigation.navigate(exampleName)}>
         <View style={styles.row}>
+          <ExpoAPIIcon name={exampleName} style={styles.rowIcon} />
           <Text style={styles.rowLabel}>{exampleName}</Text>
           <Text style={styles.rowDecorator}>
             <Entypo name="chevron-right" size={16} color="#aaaaaa" />
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   rowDecorator: {
     alignSelf: 'flex-end',
@@ -110,5 +113,10 @@ const styles = StyleSheet.create({
   },
   rowLabel: {
     flex: 1,
+    fontSize: 15,
+  },
+  rowIcon: {
+    marginRight: 10,
+    marginLeft: 6,
   },
 });

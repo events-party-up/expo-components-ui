@@ -1,9 +1,10 @@
 import './LegacyReact';
 
-import Expo from 'expo';
+import Expo, { Asset } from 'expo';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
+import Icons from './constants/Icons';
 import RootNavigation from './navigation/RootNavigation';
 
 export default class AppContainer extends React.Component {
@@ -17,7 +18,11 @@ export default class AppContainer extends React.Component {
 
   async _loadAssetsAsync() {
     try {
-      await Expo.Font.loadAsync({ 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf') });
+      const iconRequires = Object.keys(Icons).map(key => Icons[key]);
+      await Promise.all([
+        Asset.loadAsync(iconRequires),
+        Expo.Font.loadAsync({ 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf') })
+      ]);
     } catch (e) {
       console.log({ e });
     } finally {
