@@ -18,29 +18,37 @@ import ConstantsScreen from '../screens/ConstantsScreen';
 import ContactsScreen from '../screens/ContactsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import AuthSessionScreen from '../screens/AuthSessionScreen';
+import FacebookLoginScreen from '../screens/FacebookLoginScreen';
+import FingerprintScreen from '../screens/FingerprintScreen';
 import GestureHandlerPinchScreen from '../screens/GestureHandlerPinchScreen';
 import GestureHandlerListScreen from '../screens/GestureHandlerListScreen';
 import GestureHandlerSwipeableScreen from '../screens/GestureHandlerSwipeableScreen';
+import GoogleLoginScreen from '../screens/GoogleLoginScreen';
 import RemindersScreen from '../screens/RemindersScreen';
 import SensorScreen from '../screens/SensorScreen';
 import GeocodingScreen from '../screens/GeocodingScreen';
 import GLScreens from '../screens/GL/GLScreens';
 import ImageManipulatorScreen from '../screens/ImageManipulatorScreen';
 import ImagePickerScreen from '../screens/ImagePickerScreen';
+import IntentLauncherScreen from '../screens/IntentLauncherScreen';
+import KeepAwakeScreen from '../screens/KeepAwakeScreen';
 import FacebookAdsScreen from '../screens/FacebookAdsScreen';
+import MailComposerScreen from '../screens/MailComposerScreen';
 import ReactNativeCoreScreen from '../screens/ReactNativeCoreScreen';
 import TextToSpeechScreen from '../screens/TextToSpeechScreen';
 import ScreenOrientationScreen from '../screens/ScreenOrientationScreen';
 import SecureStoreScreen from '../screens/SecureStoreScreen';
 import SVGScreen from '../screens/SVGScreen';
-import LocalNotificationScreen from '../screens/LocalNotificationScreen';
 import LocationScreen from '../screens/LocationScreen';
 import LottieScreen from '../screens/LottieScreen';
 import MapsScreen from '../screens/MapsScreen';
+import NotificationScreen from '../screens/NotificationScreen';
 import PedometerScreen from '../screens/PedometerScreen';
 import BasicMaskScreen from '../screens/BasicMaskScreen';
 import MaskGLScreen from '../screens/MaskGLScreen';
 import AdmobScreen from '../screens/AdmobScreen';
+import UtilScreen from '../screens/UtilScreen';
+import WebBrowserScreen from '../screens/WebBrowserScreen';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -91,17 +99,23 @@ const ExpoComponentsStackNavigator = StackNavigator(
 const ExpoApisStackNavigator = StackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
-    DocumentPicker: { screen: DocumentPickerScreen },
-    FileSystem: { screen: FileSystemScreen },
-    Font: { screen: FontScreen },
     AuthSession: { screen: AuthSessionScreen },
+    DocumentPicker: { screen: DocumentPickerScreen },
+    FacebookLogin: { screen: FacebookLoginScreen },
+    FileSystem: { screen: FileSystemScreen },
+    Fingerprint: { screen: FingerprintScreen },
+    Font: { screen: FontScreen },
+    GoogleLogin: { screen: GoogleLoginScreen },
     Calendars: { screen: CalendarsScreen },
     Constants: { screen: ConstantsScreen },
     Contacts: { screen: ContactsScreen },
     Events: { screen: EventsScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
     ImagePicker: { screen: ImagePickerScreen },
-    LocalNotification: { screen: LocalNotificationScreen },
+    IntentLauncher: { screen: IntentLauncherScreen },
+    KeepAwake: { screen: KeepAwakeScreen },
+    MailComposer: { screen: MailComposerScreen },
+    Notification: { screen: NotificationScreen },
     Location: { screen: LocationScreen },
     Pedometer: { screen: PedometerScreen },
     Reminders: { screen: RemindersScreen },
@@ -110,6 +124,8 @@ const ExpoApisStackNavigator = StackNavigator(
     Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
     Geocoding: { screen: GeocodingScreen },
+    Util: { screen: UtilScreen },
+    WebBrowser: { screen: WebBrowserScreen },
   },
   StackConfig
 );

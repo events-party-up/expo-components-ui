@@ -1,32 +1,11 @@
 import React from 'react';
-import {
-  Alert,
-  AppState,
-  Image,
-  ListView,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  ToastAndroid,
-} from 'react-native';
-import Expo, {
-  DangerZone,
-  Fingerprint,
-  FileSystem,
-  KeepAwake,
-  IntentLauncherAndroid,
-  MailComposer,
-  Notifications,
-  Video,
-  WebBrowser,
-} from 'expo';
+import { Alert, Image, ListView, Platform, StyleSheet, Text, View } from 'react-native';
+import Expo, { DangerZone, Notifications, Video, WebBrowser } from 'expo';
 import Touchable from 'react-native-platform-touchable';
 import { withNavigation } from 'react-navigation';
 
 import NavigationEvents from '../utilities/NavigationEvents';
 import Colors from '../constants/Colors';
-import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 DangerZone.Branch.subscribe(bundle => {
   if (bundle && bundle.params && !bundle.error) {
@@ -110,31 +89,26 @@ export default class ExpoApisScreen extends React.Component {
       Constants: [this._renderConstants],
       Contacts: [this._renderContacts],
       DocumentPicker: [this._renderDocumentPicker],
-      Facebook: [this._renderFacebook],
+      FacebookLogin: [this._renderFacebookLogin],
       FileSystem: [this._renderFileSystem],
+      Fingerprint: [this._renderFingerprint],
       Font: [this._renderFont],
       Geocoding: [this._renderGeocoding],
-      Google: [this._renderGoogle],
+      GoogleLogin: [this._renderGoogleLogin],
       ImagePicker: [this._renderImagePicker],
       ImageManipulator: [this._renderImageManipulator],
+      IntentLauncher: [this._renderIntentLauncher],
       KeepAwake: [this._renderKeepAwake],
-      LocalNotification: [this._renderLocalNotification],
+      Notification: [this._renderNotification],
       Location: [this._renderLocation],
       MailComposer: [this._renderMailComposer],
       NotificationBadge: [this._renderNotificationBadge],
       Pedometer: [this._renderPedometer],
       PushNotification: [this._renderPushNotification],
       ScreenOrientation: [this._renderScreenOrientation],
-      ...Platform.select({
-        android: {
-          Settings: [this._renderSettings],
-        },
-        ios: {},
-      }),
       Sensors: [this._renderSensors],
       SecureStore: [this._renderSecureStore],
       Speech: [this._renderSpeech],
-      TouchID: [this._renderTouchID],
       Util: [this._renderUtil],
       WebBrowser: [this._renderWebBrowser],
     });
@@ -178,12 +152,12 @@ export default class ExpoApisScreen extends React.Component {
     return <GoToExampleButton name="Contacts" />;
   };
 
-  _renderFacebook = () => {
-    return <FacebookLoginExample />;
+  _renderFacebookLogin = () => {
+    return <GoToExampleButton name="FacebookLogin" />;
   };
 
-  _renderGoogle = () => {
-    return <GoogleLoginExample />;
+  _renderGoogleLogin = () => {
+    return <GoToExampleButton name="GoogleLogin" />;
   };
 
   _renderFileSystem = () => {
@@ -195,35 +169,27 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderKeepAwake = () => {
-    return <KeepAwakeExample />;
+    return <GoToExampleButton name="KeepAwake" />;
   };
 
-  _renderNotificationBadge = () => {
-    return <NotificationBadgeExample />;
-  };
-
-  _renderPushNotification = () => {
-    return <PushNotificationExample />;
-  };
-
-  _renderLocalNotification = () => {
-    return <GoToExampleButton name="LocalNotification" />;
+  _renderNotification = () => {
+    return <GoToExampleButton name="Notification" />;
   };
 
   _renderSensors = () => {
-    return <SensorsExample />;
+    return <GoToExampleButton name="Sensor" />;
   };
 
-  _renderTouchID = () => {
-    return <TouchIDExample />;
+  _renderFingerprint = () => {
+    return <GoToExampleButton name="Fingerprint" />;
   };
 
   _renderLocation = () => {
     return <GoToExampleButton name="Location" />;
   };
 
-  _renderSettings = () => {
-    return <SettingsExample />;
+  _renderIntentLauncher = () => {
+    return <GoToExampleButton name="IntentLauncher" />;
   };
 
   _renderGeocoding = () => {
@@ -239,25 +205,15 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   _renderMailComposer = () => {
-    return <MailComposerExample name="MailComposer" />;
+    return <GoToExampleButton name="MailComposer" />;
   };
 
   _renderWebBrowser = () => {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button
-          onPress={async () => {
-            const result = await WebBrowser.openBrowserAsync('https://www.google.com');
-            setTimeout(() => Alert.alert('Result', JSON.stringify(result, null, 2)), 1000);
-          }}>
-          Open web url
-        </Button>
-      </View>
-    );
+    return <GoToExampleButton name="WebBrowser" />;
   };
 
   _renderUtil = () => {
-    return <UtilExample />;
+    return <GoToExampleButton name="Util" />;
   };
 
   render() {
@@ -293,304 +249,6 @@ export default class ExpoApisScreen extends React.Component {
       </View>
     );
   };
-}
-
-class SettingsExample extends React.Component {
-  renderSettingsLink(title, activity) {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button
-          onPress={async () => {
-            try {
-              await IntentLauncherAndroid.startActivityAsync(activity);
-              ToastAndroid.show(`Activity finished`, ToastAndroid.SHORT);
-            } catch (e) {
-              ToastAndroid.show(`An error occurred: ${e.message}`, ToastAndroid.SHORT);
-            }
-          }}>
-          {title}
-        </Button>
-      </View>
-    );
-  }
-
-  render() {
-    return (
-      <View>
-        {this.renderSettingsLink(
-          'Location Settings',
-          IntentLauncherAndroid.ACTION_LOCATION_SOURCE_SETTINGS
-        )}
-      </View>
-    );
-  }
-}
-
-@withNavigation
-class SensorsExample extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate('Sensor')}>
-          Try out sensors (Gyroscope, Accelerometer)
-        </Button>
-      </View>
-    );
-  }
-}
-
-class TouchIDExample extends React.Component {
-  state = {
-    waiting: false,
-  };
-
-  render() {
-    let authFunction = async () => {
-      this.setState({ waiting: true });
-      try {
-        let result = await Fingerprint.authenticateAsync('This message only shows up on iOS');
-        if (result.success) {
-          alert('Authenticated!');
-        } else {
-          alert('Failed to authenticate');
-        }
-      } finally {
-        this.setState({ waiting: false });
-      }
-    };
-
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={authFunction}>
-          {this.state.waiting ? 'Waiting for fingerprint... ' : 'Authenticate with fingerprint'}
-        </Button>
-      </View>
-    );
-  }
-}
-
-class NotificationBadgeExample extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._incrementIconBadgeNumberAsync}>
-          Increment the app icon's badge number
-        </Button>
-
-        <View style={{ height: 10 }} />
-
-        <Button onPress={this._clearIconBadgeAsync}>Clear the app icon's badge number</Button>
-      </View>
-    );
-  }
-
-  _incrementIconBadgeNumberAsync = async () => {
-    let currentNumber = await Notifications.getBadgeNumberAsync();
-    await Notifications.setBadgeNumberAsync(currentNumber + 1);
-    let actualNumber = await Notifications.getBadgeNumberAsync();
-    global.alert(`Set the badge number to ${actualNumber}`);
-  };
-
-  _clearIconBadgeAsync = async () => {
-    await Notifications.setBadgeNumberAsync(0);
-    global.alert(`Cleared the badge`);
-  };
-}
-
-class PushNotificationExample extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._sendNotification}>Send me a push notification!</Button>
-      </View>
-    );
-  }
-
-  _sendNotification = async () => {
-    registerForPushNotificationsAsync().done();
-  };
-}
-
-class KeepAwakeExample extends React.Component {
-  _activate = () => {
-    KeepAwake.activate();
-  };
-
-  _deactivate = () => {
-    KeepAwake.deactivate();
-  };
-
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button style={{ marginBottom: 10 }} onPress={this._activate}>
-          Activate
-        </Button>
-        <Button onPress={this._deactivate}>Deactivate</Button>
-      </View>
-    );
-  }
-}
-
-class MailComposerExample extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button
-          onPress={async () => {
-            const { status } = await MailComposer.composeAsync({
-              subject: 'Wishes',
-              body: 'Dear Friend! <b>Happy</b> Birthday, enjoy your day! 🎈',
-              recipients: ['sample.mail@address.com'],
-              isHtml: true,
-            });
-            if (status === 'sent') {
-              Alert.alert('Mail sent!');
-            } else {
-              Alert.alert('Sending cancelled or something went wrong :(');
-            }
-          }}>
-          Send birthday wishes
-        </Button>
-      </View>
-    );
-  }
-}
-
-class FacebookLoginExample extends React.Component {
-  render() {
-    let permissions = ['public_profile', 'email', 'user_friends'];
-
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'web')}>
-          Authenticate with Facebook (web)
-        </Button>
-        <View style={{ marginBottom: 10 }} />
-        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'browser')}>
-          Authenticate with Facebook (browser)
-        </Button>
-        <View style={{ marginBottom: 10 }} />
-        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'native')}>
-          Authenticate with Facebook (native)
-        </Button>
-        <View style={{ marginBottom: 10 }} />
-        <Button onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'system')}>
-          Authenticate with Facebook (system)
-        </Button>
-      </View>
-    );
-  }
-
-  _testFacebookLogin = async (id, perms, behavior = 'web') => {
-    try {
-      const result = await Expo.Facebook.logInWithReadPermissionsAsync(id, {
-        permissions: perms,
-        behavior,
-      });
-
-      const { type, token } = result;
-
-      if (type === 'success') {
-        Alert.alert('Logged in!', JSON.stringify(result), [
-          {
-            text: 'OK!',
-            onPress: () => {
-              console.log({ type, token });
-            },
-          },
-        ]);
-      }
-    } catch (e) {
-      Alert.alert('Error!', e.message, [{ text: 'OK', onPress: () => {} }]);
-    }
-  };
-}
-
-class GoogleLoginExample extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this._testGoogleLogin()}>Authenticate with Google</Button>
-      </View>
-    );
-  }
-
-  _testGoogleLogin = async () => {
-    try {
-      const result = await Expo.Google.logInAsync({
-        androidStandaloneAppClientId:
-          '603386649315-87mbvgc739sec2gjtptl701ha62pi98p.apps.googleusercontent.com',
-        androidClientId: '603386649315-9rbv8vmv2vvftetfbvlrbufcps1fajqf.apps.googleusercontent.com',
-        iosStandaloneAppClientId:
-          '603386649315-1b2o2gole94qc6h4prj6lvoiueq83se4.apps.googleusercontent.com',
-        iosClientId: '603386649315-vp4revvrcgrcjme51ebuhbkbspl048l9.apps.googleusercontent.com',
-        scopes: ['profile', 'email'],
-      });
-
-      const { type } = result;
-
-      if (type === 'success') {
-        // Avoid race condition with the WebView hiding when using web-based sign in
-        setTimeout(() => {
-          Alert.alert('Logged in!', JSON.stringify(result), [
-            {
-              text: 'OK!',
-              onPress: () => {
-                console.log({ result });
-              },
-            },
-          ]);
-        }, 1000);
-      }
-    } catch (e) {
-      Alert.alert('Error!', e.message, [{ text: 'OK :(', onPress: () => {} }]);
-    }
-  };
-}
-
-class UtilExample extends React.Component {
-  state = {
-    locale: null,
-    deviceCountry: null,
-    timeZone: null,
-  };
-
-  componentWillMount() {
-    this._update();
-    AppState.addEventListener('change', this._update);
-  }
-
-  componentWillUnmount() {
-    AppState.removeEventListener('change', this._update);
-  }
-
-  _update = async () => {
-    let locale = await Expo.Util.getCurrentLocaleAsync();
-    let deviceCountry = await Expo.Util.getCurrentDeviceCountryAsync();
-    let timeZone = await Expo.Util.getCurrentTimeZoneAsync();
-    this.setState({ locale, deviceCountry, timeZone });
-  };
-
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Text>Locale: {this.state.locale}</Text>
-        <Text>Device Country: {this.state.deviceCountry}</Text>
-        <Text>Time Zone: {this.state.timeZone}</Text>
-        <Button
-          onPress={async () => {
-            Expo.Util.reload();
-          }}>
-          Util.reload()
-        </Button>
-        <Text>
-          Here is a timestamp so you can decide whether Util.reload() is reloading:{' '}
-          {Math.round(new Date().getTime() / 1000)}
-        </Text>
-      </View>
-    );
-  }
 }
 
 function Button(props) {
