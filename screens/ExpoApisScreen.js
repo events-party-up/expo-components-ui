@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  Alert,
-  ListView,
-  PixelRatio,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native';
+import { Alert, Platform } from 'react-native';
 import Expo, { DangerZone, Notifications } from 'expo';
-import { Entypo } from '@expo/vector-icons';
-import NavigationEvents from '../utilities/NavigationEvents';
+import ComponentListScreen from './ComponentListScreen';
 
 DangerZone.Branch.subscribe(bundle => {
   if (bundle && bundle.params && !bundle.error) {
@@ -24,26 +14,12 @@ export default class ExpoApisScreen extends React.Component {
     title: 'APIs in Expo SDK',
   };
 
-  state = {
-    dataSource: new ListView.DataSource({
-      rowHasChanged: () => false,
-      sectionHeaderHasChanged: () => false,
-    }),
-  };
-
   componentWillMount() {
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
-
-    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
-      if (route.key === 'ExpoApis') {
-        this._scrollToTop();
-      }
-    });
   }
 
   componentWillUnmount() {
     this._notificationSubscription && this._notificationSubscription.remove();
-    this._tabPressedListener.remove();
   }
 
   _handleNotification = notification => {
@@ -75,34 +51,11 @@ export default class ExpoApisScreen extends React.Component {
     setTimeout(() => alert(message), 1000);
   };
 
-  componentDidMount() {
-    let dataSource = this.state.dataSource.cloneWithRowsAndSections(
-      this._getSections().reduce((sections, name) => {
-        sections[name] = [() => this._renderExampleSection(name)];
-        return sections;
-      }, {})
-    );
-
-    this.setState({ dataSource });
+  render() {
+    return <ComponentListScreen apis={this._getApis()} tabName="ExpoApis" />;
   }
 
-  _renderExampleSection = exampleName => {
-    return (
-      <TouchableHighlight
-        underlayColor="#dddddd"
-        style={styles.rowTouchable}
-        onPress={() => this.props.navigation.navigate(exampleName)}>
-        <View style={styles.row}>
-          <Text style={styles.rowLabel}>{exampleName}</Text>
-          <Text style={styles.rowDecorator}>
-            <Entypo name="chevron-right" size={16} color="#aaaaaa" />
-          </Text>
-        </View>
-      </TouchableHighlight>
-    );
-  };
-
-  _getSections = () => {
+  _getApis = () => {
     return [
       'AuthSession',
       'Calendars',
@@ -131,53 +84,4 @@ export default class ExpoApisScreen extends React.Component {
       'WebBrowser',
     ];
   };
-
-  render() {
-    return (
-      <ListView
-        ref={view => {
-          this._listView = view;
-        }}
-        stickySectionHeadersEnabled
-        removeClippedSubviews={false}
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        contentContainerStyle={{ backgroundColor: '#fff' }}
-        dataSource={this.state.dataSource}
-        renderRow={this._renderRow}
-      />
-    );
-  }
-
-  _scrollToTop = () => {
-    this._listView.scrollTo({ x: 0, y: 0 });
-  };
-
-  _renderRow = renderRowFn => {
-    return <View>{renderRowFn && renderRowFn()}</View>;
-  };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 100,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  rowDecorator: {
-    alignSelf: 'flex-end',
-    paddingRight: 4,
-  },
-  rowTouchable: {
-    paddingHorizontal: 10,
-    paddingVertical: 14,
-    borderBottomWidth: 1.0 / PixelRatio.get(),
-    borderBottomColor: '#dddddd',
-  },
-  rowLabel: {
-    flex: 1,
-  },
-});

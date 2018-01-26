@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 
-import GLMainScreen from './GLMainScreen';
+import GLScreen from './GLScreen';
 import GLWrap from './GLWrap';
 import GLCameraScreen from './GLCameraScreen';
 
@@ -22,7 +22,7 @@ import './BeforePIXI';
 import * as PIXI from 'pixi.js';
 
 export default {
-  GLMainScreen: { screen: GLMainScreen },
+  GL: { screen: GLScreen },
 
   ClearToBlue: {
     screen: GLWrap('Clear to blue', gl => {

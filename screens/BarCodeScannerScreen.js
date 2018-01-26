@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Platform, StyleSheet, View } from 'react-native';
+import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 
-import { BarCodeScanner } from 'expo';
+import { BarCodeScanner, Permissions } from 'expo';
 
 const BUTTON_COLOR = Platform.OS === 'ios' ? '#fff' : '#666';
 
@@ -11,11 +11,24 @@ export default class BarcodeScannerExample extends React.Component {
   };
 
   state = {
+    isPermissionsGranted: false,
     torchMode: 'off',
     type: 'back',
   };
 
+  async componentDidMount() {
+    let { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ isPermissionsGranted: (status === 'granted') });
+  }
+
   render() {
+    if (!this.state.isPermissionsGranted) {
+      return (
+        <View style={styles.container}>
+          <Text>You have not granted permission to use the camera on this device!</Text>
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
         <BarCodeScanner

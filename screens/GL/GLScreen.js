@@ -7,7 +7,7 @@ import { Colors } from '../../constants';
 
 import GLScreens from './GLScreens';
 
-export default class GLMainScreen extends React.Component {
+export default class GLScreen extends React.Component {
   static navigationOptions = {
     title: 'Examples of GL use',
   };
@@ -16,7 +16,7 @@ export default class GLMainScreen extends React.Component {
     return (
       <ScrollView style={{ flex: 1 }}>
         {Object.keys(GLScreens)
-          .filter(n => n !== 'GLMainScreen')
+          .filter(n => n !== 'GL')
           .map(screenName => (
             <View key={screenName} style={{ padding: 10 }}>
               <Button onPress={() => this.props.navigation.navigate(screenName)}>

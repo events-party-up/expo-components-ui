@@ -8,11 +8,13 @@ import { Colors, Layout } from '../constants';
 import NavigationEvents from '../utilities/NavigationEvents';
 
 import BarCodeScannerScreen from '../screens/BarCodeScannerScreen';
+import BlurViewScreen from '../screens/BlurViewScreen';
 import DocumentPickerScreen from '../screens/DocumentPickerScreen';
 import ExpoComponentsScreen from '../screens/ExpoComponentsScreen';
 import ExpoApisScreen from '../screens/ExpoApisScreen';
 import FileSystemScreen from '../screens/FileSystemScreen';
 import FontScreen from '../screens/FontScreen';
+import GifScreen from '../screens/GifScreen';
 import CalendarsScreen from '../screens/CalendarsScreen';
 import ConstantsScreen from '../screens/ConstantsScreen';
 import ContactsScreen from '../screens/ContactsScreen';
@@ -31,6 +33,7 @@ import GLScreens from '../screens/GL/GLScreens';
 import ImageManipulatorScreen from '../screens/ImageManipulatorScreen';
 import ImagePickerScreen from '../screens/ImagePickerScreen';
 import IntentLauncherScreen from '../screens/IntentLauncherScreen';
+import LinearGradientScreen from '../screens/LinearGradientScreen';
 import KeepAwakeScreen from '../screens/KeepAwakeScreen';
 import FacebookAdsScreen from '../screens/FacebookAdsScreen';
 import MailComposerScreen from '../screens/MailComposerScreen';
@@ -46,8 +49,9 @@ import NotificationScreen from '../screens/NotificationScreen';
 import PedometerScreen from '../screens/PedometerScreen';
 import BasicMaskScreen from '../screens/BasicMaskScreen';
 import MaskGLScreen from '../screens/MaskGLScreen';
-import AdmobScreen from '../screens/AdmobScreen';
+import AdMobScreen from '../screens/AdMobScreen';
 import UtilScreen from '../screens/UtilScreen';
+import VideoScreen from '../screens/VideoScreen';
 import WebBrowserScreen from '../screens/WebBrowserScreen';
 
 const styles = StyleSheet.create({
@@ -82,16 +86,20 @@ const StackConfig = {
 const ExpoComponentsStackNavigator = StackNavigator(
   {
     ExpoComponents: { screen: ExpoComponentsScreen },
+    AdMob: { screen: AdMobScreen },
     BarCodeScanner: { screen: BarCodeScannerScreen },
+    BlurView: { screen: BlurViewScreen },
     ...GLScreens,
     GestureHandlerPinch: { screen: GestureHandlerPinchScreen },
     GestureHandlerList: { screen: GestureHandlerListScreen },
     GestureHandlerSwipeable: { screen: GestureHandlerSwipeableScreen },
+    Gif: { screen: GifScreen },
     FacebookAds: { screen: FacebookAdsScreen },
     SVG: { screen: SVGScreen },
+    LinearGradient: { screen: LinearGradientScreen },
     Lottie: { screen: LottieScreen },
     Maps: { screen: MapsScreen },
-    Admob: { screen: AdmobScreen },
+    Video: { screen: VideoScreen },
   },
   StackConfig
 );
