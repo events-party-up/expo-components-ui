@@ -1,6 +1,9 @@
 import React from 'react';
-import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Contacts, Permissions } from 'expo';
+import Button from '../components/Button';
+import Colors from '../constants/Colors';
+import MonoText from '../components/MonoText';
 
 const CONTACT_PAGE_SIZE = 4;
 
@@ -10,7 +13,7 @@ class ContactRow extends React.Component {
     return (
       <View style={styles.contactRow}>
         <Text style={styles.contactName}>{contact.name}</Text>
-        <Text style={styles.contactData}>{JSON.stringify(contact)}</Text>
+        <MonoText>{JSON.stringify(contact, null, 2)}</MonoText>
       </View>
     );
   }
@@ -77,10 +80,10 @@ export default class ContactsScreen extends React.Component {
       return (
         <ScrollView style={styles.container}>
           {this.state.hasNextPage ? (
-            <Button onPress={this._nextPage} style={{ marginVertical: 10 }} title="Next Page" />
+            <Button onPress={this._nextPage} style={styles.button} title="Next Page" />
           ) : null}
           {this.state.hasPreviousPage ? (
-            <Button onPress={this._previousPage} title="Previous Page" />
+            <Button onPress={this._previousPage} style={styles.button} title="Previous Page" />
           ) : null}
           {this.state.contacts.map(contact => <ContactRow contact={contact} key={contact.id} />)}
         </ScrollView>
@@ -88,18 +91,22 @@ export default class ContactsScreen extends React.Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._findContacts} title="Find my Contacts" />
+      <View style={styles.container}>
+        <Button onPress={this._findContacts} style={styles.button} title="Find my Contacts" />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginVertical: 10,
+  },
   container: {
     paddingHorizontal: 10,
     paddingVertical: 16,
     flex: 1,
+    backgroundColor: Colors.greyBackground,
   },
   contactRow: {
     marginBottom: 12,
@@ -107,6 +114,6 @@ const styles = StyleSheet.create({
   contactName: {
     fontWeight: 'bold',
     marginBottom: 4,
+    marginTop: 6,
   },
-  contactData: {},
 });

@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, NativeModules, Platform, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, NativeModules, Platform } from 'react-native';
 import Expo, { AdMobBanner } from 'expo';
+import Button from '../components/Button';
 import { Colors } from '../constants';
 
 const AdMobRewarded = NativeModules.RNAdMobRewarded;
@@ -32,17 +33,8 @@ export default class AdMobScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
-          <TouchableHighlight style={styles.button}>
-            <Text onPress={this.onPress} style={styles.buttonText}>
-              Show Rewarded Interstitial Ad
-            </Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={styles.button}>
-            <Text onPress={this.onInterstitialPress} style={styles.buttonText}>
-              Show Interstitial Ad
-            </Text>
-          </TouchableHighlight>
+          <Button style={styles.button} onPress={this.onPress} title="Show Rewarded Interstitial Ad" />
+          <Button style={styles.button} onPress={this.onInterstitialPress} title="Show Interstitial Ad" />
           <AdMobBanner
             bannerSize="banner"
             adUnitID="ca-app-pub-3940256099942544/6300978111"
@@ -62,14 +54,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 3,
-    backgroundColor: Colors.tintColor,
-    marginRight: 10,
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
+    marginVertical: 10,
   },
 });

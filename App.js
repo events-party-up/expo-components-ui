@@ -7,7 +7,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import Icons from './constants/Icons';
 import RootNavigation from './navigation/RootNavigation';
 
-export default class AppContainer extends React.Component {
+export default class App extends React.Component {
   state = {
     appIsReady: false,
   };
@@ -56,5 +56,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
 });
-
-Expo.registerRootComponent(AppContainer);
