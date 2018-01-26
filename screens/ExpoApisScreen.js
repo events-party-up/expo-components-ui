@@ -1,30 +1,23 @@
 import React from 'react';
-import { Alert, Image, ListView, Platform, StyleSheet, Text, View } from 'react-native';
-import Expo, { DangerZone, Notifications, Video, WebBrowser } from 'expo';
-import Touchable from 'react-native-platform-touchable';
-import { withNavigation } from 'react-navigation';
-
+import {
+  Alert,
+  ListView,
+  PixelRatio,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
+import Expo, { DangerZone, Notifications } from 'expo';
+import { Entypo } from '@expo/vector-icons';
 import NavigationEvents from '../utilities/NavigationEvents';
-import Colors from '../constants/Colors';
 
 DangerZone.Branch.subscribe(bundle => {
   if (bundle && bundle.params && !bundle.error) {
     Alert.alert('Opened Branch link', JSON.stringify(bundle.params, null, 2));
   }
 });
-
-@withNavigation
-class GoToExampleButton extends React.Component {
-  render() {
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={() => this.props.navigation.navigate(this.props.name)}>
-          Go to {this.props.name} example
-        </Button>
-      </View>
-    );
-  }
-}
 
 export default class ExpoApisScreen extends React.Component {
   static navigationOptions = {
@@ -83,137 +76,60 @@ export default class ExpoApisScreen extends React.Component {
   };
 
   componentDidMount() {
-    let dataSource = this.state.dataSource.cloneWithRowsAndSections({
-      AuthSession: [this._renderAuthSession],
-      Calendars: [this._renderCalendars],
-      Constants: [this._renderConstants],
-      Contacts: [this._renderContacts],
-      DocumentPicker: [this._renderDocumentPicker],
-      FacebookLogin: [this._renderFacebookLogin],
-      FileSystem: [this._renderFileSystem],
-      Fingerprint: [this._renderFingerprint],
-      Font: [this._renderFont],
-      Geocoding: [this._renderGeocoding],
-      GoogleLogin: [this._renderGoogleLogin],
-      ImagePicker: [this._renderImagePicker],
-      ImageManipulator: [this._renderImageManipulator],
-      IntentLauncher: [this._renderIntentLauncher],
-      KeepAwake: [this._renderKeepAwake],
-      Notification: [this._renderNotification],
-      Location: [this._renderLocation],
-      MailComposer: [this._renderMailComposer],
-      NotificationBadge: [this._renderNotificationBadge],
-      Pedometer: [this._renderPedometer],
-      PushNotification: [this._renderPushNotification],
-      ScreenOrientation: [this._renderScreenOrientation],
-      Sensors: [this._renderSensors],
-      SecureStore: [this._renderSecureStore],
-      Speech: [this._renderSpeech],
-      Util: [this._renderUtil],
-      WebBrowser: [this._renderWebBrowser],
-    });
+    let dataSource = this.state.dataSource.cloneWithRowsAndSections(
+      this._getSections().reduce((sections, name) => {
+        sections[name] = [() => this._renderExampleSection(name)];
+        return sections;
+      }, {})
+    );
 
     this.setState({ dataSource });
   }
 
-  _renderScreenOrientation = () => {
-    return <GoToExampleButton name="ScreenOrientation" />;
+  _renderExampleSection = exampleName => {
+    return (
+      <TouchableHighlight
+        underlayColor="#dddddd"
+        style={styles.rowTouchable}
+        onPress={() => this.props.navigation.navigate(exampleName)}>
+        <View style={styles.row}>
+          <Text style={styles.rowLabel}>{exampleName}</Text>
+          <Text style={styles.rowDecorator}>
+            <Entypo name="chevron-right" size={16} color="#aaaaaa" />
+          </Text>
+        </View>
+      </TouchableHighlight>
+    );
   };
 
-  _renderImagePicker = () => {
-    return <GoToExampleButton name="ImagePicker" />;
-  };
-
-  _renderImageManipulator = () => {
-    return <GoToExampleButton name="ImageManipulator" />;
-  };
-
-  _renderPedometer = () => {
-    return <GoToExampleButton name="Pedometer" />;
-  };
-
-  _renderDocumentPicker = () => {
-    return <GoToExampleButton name="DocumentPicker" />;
-  };
-
-  _renderAuthSession = () => {
-    return <GoToExampleButton name="AuthSession" />;
-  };
-
-  _renderCalendars = () => {
-    return <GoToExampleButton name="Calendars" />;
-  };
-
-  _renderConstants = () => {
-    return <GoToExampleButton name="Constants" />;
-  };
-
-  _renderContacts = () => {
-    return <GoToExampleButton name="Contacts" />;
-  };
-
-  _renderFacebookLogin = () => {
-    return <GoToExampleButton name="FacebookLogin" />;
-  };
-
-  _renderGoogleLogin = () => {
-    return <GoToExampleButton name="GoogleLogin" />;
-  };
-
-  _renderFileSystem = () => {
-    return <GoToExampleButton name="FileSystem" />;
-  };
-
-  _renderFont = () => {
-    return <GoToExampleButton name="Font" />;
-  };
-
-  _renderKeepAwake = () => {
-    return <GoToExampleButton name="KeepAwake" />;
-  };
-
-  _renderNotification = () => {
-    return <GoToExampleButton name="Notification" />;
-  };
-
-  _renderSensors = () => {
-    return <GoToExampleButton name="Sensor" />;
-  };
-
-  _renderFingerprint = () => {
-    return <GoToExampleButton name="Fingerprint" />;
-  };
-
-  _renderLocation = () => {
-    return <GoToExampleButton name="Location" />;
-  };
-
-  _renderIntentLauncher = () => {
-    return <GoToExampleButton name="IntentLauncher" />;
-  };
-
-  _renderGeocoding = () => {
-    return <GoToExampleButton name="Geocoding" />;
-  };
-
-  _renderSpeech = () => {
-    return <GoToExampleButton name="Speech" />;
-  };
-
-  _renderSecureStore = () => {
-    return <GoToExampleButton name="SecureStore" />;
-  };
-
-  _renderMailComposer = () => {
-    return <GoToExampleButton name="MailComposer" />;
-  };
-
-  _renderWebBrowser = () => {
-    return <GoToExampleButton name="WebBrowser" />;
-  };
-
-  _renderUtil = () => {
-    return <GoToExampleButton name="Util" />;
+  _getSections = () => {
+    return [
+      'AuthSession',
+      'Calendars',
+      'Constants',
+      'Contacts',
+      'DocumentPicker',
+      'FacebookLogin',
+      'FileSystem',
+      'Fingerprint',
+      'Font',
+      'Geocoding',
+      'GoogleLogin',
+      'ImagePicker',
+      'ImageManipulator',
+      'IntentLauncher',
+      'KeepAwake',
+      'Notification',
+      'Location',
+      'MailComposer',
+      'Pedometer',
+      'ScreenOrientation',
+      'Sensor',
+      'SecureStore',
+      'Speech',
+      'Util',
+      'WebBrowser',
+    ];
   };
 
   render() {
@@ -229,7 +145,6 @@ export default class ExpoApisScreen extends React.Component {
         contentContainerStyle={{ backgroundColor: '#fff' }}
         dataSource={this.state.dataSource}
         renderRow={this._renderRow}
-        renderSectionHeader={this._renderSectionHeader}
       />
     );
   }
@@ -241,22 +156,6 @@ export default class ExpoApisScreen extends React.Component {
   _renderRow = renderRowFn => {
     return <View>{renderRowFn && renderRowFn()}</View>;
   };
-
-  _renderSectionHeader = (_, sectionTitle) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text>{sectionTitle}</Text>
-      </View>
-    );
-  };
-}
-
-function Button(props) {
-  return (
-    <Touchable onPress={props.onPress} style={[styles.button, props.style]}>
-      <Text style={styles.buttonText}>{props.children}</Text>
-    </Touchable>
-  );
 }
 
 const styles = StyleSheet.create({
@@ -264,19 +163,21 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 100,
   },
-  sectionHeader: {
-    backgroundColor: 'rgba(245,245,245,1)',
-    paddingVertical: 5,
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  rowDecorator: {
+    alignSelf: 'flex-end',
+    paddingRight: 4,
+  },
+  rowTouchable: {
     paddingHorizontal: 10,
+    paddingVertical: 14,
+    borderBottomWidth: 1.0 / PixelRatio.get(),
+    borderBottomColor: '#dddddd',
   },
-  button: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 3,
-    backgroundColor: Colors.tintColor,
-    marginRight: 10,
-  },
-  buttonText: {
-    color: '#fff',
+  rowLabel: {
+    flex: 1,
   },
 });
