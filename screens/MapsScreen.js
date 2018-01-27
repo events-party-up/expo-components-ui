@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Platform, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { MapView } from 'expo';
-
 import Layout from '../constants/Layout';
+import ListButton from '../components/ListButton';
 
 const REGION = {
   latitude: 37.78825,
@@ -67,9 +67,9 @@ export default class MapsScreen extends React.Component {
 
   _renderJumpToCoordButton = () => {
     return (
-      <View>
-        <Button onPress={this._animateToRandomCoord} title="Animate to random Coord" />
-        <Button
+      <View style={{paddingHorizontal: 10}}>
+        <ListButton onPress={this._animateToRandomCoord} title="Animate to random SF Coord" />
+        <ListButton
           onPress={this._animateToRandomViewingAngle}
           title="Animate to random Viewing Angle"
         />

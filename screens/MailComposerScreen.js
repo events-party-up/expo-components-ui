@@ -1,17 +1,18 @@
 import React from 'react';
-import { Alert, Button, ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { MailComposer } from 'expo';
+import Button from '../components/Button';
 
 export default class MailComposerScreen extends React.Component {
   static navigationOptions = {
     title: 'MailComposer',
   };
-  
+
   render() {
     return (
-      <ScrollView style={{ padding: 10 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button onPress={this._sendMailAsync} title="Send birthday wishes" />
-      </ScrollView>
+      </View>
     );
   }
 

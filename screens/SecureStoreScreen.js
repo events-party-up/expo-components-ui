@@ -1,12 +1,13 @@
 import React from 'react';
-import { Alert, Button, Platform, ScrollView, TextInput, View } from 'react-native';
+import { Alert, Platform, ScrollView, TextInput, View } from 'react-native';
 import { SecureStore } from 'expo';
+import ListButton from '../components/ListButton';
 
 export default class SecureStoreScreen extends React.Component {
   static navigationOptions = {
     title: 'SecureStore',
   };
-  
+
   state = {
     key: null,
     value: null,
@@ -91,22 +92,19 @@ export default class SecureStoreScreen extends React.Component {
               key: text,
             })}
         />
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={() => {
             this._setValue(this.state.value, this.state.key);
           }}
           title="Store value with key"
         />
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={() => {
             this._getValue(this.state.key);
           }}
           title="Get value with key"
         />
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={() => {
             this._deleteValue(this.state.key);
           }}

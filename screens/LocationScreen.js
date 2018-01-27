@@ -1,12 +1,13 @@
 import React from 'react';
-import { ActivityIndicator, Button, ScrollView, Switch, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Switch, Text, View } from 'react-native';
 import { Location, Permissions } from 'expo';
+import ListButton from '../components/ListButton';
 
 export default class LocationScreen extends React.Component {
   static navigationOptions = {
     title: 'Location',
   };
-  
+
   state = {
     singleLocation: null,
     singleHeading: null,
@@ -189,14 +190,12 @@ export default class LocationScreen extends React.Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
-        <Button
-          onPress={
-            this.state.polyfill ? this._findSingleLocationWithPolyfill : this._findSingleLocation
-          }
-          title="Find my location once"
-        />
-      </View>
+      <ListButton
+        onPress={
+          this.state.polyfill ? this._findSingleLocationWithPolyfill : this._findSingleLocation
+        }
+        title="Find my location once"
+      />
     );
   };
 
@@ -220,17 +219,13 @@ export default class LocationScreen extends React.Component {
       );
     }
 
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._checkProviderStatus} title="Check provider status" />
-      </View>
-    );
+    return <ListButton onPress={this._checkProviderStatus} title="Check provider status" />;
   };
 
   renderWatchLocation = () => {
     if (this.state.watchLocation) {
       return (
-        <View style={{ padding: 10 }}>
+        <View>
           <Text>
             {this.state.polyfill
               ? 'navigator.geolocation.watchPosition'
@@ -239,9 +234,7 @@ export default class LocationScreen extends React.Component {
           </Text>
           <Text>Latitude: {this.state.watchLocation.coords.latitude}</Text>
           <Text>Longitude: {this.state.watchLocation.coords.longitude}</Text>
-          <View style={{ padding: 10 }}>
-            <Button onPress={this._stopWatchingLocation} title="Stop Watching Location" />
-          </View>
+          <ListButton onPress={this._stopWatchingLocation} title="Stop Watching Location" />
         </View>
       );
     } else if (this.state.subscription) {
@@ -253,39 +246,31 @@ export default class LocationScreen extends React.Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
-        <Button
-          onPress={
-            this.state.polyfill
-              ? this._startWatchingLocationWithPolyfill
-              : this._startWatchingLocation
-          }
-          title="Watch my location"
-        />
-      </View>
+      <ListButton
+        onPress={
+          this.state.polyfill
+            ? this._startWatchingLocationWithPolyfill
+            : this._startWatchingLocation
+        }
+        title="Watch my location"
+      />
     );
   };
 
   renderWatchCompass = () => {
     if (this.state.watchHeading) {
       return (
-        <View style={{ padding: 10 }}>
+        <View>
           <Text>Location.watchHeadingAsync:</Text>
           <Text>Magnetic North: {this.state.watchHeading.magHeading}</Text>
           <Text>True North: {this.state.watchHeading.trueHeading}</Text>
           <Text>Accuracy: {this.state.watchHeading.accuracy}</Text>
-          <View style={{ padding: 10 }}>
-            <Button onPress={this._stopWatchingHeading} title="Stop Watching Heading" />
-          </View>
+          <ListButton onPress={this._stopWatchingHeading} title="Stop Watching Heading" />
         </View>
       );
     }
 
-    return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._startWatchingHeading} title="Watch my heading (compass)" />
-      </View>
-    );
+    return <ListButton onPress={this._startWatchingHeading} title="Watch my heading (compass)" />;
   };
 
   renderSingleCompass = () => {
@@ -301,15 +286,13 @@ export default class LocationScreen extends React.Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
-        <Button onPress={this._getSingleHeading} title="Find my heading (compass) heading" />
-      </View>
+      <ListButton onPress={this._getSingleHeading} title="Find my heading (compass) heading" />
     );
   };
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{ padding: 10 }}>
         {this._renderPolyfillSwitch()}
         {this.state.polyfill ? null : this.renderProviderStatus()}
         {this.renderSingleLocation()}

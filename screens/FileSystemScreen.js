@@ -16,7 +16,7 @@ export default class FileSystemScreen extends React.Component {
   static navigationOptions = {
     title: 'FileSystem',
   };
-  
+
   state = {
     downloadProgress: 0,
   };
@@ -133,15 +133,11 @@ export default class FileSystemScreen extends React.Component {
       );
     }
     return (
-      <ScrollView style={{ flex: 1, padding: 10 }}>
-        <ListButton
-          style={{ marginBottom: 10 }}
-          onPress={this._download}
-          title="Start Downloading file (5mb)"
-        />
-        <ListButton style={{ marginBottom: 10 }} onPress={this._pause} title="Pause Download" />
-        <ListButton style={{ marginBottom: 10 }} onPress={this._resume} title="Resume Download" />
-        <ListButton style={{ marginBottom: 10 }} onPress={this._getInfo} title="Get Info" />
+      <ScrollView style={{ padding: 10 }}>
+        <ListButton onPress={this._download} title="Start Downloading file (5mb)" />
+        <ListButton onPress={this._pause} title="Pause Download" />
+        <ListButton onPress={this._resume} title="Resume Download" />
+        <ListButton onPress={this._getInfo} title="Get Info" />
         {progress}
       </ScrollView>
     );

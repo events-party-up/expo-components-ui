@@ -1,6 +1,7 @@
 import React from 'react';
-import { Alert, Button, ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { Facebook } from 'expo';
+import ListButton from '../components/ListButton';
 
 export default class FacebookLoginScreen extends React.Component {
   static navigationOptions = {
@@ -12,22 +13,19 @@ export default class FacebookLoginScreen extends React.Component {
 
     return (
       <ScrollView style={{ padding: 10 }}>
-        <Button
+        <ListButton
           onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'web')}
           title="Authenticate with Facebook (web)"
         />
-        <View style={{ marginBottom: 10 }} />
-        <Button
+        <ListButton
           onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'browser')}
           title="Authenticate with Facebook (browser)"
         />
-        <View style={{ marginBottom: 10 }} />
-        <Button
+        <ListButton
           onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'native')}
           title="Authenticate with Facebook (native)"
         />
-        <View style={{ marginBottom: 10 }} />
-        <Button
+        <ListButton
           onPress={() => this._testFacebookLogin('1201211719949057', permissions, 'system')}
           title="Authenticate with Facebook (system)"
         />
