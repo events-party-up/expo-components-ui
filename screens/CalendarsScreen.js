@@ -1,6 +1,11 @@
 import React from 'react';
-import { Alert, Button, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Calendar, Permissions } from 'expo';
+import Button from '../components/Button';
+import Colors from '../constants/Colors';
+import HeadingText from '../components/HeadingText';
+import ListButton from '../components/ListButton';
+import MonoText from '../components/MonoText';
 
 class CalendarRow extends React.Component {
   render() {
@@ -9,18 +14,14 @@ class CalendarRow extends React.Component {
       calendar.entityType === Calendar.EntityTypes.REMINDER ? 'Reminders' : 'Events';
     return (
       <View style={styles.calendarRow}>
-        <Text style={styles.calendarName}>{calendar.title}</Text>
-        <Text style={styles.calendarData}>{JSON.stringify(calendar)}</Text>
-        <Button
+        <HeadingText>{calendar.title}</HeadingText>
+        <MonoText>{JSON.stringify(calendar, null, 2)}</MonoText>
+        <ListButton
           onPress={() => this.props.navigation.navigate(calendarTypeName, { calendar })}
           title={`View ${calendarTypeName}`}
         />
-        {calendar.allowsModifications && (
-          <Button onPress={() => this.props.updateCalendar(calendar.id)} title="Update Calendar" />
-        )}
-        {calendar.allowsModifications && (
-          <Button onPress={() => this.props.deleteCalendar(calendar)} title="Delete Calendar" />
-        )}
+        <ListButton onPress={() => this.props.updateCalendar(calendar.id)} title="Update Calendar" disabled={!calendar.allowsModifications} />
+        <ListButton onPress={() => this.props.deleteCalendar(calendar)} title="Delete Calendar" disabled={!calendar.allowsModifications} />
       </View>
     );
   }
@@ -159,7 +160,7 @@ export default class CalendarsScreen extends React.Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
+      <View style={styles.container}>
         <Button onPress={this._findCalendars} title="Find my Calendars" />
       </View>
     );
@@ -168,6 +169,7 @@ export default class CalendarsScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: Colors.greyBackground,
     paddingHorizontal: 10,
     paddingVertical: 16,
     flex: 1,
@@ -175,9 +177,4 @@ const styles = StyleSheet.create({
   calendarRow: {
     marginBottom: 12,
   },
-  calendarName: {
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  calendarData: {},
 });

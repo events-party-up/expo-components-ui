@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Fingerprint } from 'expo';
+import Button from '../components/Button';
 
 export default class FingerprintScreen extends React.Component {
   state = {
@@ -23,14 +24,14 @@ export default class FingerprintScreen extends React.Component {
     };
 
     return (
-      <ScrollView style={{ padding: 10 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button
           onPress={authFunction}
           title={
             this.state.waiting ? 'Waiting for fingerprint... ' : 'Authenticate with fingerprint'
           }
         />
-      </ScrollView>
+      </View>
     );
   }
 }

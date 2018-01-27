@@ -1,6 +1,7 @@
 import React from 'react';
-import { Alert, Button, Image, ScrollView, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 import { DocumentPicker } from 'expo';
+import Button from '../components/Button';
 
 export default class DocumentPickerScreen extends React.Component {
   state = {
@@ -40,10 +41,10 @@ export default class DocumentPickerScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{ padding: 10 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button onPress={this._openPicker} title="Open document picker" />
         {this._renderDocument()}
-      </ScrollView>
+      </View>
     );
   }
 }

@@ -4,10 +4,15 @@ import Colors from '../constants/Colors';
 
 export default class Button extends React.Component {
   render() {
+    let style = [styles.button];
+    if (this.props.disabled) {
+      style.push(styles.disabledButton);
+    }
     return (
       <View style={[styles.container, this.props.style]}>
         <TouchableHighlight
-          style={styles.button}
+          style={style}
+          disabled={this.props.disabled}
           onPress={this.props.onPress}
           underlayColor={Colors.highlightColor}>
           <Text style={styles.label}>{this.props.title}</Text>
@@ -29,6 +34,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     backgroundColor: Colors.tintColor,
+  },
+  disabledButton: {
+    backgroundColor: '#bbbbbb',
   },
   label: {
     color: '#ffffff',

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, Button, Platform, StyleSheet, View } from 'react-native';
+import { Text, Button, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { Speech } from 'expo';
 import Touchable from 'react-native-platform-touchable';
-
+import HeadingText from '../components/HeadingText';
 import { Colors } from '../constants';
 
 const EXAMPLES = [
@@ -47,10 +47,8 @@ export default class TextToSpeechScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Select a phrase</Text>
-        </View>
+      <ScrollView style={styles.container}>
+        <HeadingText>Select a phrase</HeadingText>
 
         <View style={styles.examplesContainer}>{EXAMPLES.map(this._renderExample)}</View>
 
@@ -105,7 +103,7 @@ export default class TextToSpeechScreen extends React.Component {
             disabled={this.state.inProgress}
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 
@@ -194,24 +192,14 @@ export default class TextToSpeechScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
+    paddingBottom: 24,
   },
   separator: {
     height: 1,
     backgroundColor: '#eee',
     marginTop: 0,
     marginBottom: 15,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 5,
-  },
-  headerContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    marginHorizontal: 20,
-    marginBottom: 0,
-    marginTop: 20,
   },
   exampleText: {
     fontSize: 15,

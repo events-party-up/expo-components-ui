@@ -2,14 +2,15 @@ import React from 'react';
 import {
   Alert,
   AsyncStorage,
-  Button,
   Platform,
   ProgressBarAndroid,
   ProgressViewIOS,
   ScrollView,
+  StyleSheet,
   View,
 } from 'react-native';
 import { FileSystem } from 'expo';
+import ListButton from '../components/ListButton';
 
 export default class FileSystemScreen extends React.Component {
   state = {
@@ -116,22 +117,11 @@ export default class FileSystemScreen extends React.Component {
   render() {
     let progress = null;
     if (Platform.OS === 'ios') {
-      progress = (
-        <ProgressViewIOS
-          style={{
-            marginBottom: 10,
-            marginRight: 10,
-          }}
-          progress={this.state.downloadProgress}
-        />
-      );
+      progress = <ProgressViewIOS style={styles.progress} progress={this.state.downloadProgress} />;
     } else {
       progress = (
         <ProgressBarAndroid
-          style={{
-            marginBottom: 10,
-            marginRight: 10,
-          }}
+          style={styles.progress}
           styleAttr="Horizontal"
           indeterminate={false}
           progress={this.state.downloadProgress}
@@ -140,16 +130,23 @@ export default class FileSystemScreen extends React.Component {
     }
     return (
       <ScrollView style={{ flex: 1, padding: 10 }}>
-        <Button
+        <ListButton
           style={{ marginBottom: 10 }}
           onPress={this._download}
           title="Start Downloading file (5mb)"
         />
-        <Button style={{ marginBottom: 10 }} onPress={this._pause} title="Pause Download" />
-        <Button style={{ marginBottom: 10 }} onPress={this._resume} title="Resume Download" />
+        <ListButton style={{ marginBottom: 10 }} onPress={this._pause} title="Pause Download" />
+        <ListButton style={{ marginBottom: 10 }} onPress={this._resume} title="Resume Download" />
+        <ListButton style={{ marginBottom: 10 }} onPress={this._getInfo} title="Get Info" />
         {progress}
-        <Button style={{ marginBottom: 10 }} onPress={this._getInfo} title="Get Info" />
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  progress: {
+    marginHorizontal: 10,
+    marginVertical: 32,
+  },
+});

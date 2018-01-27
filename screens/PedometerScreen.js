@@ -1,6 +1,7 @@
 import React from 'react';
-import { Alert, Button, ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { Pedometer } from 'expo';
+import ListButton from '../components/ListButton';
 
 export default class PedometerScreen extends React.Component {
   state = { stepCount: null };
@@ -9,16 +10,14 @@ export default class PedometerScreen extends React.Component {
   render() {
     return (
       <ScrollView style={{ padding: 10 }}>
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={async () => {
             const result = await Pedometer.isAvailableAsync();
             Alert.alert('Pedometer result', `Is available: ${result}`);
           }}
           title="Is available"
         />
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={async () => {
             const end = new Date();
             const start = new Date();
@@ -28,8 +27,7 @@ export default class PedometerScreen extends React.Component {
           }}
           title="Get steps count"
         />
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={async () => {
             this._listener = Pedometer.watchStepCount(data => {
               this.setState({ stepCount: data.steps });
@@ -37,8 +35,7 @@ export default class PedometerScreen extends React.Component {
           }}
           title="Listen for step count updates"
         />
-        <Button
-          style={{ marginBottom: 10 }}
+        <ListButton
           onPress={async () => {
             if (this._listener) {
               this._listener.remove();

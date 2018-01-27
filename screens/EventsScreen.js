@@ -1,20 +1,24 @@
 import React from 'react';
-import { Alert, Button, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Calendar } from 'expo';
+import Button from '../components/Button';
+import HeadingText from '../components/HeadingText';
+import ListButton from '../components/ListButton';
+import MonoText from '../components/MonoText';
 
 class EventRow extends React.Component {
   render() {
     const { event } = this.props;
     return (
       <View style={styles.eventRow}>
-        <Text style={styles.eventName}>{event.title}</Text>
-        <Text style={styles.eventData}>{JSON.stringify(event)}</Text>
-        <Button onPress={() => this.props.getEvent(event)} title="Get Event Using ID" />
-        <Button onPress={() => this.props.getAttendees(event)} title="Get Attendees for Event" />
-        <Button onPress={() => this.props.updateEvent(event)} title="Update Event" />
-        <Button onPress={() => this.props.deleteEvent(event)} title="Delete Event" />
+        <HeadingText>{event.title}</HeadingText>
+        <MonoText>{JSON.stringify(event, null, 2)}</MonoText>
+        <ListButton onPress={() => this.props.getEvent(event)} title="Get Event Using ID" />
+        <ListButton onPress={() => this.props.getAttendees(event)} title="Get Attendees for Event" />
+        <ListButton onPress={() => this.props.updateEvent(event)} title="Update Event" />
+        <ListButton onPress={() => this.props.deleteEvent(event)} title="Delete Event" />
         {Platform.OS === 'android' && (
-          <Button
+          <ListButton
             onPress={() => this.props.openEventInCalendar(event)}
             title="Open in Calendar App"
           />
@@ -144,12 +148,20 @@ export default class EventsScreen extends React.Component {
     Calendar.openEventInCalendar(event.id);
   };
 
+  _renderActionButtons = () => {
+    return (
+      <View>
+        <Button onPress={() => this._addEvent(false)} style={{ marginBottom: 10 }} title="Add New Event" />
+        <Button onPress={() => this._addEvent(true)} title="Add New Recurring Event" />
+      </View>
+    );
+  };
+
   render() {
     if (this.state.events.length) {
       return (
         <ScrollView style={styles.container}>
-          <Button onPress={() => this._addEvent(false)} title="Add New Event" />
-          <Button onPress={() => this._addEvent(true)} title="Add New Recurring Event" />
+          {this._renderActionButtons()}
           {this.state.events.map(event => (
             <EventRow
               event={event}
@@ -166,10 +178,9 @@ export default class EventsScreen extends React.Component {
     }
 
     return (
-      <View style={{ padding: 10 }}>
+      <View style={styles.container}>
         <Text>This calendar has no events.</Text>
-        <Button onPress={() => this._addEvent(false)} title="Add New Event" />
-        <Button onPress={() => this._addEvent(true)} title="Add New Recurring Event" />
+        {this._renderActionButtons()}
       </View>
     );
   }
@@ -184,9 +195,4 @@ const styles = StyleSheet.create({
   eventRow: {
     marginBottom: 12,
   },
-  eventName: {
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  eventData: {},
 });

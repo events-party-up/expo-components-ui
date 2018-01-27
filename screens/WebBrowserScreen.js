@@ -1,11 +1,12 @@
 import React from 'react';
-import { Alert, Button, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { WebBrowser } from 'expo';
+import Button from '../components/Button';
 
 export default class WebBrowserScreen extends React.Component {
   render() {
     return (
-      <View>
+      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
         <Button
           onPress={async () => {
             const result = await WebBrowser.openBrowserAsync('https://www.google.com');

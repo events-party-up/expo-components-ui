@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
   },
+  headerTitle: {
+    color: '#000000',
+  },
   card: {
     backgroundColor: '#fafafa',
   },
@@ -79,6 +82,8 @@ const StackConfig = {
   cardStyle: styles.card,
   navigationOptions: () => ({
     headerStyle: styles.header,
+    headerTintColor: Colors.tintColor,
+    headerTitleStyle: styles.headerTitle,
     headerPressColorAndroid: Colors.tintColor,
   }),
 };
@@ -118,6 +123,7 @@ const ExpoApisStackNavigator = StackNavigator(
     Constants: { screen: ConstantsScreen },
     Contacts: { screen: ContactsScreen },
     Events: { screen: EventsScreen },
+    Geocoding: { screen: GeocodingScreen },
     ImageManipulator: { screen: ImageManipulatorScreen },
     ImagePicker: { screen: ImagePickerScreen },
     IntentLauncher: { screen: IntentLauncherScreen },
@@ -129,9 +135,8 @@ const ExpoApisStackNavigator = StackNavigator(
     Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
-    Speech: { screen: TextToSpeechScreen },
     Sensor: { screen: SensorScreen },
-    Geocoding: { screen: GeocodingScreen },
+    TextToSpeech: { screen: TextToSpeechScreen },
     Util: { screen: UtilScreen },
     WebBrowser: { screen: WebBrowserScreen },
   },

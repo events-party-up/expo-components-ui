@@ -23,7 +23,7 @@ export default {
   ScreenOrientation: require('../assets/icons/api/ScreenOrientation.png'),
   SecureStore: require('../assets/icons/api/SecureStore.png'),
   Sensor: require('../assets/icons/api/Sensor.png'),
-  Speech: require('../assets/icons/api/Speech.png'),
+  TextToSpeech: require('../assets/icons/api/Speech.png'),
   Video: require('../assets/icons/api/Video.png'),
   WebBrowser: require('../assets/icons/api/WebBrowser.png'),
   

@@ -3,6 +3,7 @@ import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Contacts, Permissions } from 'expo';
 import Button from '../components/Button';
 import Colors from '../constants/Colors';
+import HeadingText from '../components/HeadingText';
 import MonoText from '../components/MonoText';
 
 const CONTACT_PAGE_SIZE = 4;
@@ -12,7 +13,7 @@ class ContactRow extends React.Component {
     const { contact } = this.props;
     return (
       <View style={styles.contactRow}>
-        <Text style={styles.contactName}>{contact.name}</Text>
+        <HeadingText>{contact.name}</HeadingText>
         <MonoText>{JSON.stringify(contact, null, 2)}</MonoText>
       </View>
     );
@@ -110,10 +111,5 @@ const styles = StyleSheet.create({
   },
   contactRow: {
     marginBottom: 12,
-  },
-  contactName: {
-    fontWeight: 'bold',
-    marginBottom: 4,
-    marginTop: 6,
   },
 });

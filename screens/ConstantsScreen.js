@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, ScrollView, Text, View } from 'react-native';
 import { Constants } from 'expo';
 import Colors from '../constants/Colors';
+import HeadingText from '../components/HeadingText';
 import MonoText from '../components/MonoText';
 
 const ExpoConstant = ({ name, value }) => {
@@ -18,7 +19,7 @@ const ExpoConstant = ({ name, value }) => {
 
   return (
     <View style={{ marginBottom: 10 }}>
-      <Text style={{ fontWeight: 'bold' }}>{name}</Text>
+      <HeadingText>{name}</HeadingText>
       <MonoText>{value}</MonoText>
     </View>
   );
