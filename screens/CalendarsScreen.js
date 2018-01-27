@@ -8,6 +8,9 @@ import ListButton from '../components/ListButton';
 import MonoText from '../components/MonoText';
 
 class CalendarRow extends React.Component {
+  static navigationOptions = {
+    title: 'Calendars',
+  };
   render() {
     const { calendar } = this.props;
     const calendarTypeName =

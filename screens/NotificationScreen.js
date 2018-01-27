@@ -5,6 +5,10 @@ import { Notifications } from 'expo';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 export default class NotificationScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Notifications',
+  };
+  
   render() {
     return (
       <ScrollView style={{ padding: 10 }}>

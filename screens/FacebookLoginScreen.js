@@ -3,6 +3,10 @@ import { Alert, Button, ScrollView, View } from 'react-native';
 import { Facebook } from 'expo';
 
 export default class FacebookLoginScreen extends React.Component {
+  static navigationOptions = {
+    title: 'FacebookLogin',
+  };
+
   render() {
     let permissions = ['public_profile', 'email', 'user_friends'];
 

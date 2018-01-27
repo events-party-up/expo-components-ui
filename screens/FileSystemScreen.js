@@ -13,6 +13,10 @@ import { FileSystem } from 'expo';
 import ListButton from '../components/ListButton';
 
 export default class FileSystemScreen extends React.Component {
+  static navigationOptions = {
+    title: 'FileSystem',
+  };
+  
   state = {
     downloadProgress: 0,
   };

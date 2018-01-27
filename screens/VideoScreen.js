@@ -3,6 +3,10 @@ import { View } from 'react-native';
 import { Video } from 'expo';
 
 export default class VideoScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Video of a dog',
+  };
+  
   render() {
     return (
       <View

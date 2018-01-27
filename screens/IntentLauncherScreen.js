@@ -3,6 +3,10 @@ import { Button, Platform, ScrollView, Text, ToastAndroid, View } from 'react-na
 import { IntentLauncherAndroid } from 'expo';
 
 export default class IntentLauncherScreen extends React.Component {
+  static navigationOptions = {
+    title: 'IntentLauncher',
+  };
+  
   renderSettingsLink(title, activity) {
     if (Platform.OS !== 'android') {
       return (

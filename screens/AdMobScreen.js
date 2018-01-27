@@ -8,6 +8,10 @@ const AdMobRewarded = NativeModules.RNAdMobRewarded;
 const AdMobInterstitial = Expo.AdMobInterstitial;
 
 export default class AdMobScreen extends React.Component {
+  static navigationOptions = {
+    title: 'AdMob',
+  };
+  
   constructor() {
     super();
     AdMobRewarded.setTestDeviceID('EMULATOR');

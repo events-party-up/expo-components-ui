@@ -4,6 +4,10 @@ import { WebBrowser } from 'expo';
 import Button from '../components/Button';
 
 export default class WebBrowserScreen extends React.Component {
+  static navigationOptions = {
+    title: 'WebBrowser',
+  };
+  
   render() {
     return (
       <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>

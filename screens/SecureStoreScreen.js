@@ -3,6 +3,10 @@ import { Alert, Button, Platform, ScrollView, TextInput, View } from 'react-nati
 import { SecureStore } from 'expo';
 
 export default class SecureStoreScreen extends React.Component {
+  static navigationOptions = {
+    title: 'SecureStore',
+  };
+  
   state = {
     key: null,
     value: null,

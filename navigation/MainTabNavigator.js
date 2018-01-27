@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
 import CustomTabBarBottom from './CustomTabBarBottom';

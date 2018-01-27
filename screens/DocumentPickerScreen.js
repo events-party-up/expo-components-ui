@@ -4,6 +4,10 @@ import { DocumentPicker } from 'expo';
 import Button from '../components/Button';
 
 export default class DocumentPickerScreen extends React.Component {
+  static navigationOptions = {
+    title: 'DocumentPicker',
+  };
+  
   state = {
     document: null,
   };

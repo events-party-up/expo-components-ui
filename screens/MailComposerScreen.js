@@ -3,6 +3,10 @@ import { Alert, Button, ScrollView, View } from 'react-native';
 import { MailComposer } from 'expo';
 
 export default class MailComposerScreen extends React.Component {
+  static navigationOptions = {
+    title: 'MailComposer',
+  };
+  
   render() {
     return (
       <ScrollView style={{ padding: 10 }}>

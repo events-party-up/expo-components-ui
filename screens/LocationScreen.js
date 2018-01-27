@@ -3,6 +3,10 @@ import { ActivityIndicator, Button, ScrollView, Switch, Text, View } from 'react
 import { Location, Permissions } from 'expo';
 
 export default class LocationScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Location',
+  };
+  
   state = {
     singleLocation: null,
     singleHeading: null,

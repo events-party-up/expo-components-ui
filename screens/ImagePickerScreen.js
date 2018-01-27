@@ -3,6 +3,9 @@ import { Button, ScrollView, View } from 'react-native';
 import { ImagePicker } from 'expo';
 
 export default class ImagePickerScreen extends React.Component {
+  static navigationOptions = {
+    title: 'ImagePicker',
+  };
   state = {
     selection: null,
   };

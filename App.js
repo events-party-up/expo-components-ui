@@ -3,6 +3,12 @@ import './LegacyReact';
 import Expo, { Asset } from 'expo';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+
+// workaround for large android status bar in react-nav beta.27
+if (Platform.OS === 'android') {
+  SafeAreaView.setStatusBarHeight(0);
+}
 
 import Icons from './constants/Icons';
 import RootNavigation from './navigation/RootNavigation';

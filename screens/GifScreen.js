@@ -2,6 +2,10 @@ import React from 'react';
 import { Image, View } from 'react-native';
 
 export default class GifScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Cat',
+  };
+  
   render() {
     return (
       <View

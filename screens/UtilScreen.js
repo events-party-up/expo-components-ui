@@ -4,6 +4,10 @@ import { Util } from 'expo';
 import Button from '../components/Button';
 
 export default class UtilScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Util',
+  };
+  
   state = {
     locale: null,
     deviceCountry: null,

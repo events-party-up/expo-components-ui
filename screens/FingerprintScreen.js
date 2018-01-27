@@ -4,6 +4,10 @@ import { Fingerprint } from 'expo';
 import Button from '../components/Button';
 
 export default class FingerprintScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Fingerprint',
+  };
+
   state = {
     waiting: false,
   };

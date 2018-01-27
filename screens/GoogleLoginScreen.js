@@ -1,13 +1,18 @@
 import React from 'react';
-import { Alert, Button, ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { Google } from 'expo';
+import Button from '../components/Button';
 
 export default class GoogleLoginScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Google',
+  };
+  
   render() {
     return (
-      <ScrollView style={{ padding: 10 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button onPress={() => this._testGoogleLogin()} title="Authenticate with Google" />
-      </ScrollView>
+      </View>
     );
   }
 

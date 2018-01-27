@@ -4,6 +4,10 @@ import { ScreenOrientation } from 'expo';
 import ListButton from '../components/ListButton';
 
 export default class ScreenOrientationScreen extends React.Component {
+  static navigationOptions = {
+    title: 'ScreenOrientation',
+  };
+  
   render() {
     return (
       <ScrollView style={{ padding: 10 }}>

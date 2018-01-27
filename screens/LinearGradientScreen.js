@@ -9,6 +9,10 @@ function incrementColor(color, step) {
 }
 
 export default class LinearGradientScreen extends React.Component {
+  static navigationOptions = {
+    title: 'LinearGradient',
+  };
+  
   state = {
     count: 0,
     colorTop: '#000000',

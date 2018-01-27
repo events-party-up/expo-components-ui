@@ -3,6 +3,10 @@ import { Button, ScrollView, View } from 'react-native';
 import { KeepAwake } from 'expo';
 
 export default class KeepAwakeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'KeepAwake',
+  };
+  
   _activate = () => {
     KeepAwake.activate();
   };

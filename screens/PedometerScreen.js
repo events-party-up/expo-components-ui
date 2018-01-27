@@ -4,6 +4,10 @@ import { Pedometer } from 'expo';
 import ListButton from '../components/ListButton';
 
 export default class PedometerScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Pedometer',
+  };
+  
   state = { stepCount: null };
   _listener: { remove: () => void } = null;
 

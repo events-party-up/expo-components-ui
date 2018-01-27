@@ -3,6 +3,10 @@ import { Platform, ScrollView, Text, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export default class FontScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Font',
+  };
+
   render() {
     return (
       <ScrollView style={{ flex: 1 }}>
