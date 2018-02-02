@@ -1,6 +1,8 @@
 import React from 'react';
-import { Alert, Button, Text, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Text, ScrollView, StyleSheet, View } from 'react-native';
 import { Notifications } from 'expo';
+import HeadingText from '../components/HeadingText';
+import ListButton from '../components/ListButton';
 
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
@@ -12,29 +14,29 @@ export default class NotificationScreen extends React.Component {
   render() {
     return (
       <ScrollView style={{ padding: 10 }}>
-        <Text style={styles.heading}>Local Notifications</Text>
-        <Button
+        <HeadingText>Local Notifications</HeadingText>
+        <ListButton
           onPress={this._presentLocalNotification}
           title="Present a notification immediately"
         />
-        <Button
+        <ListButton
           onPress={this._scheduleLocalNotification}
           title="Schedule notification for 10 seconds from now"
         />
-        <Button
+        <ListButton
           onPress={Notifications.cancelAllScheduledNotificationsAsync}
           title="Cancel all scheduled notifications"
         />
 
-        <Text style={styles.heading}>Push Notifications</Text>
-        <Button onPress={this._sendNotification} title="Send me a push notification" />
+        <HeadingText>Push Notifications</HeadingText>
+        <ListButton onPress={this._sendNotification} title="Send me a push notification" />
 
-        <Text style={styles.heading}>Badge Number</Text>
-        <Button
+        <HeadingText>Badge Number</HeadingText>
+        <ListButton
           onPress={this._incrementIconBadgeNumberAsync}
           title="Increment the app icon's badge number"
         />
-        <Button onPress={this._clearIconBadgeAsync} title="Clear the app icon's badge number" />
+        <ListButton onPress={this._clearIconBadgeAsync} title="Clear the app icon's badge number" />
       </ScrollView>
     );
   }
@@ -93,11 +95,3 @@ export default class NotificationScreen extends React.Component {
     registerForPushNotificationsAsync().done();
   };
 }
-
-const styles = StyleSheet.create({
-  heading: {
-    fontSize: 16,
-    marginTop: 16,
-    marginBottom: 2,
-  },
-});
