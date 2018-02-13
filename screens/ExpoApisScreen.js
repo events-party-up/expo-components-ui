@@ -76,6 +76,7 @@ export default class ExpoApisScreen extends React.Component {
       'Location',
       'MailComposer',
       'Pedometer',
+      'Print',
       'ScreenOrientation',
       'Sensor',
       'SecureStore',

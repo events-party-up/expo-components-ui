@@ -53,6 +53,7 @@ import AdMobScreen from '../screens/AdMobScreen';
 import UtilScreen from '../screens/UtilScreen';
 import VideoScreen from '../screens/VideoScreen';
 import WebBrowserScreen from '../screens/WebBrowserScreen';
+import PrintScreen from '../screens/PrintScreen';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -132,6 +133,7 @@ const ExpoApisStackNavigator = StackNavigator(
     Notification: { screen: NotificationScreen },
     Location: { screen: LocationScreen },
     Pedometer: { screen: PedometerScreen },
+    Print: { screen: PrintScreen },
     Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
