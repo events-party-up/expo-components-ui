@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native';
 import GLScreen from './GLScreen';
 import GLWrap from './GLWrap';
 import GLCameraScreen from './GLCameraScreen';
+import GLSnapshotsScreen from './GLSnapshotsScreen';
 
 const THREE = require('three');
 global.THREE = THREE;
@@ -110,6 +111,10 @@ void main () {
         },
       };
     }),
+  },
+
+  Snapshots: {
+    screen: GLSnapshotsScreen,
   },
 
   THREEBasic: {
