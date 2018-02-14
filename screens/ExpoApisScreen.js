@@ -72,6 +72,7 @@ export default class ExpoApisScreen extends React.Component {
       'ImageManipulator',
       'IntentLauncher',
       'KeepAwake',
+      'Localization',
       'Notification',
       'Location',
       'MailComposer',

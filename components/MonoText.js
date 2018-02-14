@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+const ifStyle = s => (s === undefined ? [] : [s]);
+
 export default class MonoText extends React.Component {
   render() {
+    const { containerStyle, textStyle } = this.props;
     return (
-      <View style={styles.container}>
-        <Text style={styles.monoText}>{this.props.children}</Text>
+      <View style={[styles.container, ...ifStyle(containerStyle)]}>
+        <Text style={[styles.monoText, ...ifStyle(textStyle)]}>{this.props.children}</Text>
       </View>
     );
   }

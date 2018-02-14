@@ -54,6 +54,7 @@ import UtilScreen from '../screens/UtilScreen';
 import VideoScreen from '../screens/VideoScreen';
 import WebBrowserScreen from '../screens/WebBrowserScreen';
 import PrintScreen from '../screens/PrintScreen';
+import LocalizationScreen from '../screens/LocalizationScreen';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -115,6 +116,7 @@ const ExpoApisStackNavigator = StackNavigator(
     ExpoApis: { screen: ExpoApisScreen },
     AuthSession: { screen: AuthSessionScreen },
     DocumentPicker: { screen: DocumentPickerScreen },
+    Localization: { screen: LocalizationScreen },
     FacebookLogin: { screen: FacebookLoginScreen },
     FileSystem: { screen: FileSystemScreen },
     Fingerprint: { screen: FingerprintScreen },

@@ -1,13 +1,13 @@
 import React from 'react';
 import { AppState, ScrollView, Text, View } from 'react-native';
-import { Util } from 'expo';
+import { Localization, Util } from 'expo';
 import Button from '../components/Button';
 
 export default class UtilScreen extends React.Component {
   static navigationOptions = {
     title: 'Util',
   };
-  
+
   state = {
     locale: null,
     deviceCountry: null,
@@ -24,9 +24,9 @@ export default class UtilScreen extends React.Component {
   }
 
   _update = async () => {
-    let locale = await Util.getCurrentLocaleAsync();
-    let deviceCountry = await Util.getCurrentDeviceCountryAsync();
-    let timeZone = await Util.getCurrentTimeZoneAsync();
+    let locale = await Localization.getCurrentLocaleAsync();
+    let deviceCountry = await Localization.getCurrentDeviceCountryAsync();
+    let timeZone = await Localization.getCurrentTimeZoneAsync();
     this.setState({ locale, deviceCountry, timeZone });
   };
 
