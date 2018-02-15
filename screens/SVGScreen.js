@@ -59,8 +59,8 @@ export default class SVGScreen extends React.Component {
             stroke="#000"
             fontSize={15}
             fontFamily={Font.processFontFamily('space-mono')}
-            x={15}
-            y={0}>
+            x={25}
+            y={15}>
             drawn with victory-native
           </Text>
         </Svg>
