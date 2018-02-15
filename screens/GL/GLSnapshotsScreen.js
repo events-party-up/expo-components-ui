@@ -19,7 +19,7 @@ export default class GLSnapshotsScreen extends React.PureComponent {
     const { glView } = this;
 
     if (glView) {
-      const snapshot = await glView.saveSnapshotAsync();
+      const snapshot = await glView.takeSnapshotAsync();
       this.setState({ snapshot });
     }
   };
