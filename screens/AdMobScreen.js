@@ -1,11 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, NativeModules, Platform } from 'react-native';
-import Expo, { AdMobBanner } from 'expo';
+import Expo, { AdMobBanner, AdMobRewarded, AdMobInterstitial } from 'expo';
 import Button from '../components/Button';
 import { Colors } from '../constants';
-
-const AdMobRewarded = NativeModules.RNAdMobRewarded;
-const AdMobInterstitial = Expo.AdMobInterstitial;
 
 export default class AdMobScreen extends React.Component {
   static navigationOptions = {
@@ -21,16 +18,16 @@ export default class AdMobScreen extends React.Component {
   }
 
   componentDidMount() {
-    AdMobRewarded.requestAd(error => error && console.log(error));
-    AdMobInterstitial.requestAd(error => error && console.log(error));
+    AdMobRewarded.requestAdAsync(error => error && console.log(error));
+    AdMobInterstitial.requestAdAsync(error => error && console.log(error));
   }
 
   onPress() {
-    AdMobRewarded.showAd(error => error && console.log(error));
+    AdMobRewarded.showAdAsync(error => error && console.log(error));
   }
 
   onInterstitialPress() {
-    AdMobInterstitial.showAd(error => error && console.log(error));
+    AdMobInterstitial.showAdAsync(error => error && console.log(error));
   }
 
   render() {
