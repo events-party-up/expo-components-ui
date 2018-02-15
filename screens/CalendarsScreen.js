@@ -23,8 +23,16 @@ class CalendarRow extends React.Component {
           onPress={() => this.props.navigation.navigate(calendarTypeName, { calendar })}
           title={`View ${calendarTypeName}`}
         />
-        <ListButton onPress={() => this.props.updateCalendar(calendar.id)} title="Update Calendar" disabled={!calendar.allowsModifications} />
-        <ListButton onPress={() => this.props.deleteCalendar(calendar)} title="Delete Calendar" disabled={!calendar.allowsModifications} />
+        <ListButton
+          onPress={() => this.props.updateCalendar(calendar.id)}
+          title="Update Calendar"
+          disabled={!calendar.allowsModifications}
+        />
+        <ListButton
+          onPress={() => this.props.deleteCalendar(calendar)}
+          title="Delete Calendar"
+          disabled={!calendar.allowsModifications}
+        />
       </View>
     );
   }
@@ -46,7 +54,7 @@ export default class CalendarsScreen extends React.Component {
   };
 
   _askForCalendarPermissions = async () => {
-    const response = await Permissions.askAsync('calendar');
+    const response = await Permissions.askAsync(Permissions.CALENDAR);
     const granted = response.status === 'granted';
     this.setState({
       haveCalendarPermissions: granted,
@@ -56,7 +64,7 @@ export default class CalendarsScreen extends React.Component {
 
   _askForReminderPermissions = async () => {
     if (Platform.OS === 'android') return true;
-    const response = await Permissions.askAsync('reminders');
+    const response = await Permissions.askAsync(Permissions.REMINDERS);
     const granted = response.status === 'granted';
     this.setState({
       haveReminderPermissions: granted,
