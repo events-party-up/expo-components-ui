@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Text, ScrollView, StyleSheet, View } from 'react-native';
-import { Notifications } from 'expo';
+import { Permissions, Notifications } from 'expo';
 import HeadingText from '../components/HeadingText';
 import ListButton from '../components/ListButton';
 
@@ -16,11 +16,11 @@ export default class NotificationScreen extends React.Component {
       <ScrollView style={{ padding: 10 }}>
         <HeadingText>Local Notifications</HeadingText>
         <ListButton
-          onPress={this._presentLocalNotification}
+          onPress={this._presentLocalNotificationAsync}
           title="Present a notification immediately"
         />
         <ListButton
-          onPress={this._scheduleLocalNotification}
+          onPress={this._scheduleLocalNotificationAsync}
           title="Schedule notification for 10 seconds from now"
         />
         <ListButton
@@ -29,7 +29,7 @@ export default class NotificationScreen extends React.Component {
         />
 
         <HeadingText>Push Notifications</HeadingText>
-        <ListButton onPress={this._sendNotification} title="Send me a push notification" />
+        <ListButton onPress={this._sendNotificationAsync} title="Send me a push notification" />
 
         <HeadingText>Badge Number</HeadingText>
         <ListButton
@@ -41,7 +41,30 @@ export default class NotificationScreen extends React.Component {
     );
   }
 
-  _presentLocalNotification = () => {
+  _obtainNotifPermissionsAsync = async () => {
+    let permission = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (permission.status !== 'granted') {
+      permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      if (permission.status !== 'granted') {
+        Alert.alert(`We don't have permission to present notifications.`);
+      }
+    }
+    return permission;
+  }
+
+  _obtainRemoteNotifPermissionsAsync = async () => {
+    let permission = await Permissions.getAsync(Permissions.REMOTE_NOTIFICATIONS);
+    if (permission.status !== 'granted') {
+      permission = await Permissions.askAsync(Permissions.REMOTE_NOTIFICATIONS);
+      if (permission.status !== 'granted') {
+        Alert.alert(`We don't have permission to receive remote notifications.`);
+      }
+    }
+    return permission;
+  }
+
+  _presentLocalNotificationAsync = async () => {
+    await this._obtainNotifPermissionsAsync();
     Notifications.presentLocalNotificationAsync({
       title: 'Here is a local notification!',
       body: 'This is the body',
@@ -57,7 +80,8 @@ export default class NotificationScreen extends React.Component {
     });
   };
 
-  _scheduleLocalNotification = () => {
+  _scheduleLocalNotificationAsync = async () => {
+    await this._obtainNotifPermissionsAsync();
     Notifications.scheduleLocalNotificationAsync(
       {
         title: 'Here is a scheduled notifiation!',
@@ -91,7 +115,10 @@ export default class NotificationScreen extends React.Component {
     Alert.alert(`Cleared the badge`);
   };
 
-  _sendNotification = async () => {
-    registerForPushNotificationsAsync().done();
+  _sendNotificationAsync = async () => {
+    const permission = await this._obtainRemoteNotifPermissionsAsync();
+    if (permission.status === 'granted') {
+      registerForPushNotificationsAsync().done();
+    }
   };
 }

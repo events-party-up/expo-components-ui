@@ -6,16 +6,9 @@ import { Permissions, Notifications } from 'expo';
 const PUSH_ENDPOINT = 'https://expo.io/--/api/v2/push/send';
 
 export default async function registerForPushNotificationsAsync() {
-  // Android remote notification permissions are granted during the app
-  // install, so this will only ask on iOS
-  let { status } = await Permissions.askAsync(Permissions.REMOTE_NOTIFICATIONS);
-
-  // Stop here if the user did not grant permissions
-  if (status !== 'granted') {
-    console.log(`This device doesn't have permissions to show push notifications`);
-    return;
-  }
-
+  // this method assumes the user has already granted permission
+  // to receive remote notificartions.
+  
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
 
