@@ -45,7 +45,7 @@ export default class GestureHandlerSwipeableScreen extends Component {
         data={DATA}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={({ item, index }) => <SwipeableRow item={item} index={index} />}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
       />
     );
   }
