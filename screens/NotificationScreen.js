@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Text, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import { Permissions, Notifications } from 'expo';
 import HeadingText from '../components/HeadingText';
 import ListButton from '../components/ListButton';
@@ -10,7 +10,7 @@ export default class NotificationScreen extends React.Component {
   static navigationOptions = {
     title: 'Notifications',
   };
-  
+
   render() {
     return (
       <ScrollView style={{ padding: 10 }}>
@@ -41,30 +41,30 @@ export default class NotificationScreen extends React.Component {
     );
   }
 
-  _obtainNotifPermissionsAsync = async () => {
-    let permission = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+  _obtainUserFacingNotifPermissionsAsync = async () => {
+    let permission = await Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS);
     if (permission.status !== 'granted') {
-      permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      permission = await Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS);
       if (permission.status !== 'granted') {
         Alert.alert(`We don't have permission to present notifications.`);
       }
     }
     return permission;
-  }
+  };
 
   _obtainRemoteNotifPermissionsAsync = async () => {
-    let permission = await Permissions.getAsync(Permissions.REMOTE_NOTIFICATIONS);
+    let permission = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     if (permission.status !== 'granted') {
-      permission = await Permissions.askAsync(Permissions.REMOTE_NOTIFICATIONS);
+      permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       if (permission.status !== 'granted') {
         Alert.alert(`We don't have permission to receive remote notifications.`);
       }
     }
     return permission;
-  }
+  };
 
   _presentLocalNotificationAsync = async () => {
-    await this._obtainNotifPermissionsAsync();
+    await this._obtainUserFacingNotifPermissionsAsync();
     Notifications.presentLocalNotificationAsync({
       title: 'Here is a local notification!',
       body: 'This is the body',
@@ -81,7 +81,7 @@ export default class NotificationScreen extends React.Component {
   };
 
   _scheduleLocalNotificationAsync = async () => {
-    await this._obtainNotifPermissionsAsync();
+    await this._obtainUserFacingNotifPermissionsAsync();
     Notifications.scheduleLocalNotificationAsync(
       {
         title: 'Here is a scheduled notifiation!',
