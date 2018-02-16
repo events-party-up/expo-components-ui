@@ -20,6 +20,7 @@ export default {
   Maps: require('../assets/icons/api/Maps.png'),
   Notification: require('../assets/icons/api/Notification.png'),
   Pedometer: require('../assets/icons/api/Pedometer.png'),
+  Print: require('../assets/icons/api/Print.png'),
   ScreenOrientation: require('../assets/icons/api/ScreenOrientation.png'),
   SecureStore: require('../assets/icons/api/SecureStore.png'),
   Sensor: require('../assets/icons/api/Sensor.png'),

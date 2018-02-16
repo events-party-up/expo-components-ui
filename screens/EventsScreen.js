@@ -14,7 +14,10 @@ class EventRow extends React.Component {
         <HeadingText>{event.title}</HeadingText>
         <MonoText>{JSON.stringify(event, null, 2)}</MonoText>
         <ListButton onPress={() => this.props.getEvent(event)} title="Get Event Using ID" />
-        <ListButton onPress={() => this.props.getAttendees(event)} title="Get Attendees for Event" />
+        <ListButton
+          onPress={() => this.props.getAttendees(event)}
+          title="Get Attendees for Event"
+        />
         <ListButton onPress={() => this.props.updateEvent(event)} title="Update Event" />
         <ListButton onPress={() => this.props.deleteEvent(event)} title="Delete Event" />
         {Platform.OS === 'android' && (
@@ -151,37 +154,39 @@ export default class EventsScreen extends React.Component {
   _renderActionButtons = () => {
     return (
       <View>
-        <Button onPress={() => this._addEvent(false)} style={{ marginBottom: 10 }} title="Add New Event" />
+        <Button
+          onPress={() => this._addEvent(false)}
+          style={{ marginBottom: 10 }}
+          title="Add New Event"
+        />
         <Button onPress={() => this._addEvent(true)} title="Add New Recurring Event" />
       </View>
     );
   };
 
   render() {
-    if (this.state.events.length) {
-      return (
-        <ScrollView style={styles.container}>
-          {this._renderActionButtons()}
-          {this.state.events.map(event => (
-            <EventRow
-              event={event}
-              key={`${event.id}${event.startDate}`}
-              getEvent={this._getEvent}
-              getAttendees={this._getAttendees}
-              updateEvent={this._updateEvent}
-              deleteEvent={this._deleteEvent}
-              openEventInCalendar={this._openEventInCalendar}
-            />
-          ))}
-        </ScrollView>
-      );
-    }
-
-    return (
-      <View style={styles.container}>
-        <Text>This calendar has no events.</Text>
-        {this._renderActionButtons()}
+    const events = this.state.events.length ? (
+      <View>
+        {this.state.events.map(event => (
+          <EventRow
+            event={event}
+            key={`${event.id}${event.startDate}`}
+            getEvent={this._getEvent}
+            getAttendees={this._getAttendees}
+            updateEvent={this._updateEvent}
+            deleteEvent={this._deleteEvent}
+            openEventInCalendar={this._openEventInCalendar}
+          />
+        ))}
       </View>
+    ) : (
+      <Text style={{ marginVertical: 12 }}>This calendar has no events.</Text>
+    );
+    return (
+      <ScrollView style={styles.container}>
+        {this._renderActionButtons()}
+        {events}
+      </ScrollView>
     );
   }
 }

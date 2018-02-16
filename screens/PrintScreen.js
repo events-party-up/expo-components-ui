@@ -1,7 +1,7 @@
 import React from 'react';
-import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { DangerZone, DocumentPicker } from 'expo';
-import Button from '../components/Button';
+import ListButton from '../components/ListButton';
 
 export default class PrintScreen extends React.Component {
   static navigationOptions = {
@@ -14,20 +14,20 @@ export default class PrintScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <ScrollView style={{ padding: 8 }}>
         {Platform.OS === 'ios' && this._renderSelectPrinter()}
-        <Button onPress={this._printHTMLAsync} style={styles.button} title="Print HTML" />
-        <Button
+        <ListButton onPress={this._printHTMLAsync} style={styles.button} title="Print HTML" />
+        <ListButton
           onPress={this._printDocumentPickerPDFAsync}
           style={styles.button}
           title="Print PDF (document picker)"
         />
-        <Button
+        <ListButton
           onPress={this._printDataURIPDFAsync}
           style={styles.button}
           title="Print PDF (data URI)"
         />
-      </View>
+      </ScrollView>
     );
   }
 
@@ -36,14 +36,14 @@ export default class PrintScreen extends React.Component {
 
     return (
       <View>
-        <Text style={styles.text}>
-          Selected printer: {selectedPrinter ? selectedPrinter.name : 'None'}
-        </Text>
-        <Button
+        <ListButton
           onPress={this._selectPrinterAsync}
           style={styles.button}
           title="Select Printer (iOS only)"
-        />
+          />
+        <Text style={styles.text}>
+          Selected printer: {selectedPrinter ? selectedPrinter.name : 'None'}
+        </Text>
       </View>
     );
   }
@@ -107,7 +107,6 @@ export default class PrintScreen extends React.Component {
 
 const styles = StyleSheet.create({
   button: {
-    padding: 8,
   },
   text: {
     padding: 8,
