@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppState, ScrollView, Text, View } from 'react-native';
-import { Localization, Util } from 'expo';
+import { Localization, Updates, Util } from 'expo';
 import Button from '../components/Button';
 
 export default class UtilScreen extends React.Component {
@@ -42,6 +42,13 @@ export default class UtilScreen extends React.Component {
             Util.reload();
           }}
           title="Util.reload()"
+          />
+        <Button
+          style={{ marginVertical: 10 }}
+          onPress={async () => {
+            Updates.reload();
+          }}
+          title="Updates.reload()"
         />
       </View>
     );
