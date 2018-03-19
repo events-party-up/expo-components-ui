@@ -1,7 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native';
 
-import { Accelerometer, Gyroscope, Magnetometer, MagnetometerUncalibrated } from 'expo';
+import { Accelerometer, Gyroscope, Magnetometer, MagnetometerUncalibrated, DangerZone } from 'expo';
+const { DeviceMotion } = DangerZone;
+
+const FAST_INTERVAL = 16;
+const SLOW_INTERVAL = 1000;
 
 export default class SensorScreen extends React.Component {
   static navigationOptions = {
@@ -10,87 +14,126 @@ export default class SensorScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <GyroscopeSensor />
         <AccelerometerSensor />
         <MagnetometerSensor />
         <MagnetometerUncalibratedSensor />
+        <DeviceMotionSensor />
+      </ScrollView>
+    );
+  }
+}
+
+class SensorBlock extends React.Component {
+  state = {
+    data: {},
+  };
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  getName = () => {};
+  getSensor = () => {};
+
+  _toggle = () => {
+    if (this._subscription) {
+      this._unsubscribe();
+    } else {
+      this._subscribe();
+    }
+  };
+
+  _slow = () => {
+    this.getSensor().setUpdateInterval(SLOW_INTERVAL);
+  };
+
+  _fast = () => {
+    this.getSensor().setUpdateInterval(FAST_INTERVAL);
+  };
+
+  _subscribe = () => {
+    this._subscription = this.getSensor().addListener(result => {
+      this.setState({ data: result });
+    });
+  };
+
+  _unsubscribe = () => {
+    this._subscription && this._subscription.remove();
+    this._subscription = null;
+  };
+
+  renderData = () => (
+    <Text>
+      x: {round(this.state.data.x)} y: {round(this.state.data.y)} z: {round(this.state.data.z)}
+    </Text>
+  );
+
+  render() {
+    return (
+      <View style={styles.sensor}>
+        <Text>{this.getName()}:</Text>
+        {this.renderData()}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={this._toggle} style={styles.button}>
+            <Text>Toggle</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this._slow} style={[styles.button, styles.middleButton]}>
+            <Text>Slow</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this._fast} style={styles.button}>
+            <Text>Fast</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
-function createSensorBlock(name, Sensor) {
-  return class SensorBlock extends React.Component {
-    state = {
-      data: {},
-    };
-
-    componentWillUnmount() {
-      this._unsubscribe();
-    }
-
-    _toggle = () => {
-      if (this._subscription) {
-        this._unsubscribe();
-      } else {
-        this._subscribe();
-      }
-    };
-
-    _slow = () => {
-      Sensor.setUpdateInterval(1000);
-    };
-
-    _fast = () => {
-      Sensor.setUpdateInterval(16);
-    };
-
-    _subscribe = () => {
-      this._subscription = Sensor.addListener(result => {
-        this.setState({ data: result });
-      });
-    };
-
-    _unsubscribe = () => {
-      this._subscription && this._subscription.remove();
-      this._subscription = null;
-    };
-
-    render() {
-      let { x, y, z } = this.state.data;
-
-      return (
-        <View style={styles.sensor}>
-          <Text>{name}:</Text>
-          <Text>
-            x: {round(x)} y: {round(y)} z: {round(z)}
-          </Text>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={this._toggle} style={styles.button}>
-              <Text>Toggle</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._slow} style={[styles.button, styles.middleButton]}>
-              <Text>Slow</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._fast} style={styles.button}>
-              <Text>Fast</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    }
-  };
+class GyroscopeSensor extends SensorBlock {
+  getName = () => 'Gyroscope';
+  getSensor = () => Gyroscope;
 }
 
-const GyroscopeSensor = createSensorBlock('Gyroscope', Gyroscope);
-const AccelerometerSensor = createSensorBlock('Accelerometer', Accelerometer);
-const MagnetometerSensor = createSensorBlock('Magnetometer', Magnetometer);
-const MagnetometerUncalibratedSensor = createSensorBlock(
-  'Magnetometer (Uncalibrated)',
-  MagnetometerUncalibrated
-);
+class AccelerometerSensor extends SensorBlock {
+  getName = () => 'Accelerometer';
+  getSensor = () => Accelerometer;
+}
+
+class MagnetometerSensor extends SensorBlock {
+  getName = () => 'Magnetometer';
+  getSensor = () => Magnetometer;
+}
+
+class MagnetometerUncalibratedSensor extends SensorBlock {
+  getName = () => 'Magnetometer (Uncalibrated)';
+  getSensor = () => MagnetometerUncalibrated;
+}
+
+class DeviceMotionSensor extends SensorBlock {
+  getName = () => 'DangerZone.DeviceMotion';
+  getSensor = () => DeviceMotion;
+  _renderXYZBlock = (name, { x, y, z } = {}) => (
+    <Text>
+      {name}: x: {round(x)} y: {round(y)} z: {round(z)}
+    </Text>
+  );
+  _renderABGBlock = (name, { alpha, beta, gamma } = {}) => (
+    <Text>
+      {name}: α: {round(alpha)} β: {round(beta)} γ: {round(gamma)}
+    </Text>
+  );
+  renderData = () => (
+    <View>
+      {this._renderXYZBlock('Acceleration', this.state.data.acceleration)}
+      {this._renderXYZBlock('Acceleration w/gravity', this.state.data.accelerationIncludingGravity)}
+      {this._renderABGBlock('Rotation', this.state.data.rotation)}
+      {this._renderABGBlock('Rotation rate', this.state.data.rotationRate)}
+      <Text>Orientation: {this.state.data.orientation}</Text>
+    </View>
+  );
+}
 
 function round(n) {
   if (!n) {
@@ -103,6 +146,7 @@ function round(n) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 10,
   },
   buttonContainer: {
     flexDirection: 'row',
