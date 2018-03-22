@@ -107,8 +107,8 @@ export default class ImageManipulatorScreen extends React.Component {
         crop: {
           originX: 0,
           originY: 0,
-          width: this.state.original.width / 2,
-          height: this.state.original.height,
+          width: this.state.image.width / 2,
+          height: this.state.image.height,
         },
       },
     ]);
@@ -120,10 +120,10 @@ export default class ImageManipulatorScreen extends React.Component {
       { flip: { vertical: true } },
       {
         crop: {
-          originX: this.state.original.width / 4,
-          originY: this.state.original.height / 4,
-          width: 300,
-          height: 300,
+          originX: this.state.image.width / 4,
+          originY: this.state.image.height / 4,
+          width: this.state.image.width / 2,
+          height: this.state.image.width / 2,
         },
       },
     ]);
