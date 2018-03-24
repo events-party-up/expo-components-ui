@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Picker, ScrollView, Platform } from 'react-native';
-import Expo from 'expo';
+import { DangerZone } from 'expo';
 import chunk from 'lodash/chunk';
 
 import HeadingText from '../components/HeadingText';
 import MonoText from '../components/MonoText';
 import ListButton from '../components/ListButton';
 
-const { Localization } = Expo;
+const { Localization } = DangerZone;
 
 const russianMesssage = { phrase: 'Привет мой друг' };
 

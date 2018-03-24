@@ -1,7 +1,8 @@
 import React from 'react';
 import { AppState, ScrollView, Text, View } from 'react-native';
-import { Localization, Updates, Util } from 'expo';
+import { DangerZone, Updates, Util } from 'expo';
 import Button from '../components/Button';
+const { Localization } = DangerZone;
 
 export default class UtilScreen extends React.Component {
   static navigationOptions = {
