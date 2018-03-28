@@ -29,6 +29,7 @@
       "package": "host.exp.nclexp",
       "versionCode": 11,
       "config": {
+        "googleServicesFile": "./google-services.json",
         "googleSignIn": {
           "apiKey": "AIzaSyC2kse8d0rFfi27jff5nD14cSNcPBQC4Tk",
           "certificateHash": "1746BECB2497593B3296903145793BC0BE8C426B"
