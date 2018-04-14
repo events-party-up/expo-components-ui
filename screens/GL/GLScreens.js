@@ -4,7 +4,7 @@ import GLScreen from './GLScreen';
 import GLWrap from './GLWrap';
 import GLCameraScreen from './GLCameraScreen';
 import GLSnapshotsScreen from './GLSnapshotsScreen';
-// import GLHeadlessRenderingScreen from './GLHeadlessRenderingScreen';
+import GLHeadlessRenderingScreen from './GLHeadlessRenderingScreen';
 
 const THREE = require('three');
 global.THREE = THREE;
@@ -603,7 +603,7 @@ void main () {
     }),
   },
 
-  // HeadlessRendering: {
-  //   screen: GLHeadlessRenderingScreen,
-  // },
+  HeadlessRendering: {
+    screen: GLHeadlessRenderingScreen,
+  },
 };
