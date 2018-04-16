@@ -139,7 +139,6 @@ const ExpoApisStackNavigator = StackNavigator(
     Location: { screen: LocationScreen },
     Pedometer: { screen: PedometerScreen },
     Print: { screen: PrintScreen },
-    PhotoLibrary: { screen: PhotoLibraryScreen },
     Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
