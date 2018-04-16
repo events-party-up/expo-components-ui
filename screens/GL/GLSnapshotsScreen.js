@@ -19,7 +19,9 @@ export default class GLSnapshotsScreen extends React.PureComponent {
     const { glView } = this;
 
     if (glView) {
-      const snapshot = await glView.takeSnapshotAsync();
+      const snapshot = await glView.takeSnapshotAsync({
+        format: 'png',
+      });
       this.setState({ snapshot });
     }
   };
@@ -35,7 +37,7 @@ export default class GLSnapshotsScreen extends React.PureComponent {
 
     const renderer = ExpoTHREE.createRenderer({ gl });
     renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
-    renderer.setClearColor(0xffffff);
+    renderer.setClearColor(0xffffff, 0);
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({
@@ -103,6 +105,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: 'black',
+    backgroundColor: '#248e80',
     position: 'absolute',
     left: 0,
     bottom: 0,
