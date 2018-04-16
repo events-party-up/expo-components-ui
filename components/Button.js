@@ -13,6 +13,7 @@ export default class Button extends React.Component {
         <TouchableHighlight
           style={[style, this.props.buttonStyle]}
           disabled={this.props.disabled}
+          onPressIn={this.props.onPressIn}
           onPress={this.props.onPress}
           underlayColor={Colors.highlightColor}>
           <Text style={styles.label}>{this.props.title}</Text>
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.tintColor,
   },
   disabledButton: {
-    backgroundColor: '#bbbbbb',
+    backgroundColor: Colors.disabled,
   },
   label: {
     color: '#ffffff',

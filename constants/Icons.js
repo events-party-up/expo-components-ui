@@ -12,6 +12,7 @@ export default {
   Geocoding: require('../assets/icons/api/Geocoding.png'),
   GL: require('../assets/icons/api/GL.png'),
   GoogleLogin: require('../assets/icons/api/GoogleLogin.png'),
+  Haptic: require('../assets/icons/api/Haptic.png'),
   ImagePicker: require('../assets/icons/api/ImagePicker.png'),
   KeepAwake: require('../assets/icons/api/KeepAwake.png'),
   LinearGradient: require('../assets/icons/api/LinearGradient.png'),
@@ -29,6 +30,6 @@ export default {
   TextToSpeech: require('../assets/icons/api/Speech.png'),
   Video: require('../assets/icons/api/Video.png'),
   WebBrowser: require('../assets/icons/api/WebBrowser.png'),
-  
+
   Default: require('../assets/icons/api/Placeholder.png'),
 };

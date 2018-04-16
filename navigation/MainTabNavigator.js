@@ -56,6 +56,7 @@ import VideoScreen from '../screens/VideoScreen';
 import WebBrowserScreen from '../screens/WebBrowserScreen';
 import PrintScreen from '../screens/PrintScreen';
 import LocalizationScreen from '../screens/LocalizationScreen';
+import HapticScreen from '../screens/HapticScreen';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -124,6 +125,7 @@ const ExpoApisStackNavigator = StackNavigator(
     Fingerprint: { screen: FingerprintScreen },
     Font: { screen: FontScreen },
     GoogleLogin: { screen: GoogleLoginScreen },
+    Haptic: { screen: HapticScreen },
     Calendars: { screen: CalendarsScreen },
     Constants: { screen: ConstantsScreen },
     Contacts: { screen: ContactsScreen },
