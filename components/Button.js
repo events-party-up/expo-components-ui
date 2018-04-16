@@ -11,7 +11,7 @@ export default class Button extends React.Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <TouchableHighlight
-          style={style}
+          style={[style, this.props.buttonStyle]}
           disabled={this.props.disabled}
           onPress={this.props.onPress}
           underlayColor={Colors.highlightColor}>

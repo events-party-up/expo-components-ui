@@ -47,6 +47,7 @@ import LottieScreen from '../screens/LottieScreen';
 import MapsScreen from '../screens/MapsScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import PedometerScreen from '../screens/PedometerScreen';
+import MediaLibraryScreens from '../screens/MediaLibrary/MediaLibraryScreens';
 import BasicMaskScreen from '../screens/BasicMaskScreen';
 import MaskGLScreen from '../screens/MaskGLScreen';
 import AdMobScreen from '../screens/AdMobScreen';
@@ -133,10 +134,12 @@ const ExpoApisStackNavigator = StackNavigator(
     IntentLauncher: { screen: IntentLauncherScreen },
     KeepAwake: { screen: KeepAwakeScreen },
     MailComposer: { screen: MailComposerScreen },
+    ...MediaLibraryScreens,
     Notification: { screen: NotificationScreen },
     Location: { screen: LocationScreen },
     Pedometer: { screen: PedometerScreen },
     Print: { screen: PrintScreen },
+    PhotoLibrary: { screen: PhotoLibraryScreen },
     Reminders: { screen: RemindersScreen },
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
