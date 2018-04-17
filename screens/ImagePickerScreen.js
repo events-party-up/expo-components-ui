@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { ImagePicker } from 'expo';
+import { ImagePicker, Permissions } from 'expo';
 import ListButton from '../components/ListButton';
 import MonoText from '../components/MonoText';
 
@@ -11,6 +11,11 @@ export default class ImagePickerScreen extends React.Component {
   state = {
     selection: null,
   };
+
+  async componentDidMount() {
+    await Permissions.askAsync(Permissions.CAMERA);
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  }
 
   render() {
     const showCamera = async () => {
@@ -74,13 +79,18 @@ export default class ImagePickerScreen extends React.Component {
         />
       );
 
-    const result = (
-      <MonoText>{JSON.stringify(selection, null, 2)}</MonoText>
-    );
+    const result = <MonoText>{JSON.stringify(selection, null, 2)}</MonoText>;
 
     return (
       <View style={{ marginVertical: 16 }}>
-        <View style={{ marginBottom: 10, alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: '#000000' }}>
+        <View
+          style={{
+            marginBottom: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+            backgroundColor: '#000000',
+          }}>
           {media}
         </View>
         {result}
