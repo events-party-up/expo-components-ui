@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import ListButton from '../components/ListButton';
 import MonoText from '../components/MonoText';
@@ -28,6 +28,11 @@ export default class ImagePickerScreen extends React.Component {
     };
 
     const showPicker = async () => {
+      let permission = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+      if (permission.status !== 'granted') {
+        setTimeout(() => Alert.alert('Camera roll permission was not granted.'), 100);
+        return;
+      }
       let result = await ImagePicker.launchImageLibraryAsync({});
       if (result.cancelled) {
         this.setState({ selection: null });
@@ -37,6 +42,11 @@ export default class ImagePickerScreen extends React.Component {
     };
 
     const showPickerWithEditing = async () => {
+      let permission = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+      if (permission.status !== 'granted') {
+        setTimeout(() => Alert.alert('Camera roll permission was not granted.'), 100);
+        return;
+      }
       let result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true });
       if (result.cancelled) {
         this.setState({ selection: null });
