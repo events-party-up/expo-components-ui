@@ -40,9 +40,8 @@ class GLCameraScreen extends React.Component {
   async createCameraTexture() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
 
-    if (!status) {
-      console.log('Denied camera permissions!');
-      return;
+    if (status !== 'granted') {
+      throw new Error('Denied camera permissions!');
     }
 
     return this.glView.createCameraTextureAsync(this.camera);
