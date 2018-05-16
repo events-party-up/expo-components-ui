@@ -8,7 +8,7 @@ const PUSH_ENDPOINT = 'https://expo.io/--/api/v2/push/send';
 export default async function registerForPushNotificationsAsync() {
   // this method assumes the user has already granted permission
   // to receive remote notificartions.
-  
+
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
 
@@ -43,9 +43,11 @@ export default async function registerForPushNotificationsAsync() {
   if (receipts) {
     let receipt = receipts[0];
     if (receipt.status === 'error') {
-      console.warn(
-        `Expo push service reported an error sending a notification: ${receipt.details.error}`
-      );
+      if (receipt.details) {
+        console.warn(
+          `Expo push service reported an error sending a notification: ${receipt.details.error}`
+        );
+      }
       if (receipt.__debug) {
         console.warn(receipt.__debug);
       }
