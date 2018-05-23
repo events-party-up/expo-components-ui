@@ -57,6 +57,7 @@ import WebBrowserScreen from '../screens/WebBrowserScreen';
 import PrintScreen from '../screens/PrintScreen';
 import LocalizationScreen from '../screens/LocalizationScreen';
 import HapticScreen from '../screens/HapticScreen';
+import StoreReview from '../screens/StoreReview';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -145,6 +146,7 @@ const ExpoApisStackNavigator = StackNavigator(
     ScreenOrientation: { screen: ScreenOrientationScreen },
     SecureStore: { screen: SecureStoreScreen },
     Sensor: { screen: SensorScreen },
+    StoreReview: { screen: StoreReview },
     TextToSpeech: { screen: TextToSpeechScreen },
     Util: { screen: UtilScreen },
     WebBrowser: { screen: WebBrowserScreen },
