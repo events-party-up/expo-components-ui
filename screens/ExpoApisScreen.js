@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Platform } from 'react-native';
-import Expo, { DangerZone, Notifications } from 'expo';
+import { DangerZone, Notifications } from 'expo';
 import ComponentListScreen from './ComponentListScreen';
 
 DangerZone.Branch.subscribe(bundle => {
@@ -58,6 +58,7 @@ export default class ExpoApisScreen extends React.Component {
   _getApis = () => {
     return [
       'AuthSession',
+      'Branch',
       'Calendars',
       'Constants',
       'Contacts',

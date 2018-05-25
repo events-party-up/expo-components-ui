@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
 import CustomTabBarBottom from './CustomTabBarBottom';
@@ -58,6 +58,7 @@ import PrintScreen from '../screens/PrintScreen';
 import LocalizationScreen from '../screens/LocalizationScreen';
 import HapticScreen from '../screens/HapticScreen';
 import StoreReview from '../screens/StoreReview';
+import BranchScreen from '../screens/BranchScreen';
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -119,6 +120,7 @@ const ExpoApisStackNavigator = StackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
     AuthSession: { screen: AuthSessionScreen },
+    Branch: { screen: BranchScreen },
     DocumentPicker: { screen: DocumentPickerScreen },
     Localization: { screen: LocalizationScreen },
     FacebookLogin: { screen: FacebookLoginScreen },
