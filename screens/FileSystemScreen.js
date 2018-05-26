@@ -9,7 +9,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { FileSystem } from 'expo';
+import { Asset, FileSystem } from 'expo';
 import ListButton from '../components/ListButton';
 
 export default class FileSystemScreen extends React.Component {
@@ -118,6 +118,41 @@ export default class FileSystemScreen extends React.Component {
     }
   };
 
+  _readAsset = async () => {
+    const asset = Asset.fromModule(require('../assets/index.html'));
+    await asset.downloadAsync();
+    try {
+      const result = await FileSystem.readAsStringAsync(asset.localUri);
+      Alert.alert('Result', result);
+    } catch (e) {
+      Alert.alert('Error', e.message);
+    }
+  };
+
+  _getInfoAsset = async () => {
+    const asset = Asset.fromModule(require('../assets/index.html'));
+    await asset.downloadAsync();
+    try {
+      const result = await FileSystem.getInfoAsync(asset.localUri);
+      Alert.alert('Result', JSON.stringify(result, null, 2));
+    } catch (e) {
+      Alert.alert('Error', e.message);
+    }
+  };
+
+  _copyAndReadAsset = async () => {
+    const asset = Asset.fromModule(require('../assets/index.html'));
+    await asset.downloadAsync();
+    const tmpFile = FileSystem.cacheDirectory + 'test.html';
+    try {
+      await FileSystem.copyAsync({ from: asset.localUri, to: tmpFile });
+      const result = await FileSystem.readAsStringAsync(tmpFile);
+      Alert.alert('Result', result);
+    } catch (e) {
+      Alert.alert('Error', e.message);
+    }
+  };
+
   render() {
     let progress = null;
     if (Platform.OS === 'ios') {
@@ -139,6 +174,9 @@ export default class FileSystemScreen extends React.Component {
         <ListButton onPress={this._resume} title="Resume Download" />
         <ListButton onPress={this._getInfo} title="Get Info" />
         {progress}
+        <ListButton onPress={this._readAsset} title="Read Asset" />
+        <ListButton onPress={this._getInfoAsset} title="Get Info Asset" />
+        <ListButton onPress={this._copyAndReadAsset} title="Copy and Read Asset" />
       </ScrollView>
     );
   }
