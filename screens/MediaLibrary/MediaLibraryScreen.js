@@ -72,10 +72,19 @@ export default class MediaLibraryScreen extends React.Component {
 
   isLoadingAssets = false;
 
-  async componentWillMount() {
+  async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     this.setState({ permission: status });
     this.loadMoreAssets();
+
+    this.libraryChangeSubscription = MediaLibrary.addListener(() => {
+      this.loadMoreAssets([], null);
+    });
+  }
+
+  componentWillUnmount() {
+    this.libraryChangeSubscription.remove();
+    this.libraryChangeSubscription = null;
   }
 
   getAlbum() {
@@ -83,8 +92,11 @@ export default class MediaLibraryScreen extends React.Component {
     return params && params.album;
   }
 
-  async loadMoreAssets() {
-    if (this.isLoadingAssets || this.state.hasNextPage === false) {
+  async loadMoreAssets(currentAssets = this.state.assets, cursor = this.state.endCursor) {
+    if (
+      this.isLoadingAssets ||
+      (cursor === this.state.endCursor && this.state.hasNextPage === false)
+    ) {
       return;
     }
 
@@ -95,17 +107,17 @@ export default class MediaLibraryScreen extends React.Component {
 
     const { assets, endCursor, hasNextPage } = await MediaLibrary.getAssetsAsync({
       first: PAGE_SIZE,
-      after: state.endCursor,
+      after: cursor,
       mediaType: state.mediaType,
       sortBy: state.sortBy,
       album: album && album.id,
     });
 
-    const lastAsset = state.assets[state.assets.length - 1];
+    const lastAsset = currentAssets[currentAssets.length - 1];
 
-    if (!lastAsset || lastAsset.id === state.endCursor) {
+    if (!lastAsset || lastAsset.id === cursor) {
       this.setState({
-        assets: [].concat(state.assets, assets),
+        assets: [].concat(currentAssets, assets),
         endCursor,
         hasNextPage,
         refreshing: false,
@@ -116,9 +128,12 @@ export default class MediaLibraryScreen extends React.Component {
   }
 
   refresh = (refreshingFlag = true) => {
-    this.setState({ assets: [], endCursor: null, hasNextPage: null, refreshing: refreshingFlag }, () => {
-      this.loadMoreAssets();
-    });
+    this.setState(
+      { assets: [], endCursor: null, hasNextPage: null, refreshing: refreshingFlag },
+      () => {
+        this.loadMoreAssets();
+      }
+    );
   };
 
   toggleMediaType = () => {
