@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { DangerZone, DocumentPicker } from 'expo';
+import { Print, DocumentPicker, FileSystem } from 'expo';
 import ListButton from '../components/ListButton';
 
 export default class PrintScreen extends React.Component {
@@ -16,7 +16,16 @@ export default class PrintScreen extends React.Component {
     return (
       <ScrollView style={{ padding: 8 }}>
         {Platform.OS === 'ios' && this._renderSelectPrinter()}
-        <ListButton onPress={this._printHTMLAsync} style={styles.button} title="Print HTML" />
+        <ListButton
+          onPress={this._printHTMLPortraitAsync}
+          style={styles.button}
+          title="Print HTML"
+        />
+        <ListButton
+          onPress={this._printHTMLLandscapeAsync}
+          style={styles.button}
+          title="Print HTML (Landscape)"
+        />
         <ListButton
           onPress={this._printDocumentPickerPDFAsync}
           style={styles.button}
@@ -26,6 +35,11 @@ export default class PrintScreen extends React.Component {
           onPress={this._printDataURIPDFAsync}
           style={styles.button}
           title="Print PDF (data URI)"
+        />
+        <ListButton
+          onPress={this._printHTMLToPDF}
+          style={styles.button}
+          title="Print HTML to PDF"
         />
       </ScrollView>
     );
@@ -40,7 +54,7 @@ export default class PrintScreen extends React.Component {
           onPress={this._selectPrinterAsync}
           style={styles.button}
           title="Select Printer (iOS only)"
-          />
+        />
         <Text style={styles.text}>
           Selected printer: {selectedPrinter ? selectedPrinter.name : 'None'}
         </Text>
@@ -50,7 +64,7 @@ export default class PrintScreen extends React.Component {
 
   _selectPrinterAsync = async () => {
     try {
-      let selectedPrinter = await DangerZone.Print.selectPrinterAsync();
+      let selectedPrinter = await Print.selectPrinterAsync();
       this.setState({
         selectedPrinter,
       });
@@ -59,17 +73,26 @@ export default class PrintScreen extends React.Component {
     }
   };
 
-  _printHTMLAsync = async () => {
+  _printHTMLAsync = async (orientation = Print.Orientation.portrait) => {
     let { selectedPrinter } = this.state;
 
     try {
-      await DangerZone.Print.printAsync({
+      await Print.printAsync({
         html: 'Dear Friend! <b>Happy</b> Birthday, enjoy your day! 🎈',
         printerUrl: selectedPrinter ? selectedPrinter.url : undefined,
+        orientation,
       });
     } catch (e) {
       Alert.alert('Something went wrong: ', e.message);
     }
+  };
+
+  _printHTMLPortraitAsync = async () => {
+    return this._printHTMLAsync(Print.Orientation.portrait);
+  };
+
+  _printHTMLLandscapeAsync = async () => {
+    return this._printHTMLAsync(Print.Orientation.landscape);
   };
 
   _printDocumentPickerPDFAsync = async () => {
@@ -82,7 +105,7 @@ export default class PrintScreen extends React.Component {
       if (document.type !== 'success') {
         throw new Error('User did not select a document');
       }
-      await DangerZone.Print.printAsync({
+      await Print.printAsync({
         uri: document.uri,
         printerUrl: selectedPrinter ? selectedPrinter.url : undefined,
       });
@@ -95,7 +118,7 @@ export default class PrintScreen extends React.Component {
     let { selectedPrinter } = this.state;
 
     try {
-      await DangerZone.Print.printAsync({
+      await Print.printAsync({
         uri: PDF_DATA_URI,
         printerUrl: selectedPrinter ? selectedPrinter.url : undefined,
       });
@@ -103,11 +126,53 @@ export default class PrintScreen extends React.Component {
       Alert.alert('Something went wrong: ', e.message);
     }
   };
+
+  _printHTMLToPDF = async () => {
+    try {
+      let pdf = await Print.printToFileAsync({
+        html: `<!doctype html>
+          <html>
+            <head>
+              <style>
+                @page {
+                  margin: 20px;
+                }
+              </style>
+            </head>
+            <body style="text-align: center;">
+              <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
+                Hello Expo!
+              </h1>
+              <img
+                src="https://snack.expo.io/static/expo-logo.png"
+                style="margin: 20px;" />
+            </body>
+          </html>
+        `,
+      });
+
+      Alert.alert('Successfully printed to PDF', 'Do you want to print this file to the printer?', [
+        {
+          text: 'No',
+          onPress: () => {},
+        },
+        {
+          text: 'Yes',
+          onPress: () => {
+            Print.printAsync({
+              uri: pdf.uri,
+            });
+          },
+        },
+      ]);
+    } catch (e) {
+      Alert.alert('Something went wrong: ', e.message);
+    }
+  };
 }
 
 const styles = StyleSheet.create({
-  button: {
-  },
+  button: {},
   text: {
     padding: 8,
   },
