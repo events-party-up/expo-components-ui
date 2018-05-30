@@ -70,10 +70,15 @@ export default class GestureHandlerPinchScreen extends React.Component {
       this._tilt.setValue(0);
     }
   };
+
   render() {
+    let tiltRef = React.createRef();
+    let rotationRef = React.createRef();
+    let pinchRef = React.createRef();
+
     return (
       <PanGestureHandler
-        id="image_tilt"
+        ref={tiltRef}
         onGestureEvent={this._onTiltGestureEvent}
         onHandlerStateChange={this._onTiltGestureStateChange}
         minDist={10}
@@ -81,13 +86,13 @@ export default class GestureHandlerPinchScreen extends React.Component {
         maxPointers={2}
         avgTouches>
         <RotationGestureHandler
-          id="image_rotation"
-          simultaneousHandlers="image_pinch"
+          ref={rotationRef}
+          simultaneousHandlers={pinchRef}
           onGestureEvent={this._onRotateGestureEvent}
           onHandlerStateChange={this._onRotateHandlerStateChange}>
           <PinchGestureHandler
-            id="image_pinch"
-            simultaneousHandlers="image_rotation"
+            ref={pinchRef}
+            simultaneousHandlers={rotationRef}
             onGestureEvent={this._onPinchGestureEvent}
             onHandlerStateChange={this._onPinchHandlerStateChange}>
             <View style={styles.container} collapsable={false}>

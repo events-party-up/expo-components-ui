@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LongPressGestureHandler, State, TapGestureHandler } from 'react-native-gesture-handler';
-import uuid from 'uuid/v4';
 
 export default class FancyButton extends Component {
+  doubleTapRef = React.createRef();
+
   state = {
     singleTap: null,
     longPress: null,
-    doubleTapId: uuid(),
   };
 
   render() {
@@ -16,10 +16,12 @@ export default class FancyButton extends Component {
         <TapGestureHandler
           waitFor={this.state.doubleTapId}
           numberOfTaps={1}
+          waitFor={this.doubleTapRef}
           onHandlerStateChange={this._onSingleTapEvent}>
           <TapGestureHandler
             id={this.state.doubleTapId}
             numberOfTaps={2}
+            ref={this.doubleTapRef}
             onHandlerStateChange={this._onDoubleTapEvent}>
             <View
               style={[styles.button, this.props.style, { opacity: this._isPressed() ? 0.5 : 1 }]}>

@@ -32,6 +32,7 @@ import GeocodingScreen from '../screens/GeocodingScreen';
 import GLScreens from '../screens/GL/GLScreens';
 import ImageManipulatorScreen from '../screens/ImageManipulatorScreen';
 import ImagePickerScreen from '../screens/ImagePickerScreen';
+import ImagePreviewScreen from '../screens/Reanimated/ImagePreviewScreen';
 import IntentLauncherScreen from '../screens/IntentLauncherScreen';
 import LinearGradientScreen from '../screens/LinearGradientScreen';
 import KeepAwakeScreen from '../screens/KeepAwakeScreen';
@@ -105,6 +106,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
     GestureHandlerPinch: { screen: GestureHandlerPinchScreen },
     GestureHandlerList: { screen: GestureHandlerListScreen },
     GestureHandlerSwipeable: { screen: GestureHandlerSwipeableScreen },
+    ImagePreview: { screen: ImagePreviewScreen },
     Gif: { screen: GifScreen },
     FacebookAds: { screen: FacebookAdsScreen },
     SVG: { screen: SVGScreen },

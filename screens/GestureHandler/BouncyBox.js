@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
-import { PanGestureHandler, RotationGestureHandler, State } from 'react-native-gesture-handler';
+import {
+  PanGestureHandler,
+  RotationGestureHandler,
+  State,
+} from 'react-native-gesture-handler';
 
 const USE_NATIVE_DRIVER = true;
-
-export default class BouncyBox extends Component {
-  render() {
-    return (
-      <Snappable>
-        <Twistable>
-          <View style={[styles.box, this.props.style]} />
-        </Twistable>
-      </Snappable>
-    );
-  }
-}
 
 class Snappable extends Component {
   constructor(props) {
@@ -25,9 +17,10 @@ class Snappable extends Component {
       inputRange: [-100, -50, 0, 50, 100],
       outputRange: [-30, -10, 0, 10, 30],
     });
-    this._onGestureEvent = Animated.event([{ nativeEvent: { translationX: this._dragX } }], {
-      useNativeDriver: USE_NATIVE_DRIVER,
-    });
+    this._onGestureEvent = Animated.event(
+      [{ nativeEvent: { translationX: this._dragX } }],
+      { useNativeDriver: USE_NATIVE_DRIVER }
+    );
   }
   _onHandlerStateChange = event => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
@@ -46,7 +39,6 @@ class Snappable extends Component {
       <PanGestureHandler
         {...this.props}
         maxPointers={1}
-        minDeltaX={25}
         onGestureEvent={this._onGestureEvent}
         onHandlerStateChange={this._onHandlerStateChange}>
         <Animated.View style={{ transform: [{ translateX: this._transX }] }}>
@@ -72,9 +64,10 @@ class Twistable extends Component {
         outputRange: ['-100rad', '100rad'],
       });
 
-    this._onGestureEvent = Animated.event([{ nativeEvent: { rotation: this._gesture } }], {
-      useNativeDriver: USE_NATIVE_DRIVER,
-    });
+    this._onGestureEvent = Animated.event(
+      [{ nativeEvent: { rotation: this._gesture } }],
+      { useNativeDriver: USE_NATIVE_DRIVER }
+    );
   }
   _onHandlerStateChange = event => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
@@ -94,8 +87,24 @@ class Twistable extends Component {
         {...this.props}
         onGestureEvent={this._onGestureEvent}
         onHandlerStateChange={this._onHandlerStateChange}>
-        <Animated.View style={{ transform: [{ rotate: this._rot }] }}>{children}</Animated.View>
+        <Animated.View style={{ transform: [{ rotate: this._rot }] }}>
+          {children}
+        </Animated.View>
       </RotationGestureHandler>
+    );
+  }
+}
+
+export default class Example extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Snappable>
+          <Twistable>
+            <View style={styles.box} />
+          </Twistable>
+        </Snappable>
+      </View>
     );
   }
 }
