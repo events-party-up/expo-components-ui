@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   PanGestureHandler,
   State,
@@ -404,7 +404,7 @@ class Viewer extends Component {
                 ]}
                 resizeMode="stretch"
                 source={this.props.source}
-              />
+                />
             </PanGestureHandler>
           </Animated.View>
         </PinchGestureHandler>
@@ -417,6 +417,7 @@ export default class Example extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.infoText}>This is an example that uses React Native Gesture Handler and Reanimated to implement an Image Preview component with panning and zooming on the main thread.</Text>
         <Viewer source={require('./grid.png')} />
       </View>
     );
@@ -429,6 +430,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  infoText: {
+    marginBottom: 12,
   },
   wrapper: {
     borderColor: 'green',
