@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { Platform, StyleSheet } from 'react-native';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
-import CustomTabBarBottom from './CustomTabBarBottom';
 
 import { Colors, Layout } from '../constants';
-import NavigationEvents from '../utilities/NavigationEvents';
 
 import BarCodeScannerScreen from '../screens/BarCodeScannerScreen';
 import BlurViewScreen from '../screens/BlurViewScreen';
@@ -96,7 +95,7 @@ const StackConfig = {
   }),
 };
 
-const ExpoComponentsStackNavigator = StackNavigator(
+const ExpoComponentsStackNavigator = createStackNavigator(
   {
     ExpoComponents: { screen: ExpoComponentsScreen },
     AdMob: { screen: AdMobScreen },
@@ -118,7 +117,7 @@ const ExpoComponentsStackNavigator = StackNavigator(
   StackConfig
 );
 
-const ExpoApisStackNavigator = StackNavigator(
+const ExpoApisStackNavigator = createStackNavigator(
   {
     ExpoApis: { screen: ExpoApisScreen },
     AuthSession: { screen: AuthSessionScreen },
@@ -158,7 +157,7 @@ const ExpoApisStackNavigator = StackNavigator(
   StackConfig
 );
 
-const ReactNativeCoreStackNavigator = StackNavigator(
+const ReactNativeCoreStackNavigator = createStackNavigator(
   {
     ReactNativeCore: { screen: ReactNativeCoreScreen },
     BasicMaskExample: { screen: BasicMaskScreen },
@@ -169,64 +168,68 @@ const ReactNativeCoreStackNavigator = StackNavigator(
 
 class TabIcon extends React.Component {
   render() {
+    let baseSize = this.props.size || 26;
     return (
       <MaterialIcons
         name={this.props.name}
-        size={this.props.size || 26}
+        size={Platform.OS === 'android' ? baseSize - 2 : baseSize}
         color={this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
       />
     );
   }
 }
 
-const MainTabNavigator = TabNavigator(
+const createTabNavigator =
+  Platform.OS === 'android' ? createMaterialBottomTabNavigator : createBottomTabNavigator;
+
+const MainTabNavigator = createTabNavigator(
   {
     ExpoApis: { screen: ExpoApisStackNavigator },
     ExpoComponents: { screen: ExpoComponentsStackNavigator },
     ReactNativeCore: { screen: ReactNativeCoreStackNavigator },
   },
   {
-    navigationOptions: ({ navigation }) => ({
-      header: null,
-      tabBarLabel: () => {
-        const { routeName } = navigation.state;
-        if (routeName === 'ReactNativeCore') {
-          return Layout.isSmallDevice ? 'RN Core' : 'React Native Core';
-        } else if (routeName === 'ExpoComponents') {
-          return Layout.isSmallDevice ? 'Components' : 'Expo Components';
-        } else if (routeName === 'ExpoApis') {
-          return Layout.isSmallDevice ? 'APIs' : 'Expo APIs';
-        }
-      },
-      tabBarIcon: ({ focused }) => {
-        const { routeName } = navigation.state;
-        if (routeName === 'ReactNativeCore') {
-          return <TabIcon name="group-work" focused={focused} />;
-        } else if (routeName === 'ExpoComponents') {
-          return <TabIcon name="filter" focused={focused} size={25} />;
-        } else if (routeName === 'ExpoApis') {
-          return <TabIcon name="functions" focused={focused} size={28} />;
-        }
-      },
-    }),
-    tabBarComponent: CustomTabBarBottom,
-    tabBarPosition: 'bottom',
-    animationEnabled: false,
-    swipeEnabled: false,
-    lazy: true,
+    navigationOptions: ({ navigation }) => {
+      let tabBarLabel;
+      const { routeName } = navigation.state;
+      if (routeName === 'ReactNativeCore') {
+        tabBarLabel = Layout.isSmallDevice ? 'RN Core' : 'React Native Core';
+      } else if (routeName === 'ExpoComponents') {
+        tabBarLabel = Layout.isSmallDevice ? 'Components' : 'Expo Components';
+      } else if (routeName === 'ExpoApis') {
+        tabBarLabel = Layout.isSmallDevice ? 'APIs' : 'Expo APIs';
+      }
+
+      return {
+        header: null,
+        tabBarLabel,
+        tabBarIcon: ({ focused }) => {
+          const { routeName } = navigation.state;
+          if (routeName === 'ReactNativeCore') {
+            return <TabIcon name="group-work" focused={focused} />;
+          } else if (routeName === 'ExpoComponents') {
+            return <TabIcon name="filter" focused={focused} size={25} />;
+          } else if (routeName === 'ExpoApis') {
+            return <TabIcon name="functions" focused={focused} size={28} />;
+          }
+        },
+      };
+    },
+    /* Below applies to material bottom tab navigator */
+    activeTintColor: Colors.tabIconSelected,
+    inactiveTintColor: Colors.tabIconDefault,
+    shifting: true,
+    barStyle: {
+      backgroundColor: '#fff',
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: Colors.tabIconDefault,
+    },
+    /* Below applies to bottom tab navigator */
     tabBarOptions: {
-      activeTintColor: Colors.tabIconSelected,
-      inactiveTintColor: Colors.tabIconDefault,
       style: styles.tabBar,
       labelStyle: styles.tabBarLabel,
-      onPressTab: (index, previousIndex, navigation, onComplete) => {
-        if (previousIndex === index) {
-          let route = navigation.state.routes[index];
-          NavigationEvents.emit('selectedTabPressed', route);
-        }
-
-        onComplete();
-      },
+      activeTintColor: Colors.tabIconSelected,
+      inactiveTintColor: Colors.tabIconDefault,
     },
   }
 );

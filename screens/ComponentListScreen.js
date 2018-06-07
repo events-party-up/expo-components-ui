@@ -12,7 +12,6 @@ import {
 
 import { Entypo } from '@expo/vector-icons';
 import ExpoAPIIcon from '../components/ExpoAPIIcon';
-import NavigationEvents from '../utilities/NavigationEvents';
 import { withNavigation } from 'react-navigation';
 
 @withNavigation
@@ -26,15 +25,6 @@ export default class ComponentListScreen extends React.Component {
 
   componentWillMount() {
     const { tabName } = this.props;
-    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
-      if (tabName && route.key === tabName) {
-        this._scrollToTop();
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this._tabPressedListener.remove();
   }
 
   componentDidMount() {

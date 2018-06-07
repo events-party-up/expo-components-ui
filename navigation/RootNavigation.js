@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 
@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const RootNavigation = StackNavigator(
+const RootNavigation = createStackNavigator(
   {
-    MainTabs: { screen: MainTabNavigator },
+    MainTabs: MainTabNavigator,
   },
   {
     headerMode: 'none',

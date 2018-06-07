@@ -26,8 +26,6 @@ import {
 } from 'react-native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-import NavigationEvents from '../utilities/NavigationEvents';
-
 import { Colors, Layout } from '../constants';
 import ModalExample from './ModalExample';
 
@@ -50,14 +48,6 @@ export default class ReactNativeCoreScreen extends React.Component {
       this.setState({ isRefreshing: false });
     }, 3000);
   };
-
-  componentWillMount() {
-    this._tabPressedListener = NavigationEvents.addListener('selectedTabPressed', route => {
-      if (route.key === 'ReactNativeCore') {
-        this._scrollToTop();
-      }
-    });
-  }
 
   componentWillUnmount() {
     this._tabPressedListener.remove();
