@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native';
-import { Asset, ImageManipulator } from 'expo';
+import { Asset, ImageManipulator, MediaLibrary, Permissions } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
@@ -32,7 +32,7 @@ export default class ImageManipulatorScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <View style={{ padding: 10 }}>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <View style={styles.actionsButtons}>
             <Button style={styles.button} onPress={() => this._rotate(90)}>
               <Ionicons name="ios-refresh-outline" size={16} color="#ffffff" /> 90
             </Button>
@@ -63,12 +63,17 @@ export default class ImageManipulatorScreen extends React.Component {
             <Button style={styles.button} onPress={this._combo}>
               Cccombo
             </Button>
-            <Button style={styles.button} onPress={this._reset}>
-              Reset
-            </Button>
           </View>
 
           {this.state.ready && this._renderImage()}
+          <View style={styles.footerButtons}>
+            <Button style={styles.button} onPress={this._pickPhoto}>
+              Pick MediaLibrary&apos;s photo
+            </Button>
+            <Button style={styles.button} onPress={this._reset}>
+              Reset photo
+            </Button>
+          </View>
         </View>
       </ScrollView>
     );
@@ -84,6 +89,20 @@ export default class ImageManipulatorScreen extends React.Component {
       </View>
     );
   };
+
+  _pickPhoto = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== 'granted') {
+      alert('Permission to CAMERA_ROLL not granted!');
+      return;
+    }
+    const { assets } = await MediaLibrary.getAssetsAsync({ first: 1, mediaType: MediaLibrary.MediaType.photo });
+    if (!assets.length) {
+      alert('No image in MediaLibrary!');
+    } else {
+      this.setState({ image: assets[0] });
+    }
+  }
 
   _rotate = async deg => {
     await this._manipulate([{ rotate: deg }]);
@@ -171,6 +190,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.tintColor,
     marginRight: 10,
     marginBottom: 10,
+  },
+  actionsButtons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  footerButtons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   buttonText: {
     color: '#fff',
