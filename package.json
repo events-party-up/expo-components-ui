@@ -1,15 +1,26 @@
 {
-  "name": "native-component-list",
-  "description": "Hello Expo!",
-  "author": "support@expo.io",
+  "name": "test-expo-ui",
+  "version": "0.1.0",
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
-  "powertools": {
-    "group": "client"
+  "devDependencies": {
+    "jest-expo": "~27.0.0",
+    "react-native-scripts": "1.14.0",
+    "react-test-renderer": "16.3.1"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo"
   },
   "dependencies": {
     "expo": "28.0.0-rc.1",
-    "expo-processing": "1.0.3",
+    "expo-processing": "^1.0.2",
     "expo-three": "^2.0.3",
     "gl-mat4": "^1.1.4",
     "hsv2rgb": "^1.1.0",
@@ -17,8 +28,8 @@
     "pixi.js": "^4.6.1",
     "processing-js": "^1.6.6",
     "prop-types": "^15.6.0",
-    "react": "16.3.1",
-    "react-native": "expo/react-native#sdk-28",
+    "react": "^16.3.1",
+    "react-native": "github:expo/react-native#sdk-28",
     "react-native-platform-touchable": "^1.1.1",
     "react-native-reanimated": "^1.0.0-alpha.2",
     "react-navigation": "2.2.4",
